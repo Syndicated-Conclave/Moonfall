@@ -1,5 +1,5 @@
-project(setup)
 cmake_minimum_required(VERSION 3.11)
+project(Moonfall)
 # Require modern C++
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -19,3 +19,20 @@ link_directories("${CMAKE_BINARY_DIR}/lib/SFML/lib")
 add_executable(Moonfall main.cpp)
 target_include_directories(Moonfall PRIVATE ${SFML_INCS})
 target_link_libraries(Moonfall sfml-graphics)
+
+
+
+#### copying resources to build to access them ####
+set_target_properties(Moonfall
+    PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIGURATION>
+)
+
+
+add_custom_target(copy_resources ALL COMMAND ${CMAKE_COMMAND} 
+  -E copy_directory
+    "${PROJECT_SOURCE_DIR}/resources"
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIGURATION>/resources
+)
+
+add_dependencies(Moonfall copy_resources)
