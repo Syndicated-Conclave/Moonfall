@@ -15,10 +15,14 @@ add_subdirectory("lib/SFML")
 set(SFML_INCS "lib/SFML/include")
 link_directories("${CMAKE_BINARY_DIR}/lib/SFML/lib")
 
+add_subdirectory("lib/box2d")
+set(B2D_INCS "lib/box2d/include")
+link_directories("${CMAKE_BINARY_DIR}/lib/box2d/lib")
+
 #### Practical 1 ####
 add_executable(Moonfall main.cpp)
-target_include_directories(Moonfall PRIVATE ${SFML_INCS})
-target_link_libraries(Moonfall sfml-graphics)
+target_include_directories(Moonfall PRIVATE ${SFML_INCS} ${B2D_INCS})
+target_link_libraries(Moonfall sfml-graphics Box2D)
 
 
 
