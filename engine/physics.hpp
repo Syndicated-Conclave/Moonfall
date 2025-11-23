@@ -28,7 +28,7 @@ public:
     static constexpr float physicsScaleInv = 1.0f / physicsScale;
     static constexpr int subStepCount = 4;    // specific box2d parameter (see box2d API)
     static constexpr float timeStep = 0.017f; // 60FPS update
-    static constexpr float gravity = -9.8f;   // gravity constant
+    static constexpr float gravity = -0.3f;   // gravity constant DIFFERENT ON THIS FICTIONAL PLANET
 private:
     static b2WorldId _worldId;
 };

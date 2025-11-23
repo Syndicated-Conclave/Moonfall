@@ -12,6 +12,11 @@ namespace Level
         sf::Color cityscapeColour(40, 40, 40);
         sf::Color nightskyColour(24, 50, 100);
 
+        //
+
+        float tiltSpeed = .02f;
+        float groundAngle = 0.f; // radians!
+
         // Initialise physics world
         PhysicsEngine::initialise();
         b2WorldId worldId = PhysicsEngine::getWorldId();
@@ -21,11 +26,11 @@ namespace Level
         // using center origin
 
         // ground
-        float groundSfmlWidth = 800.f;
-        float groundSfmlHeight = 75.f;
+        float groundSfmlWidth = 2000.f;
+        float groundSfmlHeight = 200.f;
 
         float groundSfmlPosX = window.getSize().x / 2;
-        float groundSfmlPosY = window.getSize().y - (groundSfmlHeight / 2);
+        float groundSfmlPosY = window.getSize().y; // partly off screen for bump to not reveal empty space
 
         sf::Vector2f groundSfmlDimensions = sf::Vector2f(groundSfmlWidth, groundSfmlHeight);
         sf::Vector2f groundSfmlPosition = sf::Vector2f(groundSfmlPosX, groundSfmlPosY);
@@ -46,7 +51,7 @@ namespace Level
         // Ground
 
         b2BodyDef groundBodyDef = b2DefaultBodyDef();
-        groundBodyDef.type = b2_staticBody;
+        groundBodyDef.type = b2_dynamicBody;
         groundBodyDef.position = b2Vec2(PhysicsEngine::sfmlToBox2dScale(PhysicsEngine::invertHeight(groundSfmlPosition, window.getSize().y)));
 
         b2BodyId groundId = b2CreateBody(worldId, &groundBodyDef);
@@ -55,9 +60,11 @@ namespace Level
 
         b2ShapeDef groundShapeDef = b2DefaultShapeDef();
 
-        groundShapeDef.material.friction = 0.9f;
-        groundShapeDef.material.restitution = 0.0f;
+        groundShapeDef.density = 999999999999.f;
+        groundShapeDef.material.friction = 0.4f;    // glidiness
+        groundShapeDef.material.restitution = 0.0f; // bounciness
         groundShapeDef.isSensor = false;
+        b2Body_SetGravityScale(groundId, 0.0f);
 
         b2CreatePolygonShape(groundId, &groundShapeDef, &groundBox);
 
@@ -76,9 +83,9 @@ namespace Level
 
         b2ShapeDef circleShapeDef = b2DefaultShapeDef();
 
-        circleShapeDef.density = 5.0f;
-        circleShapeDef.material.friction = 0.8f;
-        circleShapeDef.material.restitution = 0.1f; // bounciness
+        circleShapeDef.density = 1.0f;
+        circleShapeDef.material.friction = 0.3f;    // glidiness
+        circleShapeDef.material.restitution = 0.0f; // bounciness
         circleShapeDef.isSensor = false;
 
         b2CreateCircleShape(dynamicId, &circleShapeDef, &dynamicBall);
@@ -119,9 +126,42 @@ namespace Level
 
             // Update SFML shape positions
 
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            {
+                groundAngle += tiltSpeed * PhysicsEngine::timeStep;
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            {
+                groundAngle -= tiltSpeed * PhysicsEngine::timeStep;
+            }
+
+            float bumpVelocity = 10.f;
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            {
+                bumpVelocity = 1.f;
+                b2Body_SetLinearVelocity(groundId, {0, bumpVelocity});
+            }
+            else
+            {
+                if (b2Body_GetPosition(groundId).y > PhysicsEngine::sfmlToBox2dScale(PhysicsEngine::invertHeight((groundSfmlPosition), window.getSize().y)).y)
+                {
+                    b2Body_SetLinearVelocity(groundId, {0, -bumpVelocity});
+                }
+                else
+                {
+                    b2Body_SetLinearVelocity(groundId, {0, 0});
+                }
+            }
+
+            b2Body_SetAngularVelocity(groundId, groundAngle);
+
+            b2Body_SetTransform(groundId, b2Body_GetPosition(groundId), {{cos(groundAngle)}, sin(groundAngle)});
+
             // ground
             b2Vec2 groundPos = b2Body_GetPosition(groundId);
             groundRect.setPosition(PhysicsEngine::invertHeight(PhysicsEngine::box2dToSfmlScale(groundPos), window.getSize().y));
+            groundRect.setRotation(-b2Rot_GetAngle(b2Body_GetRotation(groundId)) * 180.f / B2_PI);
 
             // dynamic
             b2Vec2 dynamicPos = b2Body_GetPosition(dynamicId);
