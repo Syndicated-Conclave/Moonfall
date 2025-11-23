@@ -19,6 +19,9 @@ add_subdirectory("lib/box2d")
 set(B2D_INCS "lib/box2d/include")
 link_directories("${CMAKE_BINARY_DIR}/lib/box2d/lib")
 
+
+
+
 #### Practical 1 ####
 add_executable(Moonfall 
   engine/physics.cpp
@@ -36,7 +39,6 @@ set_target_properties(Moonfall
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIGURATION>
 )
 
-
 add_custom_target(copy_resources ALL COMMAND ${CMAKE_COMMAND} 
   -E copy_directory
     "${PROJECT_SOURCE_DIR}/resources"
@@ -44,3 +46,13 @@ add_custom_target(copy_resources ALL COMMAND ${CMAKE_COMMAND}
 )
 
 add_dependencies(Moonfall copy_resources)
+
+
+# copy box2d build to game build
+add_custom_target(copy_box2d ALL COMMAND ${CMAKE_COMMAND} 
+  -E copy_directory
+    ${PROJECT_SOURCE_DIR}/build/lib/box2d/bin/$<CONFIGURATION>
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}$<CONFIGURATION>
+)
+
+add_dependencies(Moonfall copy_box2d)
