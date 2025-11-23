@@ -20,8 +20,12 @@ set(B2D_INCS "lib/box2d/include")
 link_directories("${CMAKE_BINARY_DIR}/lib/box2d/lib")
 
 #### Practical 1 ####
-add_executable(Moonfall main.cpp)
-target_include_directories(Moonfall PRIVATE ${SFML_INCS} ${B2D_INCS})
+add_executable(Moonfall 
+  engine/physics.cpp
+  game/scenes/level.cpp
+  game/main.cpp
+)
+target_include_directories(Moonfall PRIVATE ${SFML_INCS} ${B2D_INCS} engine game)
 target_link_libraries(Moonfall sfml-graphics box2d)
 
 
