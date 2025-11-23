@@ -7,6 +7,11 @@ namespace Level
 
     void physics_playground(sf::RenderWindow &window)
     {
+        // consts
+        sf::Color moonColour(246, 241, 213);
+        sf::Color cityscapeColour(40, 40, 40);
+        sf::Color nightskyColour(24, 50, 100);
+
         // Initialise physics world
         PhysicsEngine::initialise();
         b2WorldId worldId = PhysicsEngine::getWorldId();
@@ -17,7 +22,7 @@ namespace Level
 
         // ground
         float groundSfmlWidth = 800.f;
-        float groundSfmlHeight = 50.f;
+        float groundSfmlHeight = 75.f;
 
         float groundSfmlPosX = window.getSize().x / 2;
         float groundSfmlPosY = window.getSize().y - (groundSfmlHeight / 2);
@@ -27,8 +32,9 @@ namespace Level
 
         // dynamic
 
-        float dynamicSfmlWidth = 25.f;
-        float dynamicSfmlHeight = 25.f;
+        float moonRadius = 100.f;
+        float dynamicSfmlWidth = moonRadius;
+        float dynamicSfmlHeight = moonRadius;
 
         float dynamicSfmlPosX = window.getSize().x / 2;
         float dynamicSfmlPosY = dynamicSfmlHeight / 2;
@@ -40,19 +46,18 @@ namespace Level
         // Ground
 
         b2BodyDef groundBodyDef = b2DefaultBodyDef();
-
         groundBodyDef.type = b2_staticBody;
-
         groundBodyDef.position = b2Vec2(PhysicsEngine::sfmlToBox2dScale(PhysicsEngine::invertHeight(groundSfmlPosition, window.getSize().y)));
+
         b2BodyId groundId = b2CreateBody(worldId, &groundBodyDef);
+
         b2Polygon groundBox = b2MakeBox(groundSfmlWidth * PhysicsEngine::physicsScaleInv / 2, groundSfmlHeight * PhysicsEngine::physicsScaleInv / 2);
+
         b2ShapeDef groundShapeDef = b2DefaultShapeDef();
 
-        /*
         groundShapeDef.material.friction = 0.9f;
         groundShapeDef.material.restitution = 0.0f;
         groundShapeDef.isSensor = false;
-        */
 
         b2CreatePolygonShape(groundId, &groundShapeDef, &groundBox);
 
@@ -61,41 +66,41 @@ namespace Level
         // Dynamic Box
 
         b2BodyDef bodyDef = b2DefaultBodyDef();
-
         bodyDef.type = b2_dynamicBody;
-
         bodyDef.position = b2Vec2(PhysicsEngine::sfmlToBox2dScale(PhysicsEngine::invertHeight(dynamicSfmlPosition, window.getSize().y)));
+
         b2BodyId dynamicId = b2CreateBody(worldId, &bodyDef);
-        b2Polygon dynamicBox = b2MakeBox(dynamicSfmlWidth * PhysicsEngine::physicsScaleInv / 2, dynamicSfmlHeight * PhysicsEngine::physicsScaleInv / 2);
-        b2ShapeDef shapeDef = b2DefaultShapeDef();
 
-        /*
-        shapeDef.density = 1.0f;
-        shapeDef.material.friction = 0.3f;
-        shapeDef.material.restitution = 0.0f;
-        shapeDef.isSensor = false;
-        */
+        b2Circle dynamicBall = {{0.f, 0.f},
+                                dynamicSfmlWidth * PhysicsEngine::physicsScaleInv / 2};
 
-        b2CreatePolygonShape(dynamicId, &shapeDef, &dynamicBox);
+        b2ShapeDef circleShapeDef = b2DefaultShapeDef();
 
-        std::cout << "Box2D: Dynamic Box creation done!\n";
+        circleShapeDef.density = 5.0f;
+        circleShapeDef.material.friction = 0.8f;
+        circleShapeDef.material.restitution = 0.1f; // bounciness
+        circleShapeDef.isSensor = false;
+
+        b2CreateCircleShape(dynamicId, &circleShapeDef, &dynamicBall);
+
+        std::cout << "Box2D: Dynamic Ball creation done!\n";
 
         // SFML
         // Ground
 
         sf::RectangleShape groundRect(groundSfmlDimensions);
-        groundRect.setFillColor(sf::Color::Green);
+        groundRect.setFillColor(cityscapeColour);
         groundRect.setOrigin(groundSfmlWidth / 2, groundSfmlHeight / 2); // center origin
         groundRect.setPosition(groundSfmlPosition);
         std::cout << "SFML: Ground creation done!\n";
 
         // Dynamic Box
 
-        sf::RectangleShape dynamicRect(dynamicSfmlDimensions);
-        dynamicRect.setFillColor(sf::Color::Red);
-        dynamicRect.setOrigin(dynamicSfmlWidth / 2, dynamicSfmlHeight / 2);
-        dynamicRect.setPosition(dynamicSfmlPosition);
-        std::cout << "SFML: Dynamic Box creation done!\n";
+        sf::CircleShape dynamicCircle(dynamicSfmlWidth / 2);
+        dynamicCircle.setFillColor(moonColour); // #F6F1D5
+        dynamicCircle.setOrigin(dynamicSfmlWidth / 2, dynamicSfmlHeight / 2);
+        dynamicCircle.setPosition(dynamicSfmlPosition);
+        std::cout << "SFML: Dynamic Ball creation done!\n";
 
         // Loop
 
@@ -122,14 +127,14 @@ namespace Level
             b2Vec2 dynamicPos = b2Body_GetPosition(dynamicId);
             b2Rot dynamicRot = b2Body_GetRotation(dynamicId);
 
-            dynamicRect.setPosition(PhysicsEngine::invertHeight(PhysicsEngine::box2dToSfmlScale(dynamicPos), window.getSize().y));
+            dynamicCircle.setPosition(PhysicsEngine::invertHeight(PhysicsEngine::box2dToSfmlScale(dynamicPos), window.getSize().y));
 
-            dynamicRect.setRotation(b2Rot_GetAngle(dynamicRot) * 180.f / B2_PI);
+            dynamicCircle.setRotation(b2Rot_GetAngle(dynamicRot) * 180.f / B2_PI);
 
             // Draw everything
-            window.clear(sf::Color::Black);
+            window.clear(nightskyColour);
             window.draw(groundRect);
-            window.draw(dynamicRect);
+            window.draw(dynamicCircle);
             window.display();
         }
 
