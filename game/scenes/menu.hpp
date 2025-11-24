@@ -1,3 +1,8 @@
+/*
+
+FROM THE LABS:
+
+
 #pragma once
 #include "game_system.hpp"
 
@@ -32,4 +37,5 @@ private:
 struct Scenes{
     static std::shared_ptr<Scene> menu;
     static std::shared_ptr<Scene> level;
-};  
+};
+*/

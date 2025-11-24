@@ -1,3 +1,8 @@
+/*
+
+FROM THE LABS:
+
+
 #include <iostream>
 
 //usings for our level creator, game parameters and game system
@@ -53,13 +58,13 @@ void LevelScene::_load_level(const std::string &file_path){
     std::shared_ptr<PlayerPhysicsComponent> cmp = _player->add_component<PlayerPhysicsComponent>(sf::Vector2f(param::player_size[0],param::player_size[1]));
         cmp->create_capsule_shape(sf::Vector2f(param::player_size[0],param::player_size[1]),
         param::player_weight,param::player_friction,param::player_restitution);
-    
+
     std::vector<std::vector<sf::Vector2i>> wall_groups = ls::get_groups(ls::WALL);
     for (const std::vector<sf::Vector2i> &walls : wall_groups) {
         _walls.push_back(make_entity());
         _walls.back()->add_component<PlatformComponent>(walls);
     }
-    
+
 }
 
 void LevelScene::update(const float &dt){
@@ -85,3 +90,4 @@ void LevelScene::unload(){
 }
 #pragma endregion
 
+*/

@@ -1,3 +1,8 @@
+/*
+
+FROM THE LABS:
+
+
 #include "engine_renderer.hpp"
 #include <queue>
 
@@ -27,3 +32,4 @@ void Renderer::render() {
 }
 
 void Renderer::queue(const sf::Drawable *s) { sprites.push(s); }
+*/

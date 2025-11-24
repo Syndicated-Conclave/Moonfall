@@ -1,3 +1,9 @@
+/*
+
+FROM THE LABS:
+
+
+
 #include <iostream>
 #include "engine_gs.hpp"
 #include "engine_phys.hpp"
@@ -6,12 +12,12 @@
 std::shared_ptr<Scene> GameSystem::_active_scene;
 bool GameSystem::_physics_enabled;
 
-void GameSystem::start(unsigned int width, unsigned int height, 
-                      const std::string& name, const float &time_step, 
+void GameSystem::start(unsigned int width, unsigned int height,
+                      const std::string& name, const float &time_step,
                       bool physics_enabled){
   _physics_enabled = physics_enabled;
-  sf::RenderWindow window(sf::VideoMode({width, height}), name);    
-  Renderer::initialise(window);   
+  sf::RenderWindow window(sf::VideoMode({width, height}), name);
+  Renderer::initialise(window);
   _init();
   sf::Event event;
   while(window.isOpen()){
@@ -32,7 +38,7 @@ void GameSystem::start(unsigned int width, unsigned int height,
     _render();
     sf::sleep(sf::seconds(time_step));
     //Wait for Vsync
-    window.display();           
+    window.display();
   }
   window.close();
   clean();
@@ -43,7 +49,7 @@ void GameSystem::set_active_scene(const std::shared_ptr<Scene> &act_sc){
 }
 
 void GameSystem::_init() {
-  
+
 }
 
 void GameSystem::clean(){
@@ -83,3 +89,5 @@ const std::shared_ptr<Entity> &Scene::make_entity(){
   _entities.list.push_back(entity);
   return _entities.list.back();
 }
+
+*/

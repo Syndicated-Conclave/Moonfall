@@ -1,3 +1,8 @@
+/*
+
+FROM THE LABS:
+
+
 #include "engine_em.hpp"
 #include "engine_renderer.hpp"
 
@@ -22,7 +27,7 @@ void EntityManager::render(){
 
 const sf::Vector2f &Entity::get_position() const { return _position;}
 
-void Entity::set_position(const sf::Vector2f &pos) { 
+void Entity::set_position(const sf::Vector2f &pos) {
   _position = pos;
 }
 
@@ -95,3 +100,5 @@ bool Component::is_for_deletion() const{
 }
 
 Component::~Component(){}
+
+*/

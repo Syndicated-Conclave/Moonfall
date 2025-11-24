@@ -1,20 +1,27 @@
+/*
+
+FROM THE LABS:
+
+
 #pragma once
 
 #include <lib/SFML/Graphics.hpp>
 #include <memory>
 
-class Component; //forward declare
+class Component; // forward declare
 
-class Entity {
+class Entity
+{
 public:
-  Entity(){}
+  Entity() {}
   virtual ~Entity();
 
   virtual void update(const float &dt);
   virtual void render();
-  
+
   template <typename T, typename... Targs>
-  std::shared_ptr<T> add_component(Targs... params) {
+  std::shared_ptr<T> add_component(Targs... params)
+  {
     static_assert(std::is_base_of<Component, T>::value, "T != component");
     std::shared_ptr<T> sp(std::make_shared<T>(this, params...));
     _components.push_back(sp);
@@ -22,11 +29,14 @@ public:
   }
 
   template <typename T>
-  const std::vector<std::shared_ptr<T>> get_components() const {
+  const std::vector<std::shared_ptr<T>> get_components() const
+  {
     static_assert(std::is_base_of<Component, T>::value, "T != component");
     std::vector<std::shared_ptr<T>> ret;
-    for (const auto c : _components) {
-      if (typeid(*c) == typeid(T)) {
+    for (const auto c : _components)
+    {
+      if (typeid(*c) == typeid(T))
+      {
         ret.push_back(std::dynamic_pointer_cast<T>(c));
       }
     }
@@ -34,16 +44,19 @@ public:
   }
 
   template <typename T>
-  const std::vector<std::shared_ptr<T>> get_compatible_components() {
+  const std::vector<std::shared_ptr<T>> get_compatible_components()
+  {
     static_assert(std::is_base_of<Component, T>::value, "T != component");
     std::vector<std::shared_ptr<T>> ret;
-    for (auto c : _components) {
-        auto dd = dynamic_cast<T*>(&(*c));
-        if (dd) {
-          ret.push_back(std::dynamic_pointer_cast<T>(c));
-        }
+    for (auto c : _components)
+    {
+      auto dd = dynamic_cast<T *>(&(*c));
+      if (dd)
+      {
+        ret.push_back(std::dynamic_pointer_cast<T>(c));
       }
-      return ret;
+    }
+    return ret;
   }
 
   const sf::Vector2f &get_position() const;
@@ -56,31 +69,37 @@ public:
   void set_for_delete();
   bool is_visible() const;
   void set_visible(bool visible);
+
 protected:
   std::vector<std::shared_ptr<Component>> _components;
   sf::Vector2f _position;
   float _rotation = 0;
-  bool is_alive = true;       // should be updated
-  bool is_visible = true;     // should be rendered
+  bool is_alive = true;         // should be updated
+  bool is_visible = true;       // should be rendered
   bool is_for_deletion = false; // should be deleted
 };
 
-struct EntityManager {
+struct EntityManager
+{
   std::vector<std::shared_ptr<Entity>> list;
   void update(const float &dt);
   void render();
 };
 
-class Component { 
+class Component
+{
 public:
-   Component() = delete;
-   bool is_for_deletion() const;
-   virtual void update(const float &dt) = 0;
-   virtual void render() = 0;
-   virtual ~Component();
+  Component() = delete;
+  bool is_for_deletion() const;
+  virtual void update(const float &dt) = 0;
+  virtual void render() = 0;
+  virtual ~Component();
+
 protected:
-   Entity *const _parent;
-   bool is_for_deletion; // should be removed
-   explicit Component(Entity *const p);
- 
+  Entity *const _parent;
+  bool is_for_deletion; // should be removed
+  explicit Component(Entity *const p);
 };
+
+
+*/

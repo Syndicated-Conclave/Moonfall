@@ -1,3 +1,8 @@
+/*
+
+FROM THE LABS:
+
+
 #pragma once
 #include <memory>
 #include <vector>
@@ -8,7 +13,7 @@ class Scene;//forward definition
 
 class GameSystem{
 public:
-    static void start(unsigned int width, unsigned int height, 
+    static void start(unsigned int width, unsigned int height,
                       const std::string& name, const float& time_step,
                       bool physics_enabled = false);
     static void clean();
@@ -41,3 +46,5 @@ public:
 protected:
   EntityManager _entities;
 };
+
+*/
