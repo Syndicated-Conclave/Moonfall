@@ -16,6 +16,7 @@ namespace Level
 
         float tiltSpeed = .02f;
         float groundAngle = 0.f; // radians!
+        float maxTilt = 0.25f;
 
         // Initialise physics world
         PhysicsEngine::initialise();
@@ -128,11 +129,17 @@ namespace Level
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
             {
-                groundAngle += tiltSpeed * PhysicsEngine::timeStep;
+                if (groundAngle < maxTilt)
+                {
+                    groundAngle += tiltSpeed * PhysicsEngine::timeStep;
+                }
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
             {
-                groundAngle -= tiltSpeed * PhysicsEngine::timeStep;
+                if (groundAngle > -maxTilt)
+                {
+                    groundAngle -= tiltSpeed * PhysicsEngine::timeStep;
+                }
             }
 
             float bumpVelocity = 10.f;
