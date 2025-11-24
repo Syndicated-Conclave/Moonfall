@@ -18,6 +18,8 @@ namespace Level
         float groundAngle = 0.f; // radians!
         float maxTilt = 0.25f;
 
+        float maxBump = 1.f;
+
         // Initialise physics world
         PhysicsEngine::initialise();
         b2WorldId worldId = PhysicsEngine::getWorldId();
@@ -144,7 +146,7 @@ namespace Level
 
             float bumpVelocity = 10.f;
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && b2Body_GetPosition(groundId).y < PhysicsEngine::sfmlToBox2dScale(PhysicsEngine::invertHeight((groundSfmlPosition), window.getSize().y)).y + maxBump)
             {
                 bumpVelocity = 1.f;
                 b2Body_SetLinearVelocity(groundId, {0, bumpVelocity});
