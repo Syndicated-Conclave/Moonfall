@@ -20,14 +20,11 @@ add_executable(Moonfall main.cpp)
 target_include_directories(Moonfall PRIVATE ${SFML_INCS})
 target_link_libraries(Moonfall sfml-graphics)
 
-
-
 #### copying resources to build to access them ####
 set_target_properties(Moonfall
     PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIGURATION>
 )
-
 
 add_custom_target(copy_resources ALL COMMAND ${CMAKE_COMMAND} 
   -E copy_directory

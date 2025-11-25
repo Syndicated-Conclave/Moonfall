@@ -1,32 +1,37 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <game/entities/gameOverlay.hpp>
 #include <iostream>
 
-namespace gameOverlay
+namespace Game::Entities
 {
-    class UI()
+    class DawnTimer()::UI
     {
-        /*Adding custom font and styling for star dust counter
-        sf::Font UIfont;
-        UIfont.loadFromFile("resources/HUSKYSTA.otf");
-        sf::Text dustCounter("Dust Collected: ", UIfont, 48);
-        dustCounter.setFillColor(sf::Color(255, 255, 224));
-        dustCounter.setPosition({20.f, 10.f});
-        */
+        /*Adding custom font and styling for UI*/
+        sf::Font font;
+        font.loadFromFile("resources/HUSKYSTA.otf");
+        sf::Text text("Time Left: ", font, 48);
+        title.setFillColor(sf::Color(255, 255, 225));
+        title.setPosition({20.f, 10.f});
 
-         sf::Vector2f posX;
-         sf::Vector2f posY;
-
-         sf::Font font;
-         sf::Text text;
-         sf::Color color;
-
+        init();
+        update();
+        render();
     }
 
-    class DawnTimerUI::UI()
+    class DustCounterUI()::UI
     {
+        /*Adding custom font and styling for UI*/
+        sf::Font font;
+        font.loadFromFile("resources/HUSKYSTA.otf");
+        sf::Text text("Dust Collected: ", font, 48);
+        title.setFillColor(sf::Color(255, 255, 225));
+        title.setPosition({-20.f, 10.f});
 
+        init();
+        update();
+        render();
     }
+}
 
-};
 
