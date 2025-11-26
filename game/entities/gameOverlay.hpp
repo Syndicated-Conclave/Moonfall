@@ -8,12 +8,11 @@ namespace Game
     namespace Entities
     {
         class UI
-        {
-            
+        {            
             public:
                 
                 //Objects    
-                sf::RenderWindow window(sf::VideoMode({800, 400}), "Moonfall");    
+                //sf::RenderWindow window(sf::VideoMode({800, 400}), "Moonfall");    
                 
                 //variables
                 sf::Vector2f posX;
@@ -27,7 +26,7 @@ namespace Game
                 //methods
                 void init(sf::RenderWindow &window);
                 
-                void update(sf::RenderWindow &window);
+                void update(sf::RenderWindow &window, float dt, sf::Clock clock);
                 
                 void render(sf::RenderWindow &window);
                 

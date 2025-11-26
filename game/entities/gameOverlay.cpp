@@ -7,7 +7,7 @@ namespace Game
 {
     namespace Entities
     {
-        UI::init(sf::RenderWindow &window)
+        void UI::init(sf::RenderWindow &window)
         {
             //font object
             sf::Font font;
@@ -28,12 +28,13 @@ namespace Game
             StarDustCounter.setString("Star Dust Collected: ");
         }
 
-        UI::update(sf::RenderWindow &window)
+        void UI::update(sf::RenderWindow &window, float dt, sf::Clock clock)
         {
-            
+            static sf::Clock clock;
+            float dt = clock.restart().asSeconds();
         }
 
-        UI::render(sf::RenderWindow &window)
+        void UI::render(sf::RenderWindow &window)
         {
             window.display(Timer);
             window.display(StarDustCounter);
