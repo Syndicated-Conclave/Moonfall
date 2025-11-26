@@ -3,35 +3,45 @@
 #include <game/entities/gameOverlay.hpp>
 #include <iostream>
 
-namespace Game::Entities
+namespace Game
 {
-    class DawnTimer()::UI
+    namespace Entities
     {
-        /*Adding custom font and styling for UI*/
-        sf::Font font;
-        font.loadFromFile("resources/HUSKYSTA.otf");
-        sf::Text text("Time Left: ", font, 48);
-        title.setFillColor(sf::Color(255, 255, 225));
-        title.setPosition({20.f, 10.f});
+        UI::init(sf::RenderWindow &window)
+        {
+            //font object
+            sf::Font font;
+            font.loadFromFile("resources/HUSKYSTA.otf");
+            
+            //timer variables
+            Timer.setFillColor(sf::Color(255, 255, 225));
+            Timer.setPosition({20.f, 10.f});
+            Timer.setFont(font);
+            Timer.setCharacterSize(48);
+            Timer.setString("Time Left: ");
 
-        init();
-        update();
-        render();
+            //star dust counter variables
+            StarDustCounter.setFillColor(sf::Color(255, 255, 225));
+            StarDustCounter.setPosition({20.f, 10.f});
+            StarDustCounter.setFont(font);
+            StarDustCounter.setCharacterSize(48);
+            StarDustCounter.setString("Star Dust Collected: ");
+        }
+
+        UI::update(sf::RenderWindow &window)
+        {
+            
+        }
+
+        UI::render(sf::RenderWindow &window)
+        {
+            window.display(Timer);
+            window.display(StarDustCounter);
+            
+        }
+        
     }
-
-    class DustCounterUI()::UI
-    {
-        /*Adding custom font and styling for UI*/
-        sf::Font font;
-        font.loadFromFile("resources/HUSKYSTA.otf");
-        sf::Text text("Dust Collected: ", font, 48);
-        title.setFillColor(sf::Color(255, 255, 225));
-        title.setPosition({-20.f, 10.f});
-
-        init();
-        update();
-        render();
-    }
+    
 }
 
 

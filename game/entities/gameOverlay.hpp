@@ -3,27 +3,34 @@
 #include <SFML/Window.hpp>
 #include <iostream>
 
-namespace Game::Entities
+namespace Game
 {
-    class UI()
+    namespace Entities
     {
-        
-        public:
-            UI(sf::RenderWindow &window);    
-        
-            sf::Vector2f posX;
-            sf::Vector2f posY;
+        class UI
+        {
+            
+            public:
+                
+                //Objects    
+                sf::RenderWindow window(sf::VideoMode({800, 400}), "Moonfall");    
+                
+                //variables
+                sf::Vector2f posX;
+                sf::Vector2f posY;
 
-            sf::Font font;
-            sf::Text text;
-            sf::Color color;
+                sf::Font font;
+                sf::Text Timer;
+                sf::Text StarDustCounter;
+                sf::Color color;
 
-            class DawnTimerUI;
-            class DustCounterUI;
-
-            void init(sf::RenderWindow &window);
-            void update(sf::RenderWindow &window);
-            void render(sf::RenderWindow &window);
-
-    };
-};
+                //methods
+                void init(sf::RenderWindow &window);
+                
+                void update(sf::RenderWindow &window);
+                
+                void render(sf::RenderWindow &window);
+                
+        };   
+    }
+}
