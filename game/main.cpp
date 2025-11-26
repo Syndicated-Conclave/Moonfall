@@ -1,12 +1,23 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <iostream>
-
+#include "parameters.hpp"
 #include "scenes/level.hpp"
 
 int main()
 {
-  sf::RenderWindow window(sf::VideoMode({800, 400}), "Moonfall");
+  /*
+  std::cout << "Before initialise, getWorldId() = "; //<< Engine::Physics::getWorldId() << "\n";
+  Engine::Physics::initialise();
+  std::cout << "After initialise, getWorldId() = "; //<< Engine::Physics::getWorldId() << "\n";
+  Engine::Physics::shutdown();
+  std::cout << "After shutdown, getWorldId() = "; //<< Engine::Physics::getWorldId() << "\n";
+  return 0;
+
+  */
+  sf::RenderWindow window(sf::VideoMode({Parameters::game_width, Parameters::game_height}), "Moonfall");
+
+  Engine::Physics::initialise();
 
   Game::Scenes::Level level;
 

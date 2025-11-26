@@ -18,7 +18,7 @@ namespace Game
             b2BodyId bodyId;          // box2d cityscape
             sf::RectangleShape shape; // sfml cityscape
             sf::Vector2f sfmlPosition;
-            float angle; // radians
+            float angle = 0.f; // radians
 
             static constexpr float SFML_WIDTH = 2000.f;
             static constexpr float SFML_HEIGHT = 200.f;
@@ -26,12 +26,12 @@ namespace Game
             static constexpr float TILT_SPEED = 0.02f;
             static constexpr float MAX_TILT = 0.25f;
 
-            static constexpr float BUMP_VELOCITY = 1.f;
+            static constexpr float BUMP_VELOCITY = 2.f;
             static constexpr float MAX_BUMP = 1.f;
 
             static constexpr float DENSITY = 999999999999.f;
-            static constexpr float FRICTION = 0.4f;
-            static constexpr float RESTITUTION = 0.0f;
+            static constexpr float FRICTION = 0.4f;    // glidiness
+            static constexpr float RESTITUTION = 0.0f; // bounciness
 
             static constexpr int COLOUR = 0x282828; // hex value!
         };
