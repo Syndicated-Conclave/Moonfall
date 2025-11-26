@@ -2,7 +2,14 @@
 #include <SFML/Graphics.hpp>
 #include "../../engine/physics.hpp"
 
-namespace Level
+namespace Game
 {
-    void physics_playground(sf::RenderWindow &window);
+    namespace Scenes
+    {
+        class Level
+        {
+        public:
+            void basicPhysicsSetUp(sf::RenderWindow &window);
+        };
+    }
 }

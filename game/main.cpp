@@ -6,12 +6,11 @@
 
 int main()
 {
-  std::cout << "Reached this point\n"
-            << std::flush;
-
   sf::RenderWindow window(sf::VideoMode({800, 400}), "Moonfall");
 
-  Level::physics_playground(window);
+  Game::Scenes::Level level;
+
+  level.basicPhysicsSetUp(window);
 
   /*
   // Adding custom font and styling for title

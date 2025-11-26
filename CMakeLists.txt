@@ -5,7 +5,6 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
-
 #### Setup Directories ####
 #Main output directory
 SET(OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin") # out/build/64x-debug vs build
@@ -26,6 +25,9 @@ link_directories("${CMAKE_BINARY_DIR}/lib/box2d/lib")
 #### Add Executable ####
 add_executable(Moonfall 
   engine/physics.cpp
+  engine/utils.cpp
+  game/entities/cityscape.cpp
+  game/entities/moon.cpp
   game/scenes/level.cpp
   game/main.cpp
 )
