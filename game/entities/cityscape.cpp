@@ -5,66 +5,35 @@ namespace Game
 {
     namespace Entities
     {
-        Cityscape::Cityscape(sf::RenderWindow &window)
+        Cityscape::Cityscape(sf::RenderWindow &window, Engine::EntityManager &ecm) : entity(ecm.createEntity())
         {
             float sfmlPosX = window.getSize().x / 2;
             float sfmlPosY = window.getSize().y;
 
             sfmlPosition = sf::Vector2f(sfmlPosX, sfmlPosY);
 
-            Engine::Utils::createRectangle(window, bodyId, shape, sfmlPosition, Cityscape::SFML_WIDTH, Cityscape::SFML_HEIGHT, Cityscape::DENSITY, Cityscape::FRICTION, Cityscape::RESTITUTION, Cityscape::COLOUR);
-            std::cout << "Created cityscape rectangle\n";
-            angle = 0.f;
-            std::cout << "Setting cityscape gravity scale...\n";
-            b2Body_SetGravityScale(bodyId, 0.0f);
-            std::cout << "Set cityscape gravity scale.\n";
+            Game::Components::Physics::createCityscape(window, entity->physicsBodyId, sfmlPosition, SFML_WIDTH, SFML_HEIGHT, DENSITY, FRICTION, RESTITUTION);
+
+            entity->graphicsShape = std::make_unique<sf::RectangleShape>();
+            auto *rect = static_cast<sf::RectangleShape *>(entity->graphicsShape.get());
+
+            Game::Components::Graphics::createCityscape(window, *rect, sfmlPosition, SFML_WIDTH, SFML_HEIGHT, COLOUR);
         }
 
         void Cityscape::update(sf::RenderWindow &window)
         {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-            {
-                if (angle < MAX_TILT)
-                {
-                    angle += TILT_SPEED * Engine::Physics::timeStep;
-                }
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-            {
-                if (angle > -MAX_TILT)
-                {
-                    angle -= TILT_SPEED * Engine::Physics::timeStep;
-                }
-            }
+            Game::Components::Physics::updateCityscape(window, entity->physicsBodyId, angle, MAX_TILT, TILT_SPEED, sfmlPosition, MAX_BUMP, BUMP_VELOCITY);
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && b2Body_GetPosition(bodyId).y < Engine::Physics::sfmlToBox2dScale(Engine::Physics::invertHeight((sfmlPosition), window.getSize().y)).y + MAX_BUMP)
-            {
-                b2Body_SetLinearVelocity(bodyId, {0, BUMP_VELOCITY});
-            }
-            else
-            {
-                if (b2Body_GetPosition(bodyId).y > Engine::Physics::sfmlToBox2dScale(Engine::Physics::invertHeight((sfmlPosition), window.getSize().y)).y)
-                {
-                    b2Body_SetLinearVelocity(bodyId, {0, -BUMP_VELOCITY});
-                }
-                else
-                {
-                    b2Body_SetLinearVelocity(bodyId, {0, 0});
-                }
-            }
+            sf::Vector2f newPosition = Engine::Physics::invertHeight(Engine::Physics::box2dToSfmlScale(b2Body_GetPosition(entity->physicsBodyId)), window.getSize().y);
 
-            b2Body_SetAngularVelocity(bodyId, angle);
+            float angle = -b2Rot_GetAngle(b2Body_GetRotation(entity->physicsBodyId)) * 180.f / B2_PI;
 
-            b2Body_SetTransform(bodyId, b2Body_GetPosition(bodyId), {{cos(angle)}, sin(angle)});
-
-            b2Vec2 cityscapePos = b2Body_GetPosition(Cityscape::bodyId);
-            Cityscape::shape.setPosition(Engine::Physics::invertHeight(Engine::Physics::box2dToSfmlScale(cityscapePos), window.getSize().y));
-            Cityscape::shape.setRotation(-b2Rot_GetAngle(b2Body_GetRotation(Cityscape::bodyId)) * 180.f / B2_PI);
+            Game::Components::Graphics::updateShape(window, *entity->graphicsShape, newPosition, angle);
         }
 
         void Cityscape::render(sf::RenderWindow &window)
         {
-            window.draw(Cityscape::shape);
+            window.draw(*entity->graphicsShape);
         }
     }
 

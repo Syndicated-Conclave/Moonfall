@@ -23,9 +23,12 @@ link_directories("${CMAKE_BINARY_DIR}/lib/box2d/lib")
 
 
 #### Add Executable ####
-add_executable(Moonfall 
+add_executable(Moonfall
+engine/ecm.cpp 
   engine/physics.cpp
   engine/utils.cpp
+  game/components/graphics.cpp
+  game/components/physics.cpp
   game/entities/cityscape.cpp
   game/entities/moon.cpp
   game/scenes/level.cpp

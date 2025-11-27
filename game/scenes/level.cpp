@@ -8,7 +8,7 @@ namespace Game
 {
     namespace Scenes
     {
-        void Level::basicPhysicsSetUp(sf::RenderWindow &window)
+        void Level::basicPhysicsSetUp(sf::RenderWindow &window, Engine::EntityManager &ecm)
         {
             std::cout << "Reached basicPhysicsSetUp\n";
             // Vars
@@ -16,11 +16,11 @@ namespace Game
 
             std::cout << "Creating cityscape...\n";
             // Create cityscape & moon
-            Game::Entities::Cityscape cityscape(window);
+            Game::Entities::Cityscape cityscape(window, ecm);
             std::cout << "Created cityscape.\n";
 
             std::cout << "Creating moon...\n";
-            Game::Entities::Moon moon(window);
+            Game::Entities::Moon moon(window, ecm);
             std::cout << "Created moon.\n";
 
             // Loop

@@ -30,7 +30,7 @@ namespace Engine
         static constexpr float physicsScaleInv = 1.0f / physicsScale;
         static constexpr int subStepCount = 4;    // specific box2d parameter (see box2d API)
         static constexpr float timeStep = 0.017f; // 60FPS update
-        static constexpr float gravity = -0.3f;   // gravity constant DIFFERENT ON THIS FICTIONAL PLANET
+        static constexpr float gravity = -0.98f;  // gravity constant (can be tweak to our liking!)
     private:
         static b2WorldId _worldId;
     };

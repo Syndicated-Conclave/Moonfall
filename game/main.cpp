@@ -2,26 +2,21 @@
 #include <SFML/Window.hpp>
 #include <iostream>
 #include "parameters.hpp"
+#include "../engine/physics.hpp"
+#include "../engine/ecm.hpp"
 #include "scenes/level.hpp"
 
 int main()
 {
-  /*
-  std::cout << "Before initialise, getWorldId() = "; //<< Engine::Physics::getWorldId() << "\n";
-  Engine::Physics::initialise();
-  std::cout << "After initialise, getWorldId() = "; //<< Engine::Physics::getWorldId() << "\n";
-  Engine::Physics::shutdown();
-  std::cout << "After shutdown, getWorldId() = "; //<< Engine::Physics::getWorldId() << "\n";
-  return 0;
-
-  */
   sf::RenderWindow window(sf::VideoMode({Parameters::game_width, Parameters::game_height}), "Moonfall");
 
   Engine::Physics::initialise();
 
+  Engine::EntityManager ecm;
+
   Game::Scenes::Level level;
 
-  level.basicPhysicsSetUp(window);
+  level.basicPhysicsSetUp(window, ecm);
 
   /*
   // Adding custom font and styling for title

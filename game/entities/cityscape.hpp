@@ -2,6 +2,9 @@
 #include <SFML/Graphics.hpp>
 #include "../../engine/physics.hpp"
 #include "../../engine/utils.hpp"
+#include "../../engine/ecm.hpp"
+#include "../components/physics.hpp"
+#include "../components/graphics.hpp"
 
 namespace Game
 {
@@ -10,13 +13,12 @@ namespace Game
         class Cityscape
         {
         public:
-            Cityscape(sf::RenderWindow &window);
+            Cityscape(sf::RenderWindow &window, Engine::EntityManager &ecm);
 
             void update(sf::RenderWindow &window);
             void render(sf::RenderWindow &window);
 
-            b2BodyId bodyId;          // box2d cityscape
-            sf::RectangleShape shape; // sfml cityscape
+            Engine::Entity *entity;
             sf::Vector2f sfmlPosition;
             float angle = 0.f; // radians
 
