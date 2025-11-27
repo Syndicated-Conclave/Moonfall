@@ -7,6 +7,9 @@ namespace Game
 {
     namespace Entities
     {
+
+        sf::RenderWindow window(sf::VideoMode({800, 400}), "Moonfall"); 
+
         void UI::init(sf::RenderWindow &window)
         {
             //font object
