@@ -4,7 +4,7 @@
 
 int main()
 {
-  sf::RenderWindow window(sf::VideoMode({800, 400}), "Moonfall");
+  sf::RenderWindow window(sf::VideoMode({1920, 1080}), "Moonfall");
 
   /*Adding custom font and styling for title*/
   sf::Font font;
