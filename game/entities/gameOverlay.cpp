@@ -32,7 +32,7 @@ namespace Game
         }
 
         
-        //while(game_isPlaying) // some sort of while loop so that the UI only shows when the game is being played
+        //while(game_isPlaying) // some sort of while loop with a bool so that the UI only shows when the game is being played
         //{
             //update method
             void UI::update(sf::RenderWindow &window, float dt, sf::Clock clock)
@@ -44,6 +44,17 @@ namespace Game
             //render method
             void UI::render(sf::RenderWindow &window)
             {
+                sf::Event event;
+
+                while(window.pollEvent(event))
+                {
+                    if(event.type == sf::Event::Closed)
+                    {
+                        window.close();
+                    }
+
+                }
+
                 window.clear();
                 window.draw(Timer);
                 window.draw(StarDustCounter);
