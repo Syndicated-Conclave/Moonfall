@@ -12,28 +12,29 @@ namespace Game
 
             sfmlPosition = sf::Vector2f(sfmlPosX, sfmlPosY);
 
-            Game::Components::Physics::createCityscape(window, entity->physicsBodyId, sfmlPosition, SFML_WIDTH, SFML_HEIGHT, DENSITY, FRICTION, RESTITUTION);
+            entity->physicsBodyIds.push_back(b2_nullBodyId);
+            Game::Components::Physics::createCityscape(window, entity->physicsBodyIds.back(), sfmlPosition, SFML_WIDTH, SFML_HEIGHT, DENSITY, FRICTION, RESTITUTION);
 
-            entity->graphicsShape = std::make_unique<sf::RectangleShape>();
-            auto *rect = static_cast<sf::RectangleShape *>(entity->graphicsShape.get());
+            entity->graphicsShapes.push_back(std::make_unique<sf::RectangleShape>());
+            auto *rect = static_cast<sf::RectangleShape *>(entity->graphicsShapes.back().get());
 
             Game::Components::Graphics::createCityscape(window, *rect, sfmlPosition, SFML_WIDTH, SFML_HEIGHT, COLOUR);
         }
 
         void Cityscape::update(sf::RenderWindow &window)
         {
-            Game::Components::Physics::updateCityscape(window, entity->physicsBodyId, angle, MAX_TILT, TILT_SPEED, sfmlPosition, MAX_BUMP, BUMP_VELOCITY);
+            Game::Components::Physics::updateCityscape(window, entity->physicsBodyIds.back(), angle, MAX_TILT, TILT_SPEED, sfmlPosition, MAX_BUMP, BUMP_VELOCITY);
 
-            sf::Vector2f newPosition = Engine::Physics::invertHeight(Engine::Physics::box2dToSfmlScale(b2Body_GetPosition(entity->physicsBodyId)), window.getSize().y);
+            sf::Vector2f newPosition = Engine::Physics::invertHeight(Engine::Physics::box2dToSfmlScale(b2Body_GetPosition(entity->physicsBodyIds.back())), window.getSize().y);
 
-            float angle = -b2Rot_GetAngle(b2Body_GetRotation(entity->physicsBodyId)) * 180.f / B2_PI;
+            float angle = -b2Rot_GetAngle(b2Body_GetRotation(entity->physicsBodyIds.back())) * 180.f / B2_PI;
 
-            Game::Components::Graphics::updateShape(window, *entity->graphicsShape, newPosition, angle);
+            Game::Components::Graphics::updateShape(window, *entity->graphicsShapes.back(), newPosition, angle);
         }
 
         void Cityscape::render(sf::RenderWindow &window)
         {
-            window.draw(*entity->graphicsShape);
+            window.draw(*entity->graphicsShapes.back());
         }
     }
 

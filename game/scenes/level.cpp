@@ -3,6 +3,7 @@
 #include <iostream>
 #include "../entities/cityscape.hpp"
 #include "../entities/moon.hpp"
+#include "../entities/stardust.hpp"
 
 namespace Game
 {
@@ -22,6 +23,13 @@ namespace Game
             std::cout << "Creating moon...\n";
             Game::Entities::Moon moon(window, ecm);
             std::cout << "Created moon.\n";
+
+            std::cout << "Creating stardust...\n";
+            Game::Entities::Stardust stardust(window, ecm, {100, 300}, 1);
+            Game::Entities::Stardust stardust2(window, ecm, {400, 300}, 2);
+            Game::Entities::Stardust stardust3(window, ecm, {700, 300}, 3);
+
+            std::cout << "Created stardust.\n";
 
             // Loop
             while (window.isOpen())
@@ -47,6 +55,10 @@ namespace Game
                 moon.update(window);
                 std::cout << "Updated moon.\n";
 
+                stardust.update(window);
+                stardust2.update(window);
+                stardust3.update(window);
+
                 // Render everything
                 window.clear(nightskyColour);
                 std::cout << "Rendered nightsky.\n";
@@ -54,6 +66,11 @@ namespace Game
                 std::cout << "Rendered cityscape.\n";
                 moon.render(window);
                 std::cout << "Rendered moon.\n";
+
+                stardust.render(window);
+                stardust2.render(window);
+                stardust3.render(window);
+
                 window.display();
                 std::cout << "Displaying window.\n";
             }

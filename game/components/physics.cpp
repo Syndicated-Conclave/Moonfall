@@ -64,7 +64,7 @@ namespace Game
             b2Body_SetTransform(bodyId, b2Body_GetPosition(bodyId), {{cos(angle)}, sin(angle)});
         }
 
-        void Physics::createMoon(sf::RenderWindow &window, b2BodyId &bodyId, sf::Vector2f sfmlPosition, float sfmlDiameter, float density, float friction, float restitution)
+        void Physics::createCircle(sf::RenderWindow &window, b2BodyId &bodyId, sf::Vector2f sfmlPosition, float sfmlDiameter, float density, float friction, float restitution)
         {
             std::cout << "Reached createCirlce\n\n";
             bodyId = setUpBodyId(sfmlPosition, window);
