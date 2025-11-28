@@ -25,9 +25,8 @@ namespace Game
 
                 //methods
                 void init(sf::RenderWindow &window);
-                
-                void update(sf::RenderWindow &window, float dt, sf::Clock clock);
-                
+                void input(sf::RenderWindow &window);               
+                void update(sf::RenderWindow &window);               
                 void render(sf::RenderWindow &window);
                 
         };   
