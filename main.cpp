@@ -4,16 +4,17 @@
 
 int main()
 {
-  sf::RenderWindow window(sf::VideoMode({1920, 1080}), "Moonfall");
+  // sf::RenderWindow window(sf::VideoMode({Parameters::game_width, Parameters::game_height}), "Moonfall");
+  sf::RenderWindow window(sf::VideoMode(1600, 900), "Moonfall");
 
-  /*Adding custom font and styling for title*/
+  // Adding custom font and styling for title
   sf::Font font;
   font.loadFromFile("resources/HUSKYSTA.otf");
   sf::Text title("Moonfall", font, 48);
   title.setFillColor(sf::Color(255, 255, 224));
   title.setPosition({300.f, 30.f});
 
-  /*Creating gradient background colour*/
+  // Creating gradient background colour
   sf::VertexArray sky(sf::Quads, 4);
   sky[0].position = sf::Vector2f(0, 0);
   sky[1].position = sf::Vector2f(window.getSize().x, 0);
@@ -26,7 +27,7 @@ int main()
   sky[3].color = light;
   sky[2].color = light;
 
-  /*Creating star object*/
+  // Creating star object
   sf::ConvexShape star;
   star.setPointCount(10);
   star.setPoint(0, sf::Vector2f(8, -2));
@@ -41,7 +42,7 @@ int main()
   star.setPoint(9, sf::Vector2f(6, 3));
   star.setFillColor(sf::Color(255, 253, 208));
 
-  /*Creating Menu Buttons*/
+  // Creating Menu Buttons
   sf::RectangleShape guide({180.f, 35.f});
   guide.setPosition(300.f, 130.f);
   sf::RectangleShape play({180.f, 35.f});
@@ -83,5 +84,6 @@ int main()
     window.draw(exit);
     window.display();
   }
+  
   return 0;
 }
