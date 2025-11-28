@@ -1,11 +1,25 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-using namespace std;
+#include <iostream>
+#include "utils.hpp"
 
-int RNG()
+namespace Engine
 {
-    int x = time(0);
-    srand(x);    
-    return 1;
+    int Utils::RNG()
+    {
+        int x = time(0);
+        srand(x);
+        return 1;
+    }
+
+    sf::Color Utils::hexToSfmlColour(int hex)
+    {
+        std::cout << "Reached hexToSfmlColour\n\n";
+        int red = (hex >> 16) & 0xFF;
+        int green = (hex >> 8) & 0xFF;
+        int blue = hex & 0xFF;
+
+        return sf::Color(red, green, blue);
+    }
 }

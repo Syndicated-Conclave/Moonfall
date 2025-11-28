@@ -1,3 +1,27 @@
+#pragma once
+#include <box2d/box2d.h>
+#include <SFML/Graphics.hpp>
+
+namespace Engine
+{
+  struct Entity
+  {
+    b2BodyId physicsBodyId = b2_nullBodyId;
+    std::unique_ptr<sf::Shape> graphicsShape = nullptr;
+    bool active = true;
+  };
+
+  class EntityManager
+  {
+  public:
+    Entity *createEntity();
+    void eraseEntity(Entity *entity);
+
+  private:
+    std::vector<std::unique_ptr<Entity>> _entities;
+  };
+}
+
 /*
 
 FROM THE LABS:
