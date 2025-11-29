@@ -17,7 +17,7 @@ namespace Game
         public:
             Stardust(sf::RenderWindow &window, Engine::EntityManager &ecm, sf::Vector2f sfmlPosition, int type);
 
-            void update(sf::RenderWindow &window);
+            void update(sf::RenderWindow &window, sf::Vector2f moonPosition);
             void render(sf::RenderWindow &window);
 
             Engine::Entity *entity;

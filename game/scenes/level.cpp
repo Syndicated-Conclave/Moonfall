@@ -27,7 +27,7 @@ namespace Game
             // std::cout << "Creating stardust...\n";
             Game::Entities::Stardust stardust(window, ecm, {100, 300}, 1);
             Game::Entities::Stardust stardust2(window, ecm, {400, 300}, 2);
-            Game::Entities::Stardust stardust3(window, ecm, {750, 300}, 3);
+            Game::Entities::Stardust stardust3(window, ecm, {1000, 600}, 3);
 
             // std::cout << "Created stardust.\n";
 
@@ -55,9 +55,9 @@ namespace Game
                 moon.update(window);
                 // std::cout << "Updated moon.\n";
 
-                stardust.update(window);
-                stardust2.update(window);
-                stardust3.update(window);
+                stardust.update(window, moon.sfmlPosition);
+                stardust2.update(window, moon.sfmlPosition);
+                stardust3.update(window, moon.sfmlPosition);
 
                 // Render everything
                 window.clear(nightskyColour);

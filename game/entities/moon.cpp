@@ -20,11 +20,11 @@ namespace Game
 
         void Moon::update(sf::RenderWindow &window)
         {
-            sf::Vector2f newPosition = Engine::Physics::invertHeight(Engine::Physics::box2dToSfmlScale(b2Body_GetPosition(entity->physicsBodyIds.back())), window.getSize().y);
+            sfmlPosition = Engine::Physics::invertHeight(Engine::Physics::box2dToSfmlScale(b2Body_GetPosition(entity->physicsBodyIds.back())), window.getSize().y);
 
             float angle = b2Rot_GetAngle(b2Body_GetRotation(entity->physicsBodyIds.back())) * 180.f / B2_PI;
 
-            Game::Components::Graphics::updateShape(window, *entity->graphicsShapes.back(), newPosition, angle);
+            Game::Components::Graphics::updateShape(window, *entity->graphicsShapes.back(), sfmlPosition, angle);
         }
 
         void Moon::render(sf::RenderWindow &window)

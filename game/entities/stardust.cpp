@@ -26,11 +26,11 @@ namespace Game
             }
         }
 
-        void Stardust::update(sf::RenderWindow &window)
+        void Stardust::update(sf::RenderWindow &window, sf::Vector2f moonPosition)
         {
             sf::Vector2f currrentPosition = Engine::Physics::invertHeight(Engine::Physics::box2dToSfmlScale(b2Body_GetPosition(entity->physicsBodyIds.front())), window.getSize().y);
 
-            direction = Game::Components::AI::getDirection(direction, spawnPosition, currrentPosition, type);
+            direction = Game::Components::AI::getDirection(direction, spawnPosition, currrentPosition, moonPosition, type);
 
             Game::Components::Physics::updateStardust(window, entity->physicsBodyIds, direction, SPEED);
 
