@@ -27,7 +27,7 @@ namespace Game
             // std::cout << "Creating stardust...\n";
             Game::Entities::Stardust stardust(window, ecm, {100, 300}, 1);
             Game::Entities::Stardust stardust2(window, ecm, {400, 300}, 2);
-            Game::Entities::Stardust stardust3(window, ecm, {1000, 600}, 3);
+            Game::Entities::Stardust stardust3(window, ecm, {1000, 300}, 3);
 
             // std::cout << "Created stardust.\n";
 

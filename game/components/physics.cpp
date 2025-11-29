@@ -6,6 +6,7 @@ namespace Game
     namespace Components
     {
 
+        // Buildings & Cityscape
         void Physics::createCityscape(sf::RenderWindow &window, b2BodyId &bodyId, sf::Vector2f sfmlPosition, float sfmlWidth, float sfmlHeight, float density, float friction, float restitution)
         {
             // std::cout << "Reached createRectangle\n";
@@ -65,6 +66,7 @@ namespace Game
             b2Body_SetTransform(bodyId, b2Body_GetPosition(bodyId), {{cos(angle)}, sin(angle)});
         }
 
+        // Stars & Stardust
         void Physics::createStar(sf::RenderWindow &window, b2BodyId &bodyId, sf::Vector2f sfmlPosition, float sfmlDiameter, float density, float friction, float restitution)
         {
             // std::cout << "Reached createCirlce\n\n";
@@ -86,11 +88,26 @@ namespace Game
 
         void Physics::updateStardust(sf::RenderWindow &window, std::vector<b2BodyId> bodyIds, sf::Vector2f direction, float speed)
         {
+            b2Vec2 velocity = b2MulSV(speed, Engine::Physics::sfmlToBox2dScale(direction));
+            sf::Vector2f maxHeight(0, 0);
+            sf::Vector2f minHeight(0, window.getSize().y);
+
             for (size_t i = 0; i < bodyIds.size(); i++)
             {
-                b2Body_SetLinearVelocity(bodyIds[i], b2MulSV(speed, Engine::Physics::sfmlToBox2dScale(direction)));
+                b2Vec2 currentPosition = b2Body_GetPosition(bodyIds[i]);
+
+                if ((currentPosition.y <= Engine::Physics::sfmlToBox2dScale(Engine::Physics::invertHeight(minHeight, window.getSize().y)).y && velocity.y < 0) || (currentPosition.y >= Engine::Physics::sfmlToBox2dScale(Engine::Physics::invertHeight(maxHeight, window.getSize().y)).y && velocity.y > 0))
+                {
+                    velocity.y = 0;
+                }
+            }
+            for (size_t i = 0; i < bodyIds.size(); i++)
+            {
+                b2Body_SetLinearVelocity(bodyIds[i], velocity);
             }
         }
+
+        // Moon
         void Physics::createMoon(sf::RenderWindow &window, b2BodyId &bodyId, sf::Vector2f sfmlPosition, float sfmlDiameter, float density, float friction, float restitution)
         {
             // std::cout << "Reached createCirlce\n\n";
@@ -107,6 +124,7 @@ namespace Game
             // std::cout << "Created circle shape\n";
         }
 
+        // Helper functions
         b2BodyId Physics::setUpBodyId(sf::Vector2f sfmlPosition, sf::RenderWindow &window)
         {
             // std::cout << "Reached setUpBodyId\n";

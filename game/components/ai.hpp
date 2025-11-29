@@ -10,7 +10,7 @@ namespace Game
         public:
             static sf::Vector2f getDirection(sf::Vector2f previousDirection, sf::Vector2f spawnPosition, sf::Vector2f currentPosition, sf::Vector2f moonPosition, int type);
 
-            static constexpr float FLEE_DISTANCE = 250.f;
+            static constexpr float FLEE_DISTANCE = 500.f;
             static constexpr float FLEE_SPEED = 5.f;
 
         private:
