@@ -72,6 +72,7 @@ namespace Game
             // std::cout << "Reached createCirlce\n\n";
             bodyId = setUpBodyId(sfmlPosition, window);
             b2Body_SetType(bodyId, b2_kinematicBody);
+            b2Body_EnableContactEvents(bodyId, true);
 
             // std::cout << "Set up circle body id\n\n";
 
@@ -88,6 +89,37 @@ namespace Game
 
         void Physics::updateStardust(sf::RenderWindow &window, std::vector<b2BodyId> bodyIds, sf::Vector2f direction, float speed)
         {
+
+            b2SensorEvents events = b2World_GetSensorEvents(Engine::Physics::getWorldId());
+            std::cout << "beginCount = " << events.beginCount << "\n";
+
+            for (size_t i = 0; i < bodyIds.size(); i++)
+            {
+                for (int e = 0; e < events.beginCount; e++)
+                {
+                    if (B2_ID_EQUALS(b2Shape_GetBody(events.beginEvents->sensorShapeId), bodyIds[i]))
+                    {
+                        b2Body_Disable(bodyIds[i]);
+                        // ++ points
+                    }
+                }
+            }
+            /*
+            for (size_t i = 0; i < bodyIds.size(); i++)
+            {
+                b2ContactData contactData;
+
+                int numOfElements = b2Body_GetContactData(bodyIds[i], &contactData, 1);
+                std::cout << "Yay\n"
+                          << numOfElements << "\n";
+                if (numOfElements == 0)
+                {
+                    b2Body_Disable(bodyIds[i]);
+                }
+                // ++  points
+            }
+            */
+
             b2Vec2 velocity = b2MulSV(speed, Engine::Physics::sfmlToBox2dScale(direction));
             sf::Vector2f maxHeight(0, 0);
             sf::Vector2f minHeight(0, window.getSize().y);

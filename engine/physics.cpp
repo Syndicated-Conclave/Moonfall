@@ -8,6 +8,8 @@ namespace Engine
     {
         b2WorldDef worldDef = b2DefaultWorldDef();
         worldDef.gravity = b2Vec2({0.0f, gravity});
+        def.events.sensorBegin = true;
+        def.events.sensorEnd = true;
         _worldId = b2CreateWorld(&worldDef);
     }
 

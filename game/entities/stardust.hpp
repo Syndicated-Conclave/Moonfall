@@ -26,9 +26,6 @@ namespace Game
             std::vector<sf::Vector2f> constellation;
             sf::Vector2f direction = {0, 0};
 
-            /*
-            static constexpr float FIBO_ANGLE = 2.4f; // approximate
-            */
             static constexpr float SFML_DIAMETER = 14.f;
             static constexpr float SPACING = 20.f;
             static constexpr float SPEED = 5.f;
@@ -38,6 +35,10 @@ namespace Game
             static constexpr float RESTITUTION = 0.0f;
 
             static constexpr int COLOUR = 0xFFFDD0; // hex value!
+
+            // TEMP this will go into game states or similar:
+            int points = 0;
+
         private:
             static std::vector<sf::Vector2f> init_constellation(int type);
         };

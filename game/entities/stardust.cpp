@@ -36,11 +36,14 @@ namespace Game
 
             for (size_t i = 0; i < entity->physicsBodyIds.size(); i++)
             {
-                sf::Vector2f newPosition = Engine::Physics::invertHeight(Engine::Physics::box2dToSfmlScale(b2Body_GetPosition(entity->physicsBodyIds[i])), window.getSize().y);
+                if (b2Body_IsEnabled(entity->physicsBodyIds[i]))
+                {
+                    sf::Vector2f newPosition = Engine::Physics::invertHeight(Engine::Physics::box2dToSfmlScale(b2Body_GetPosition(entity->physicsBodyIds[i])), window.getSize().y);
 
-                float angle = b2Rot_GetAngle(b2Body_GetRotation(entity->physicsBodyIds[i])) * 180.f / B2_PI;
+                    float angle = b2Rot_GetAngle(b2Body_GetRotation(entity->physicsBodyIds[i])) * 180.f / B2_PI;
 
-                Game::Components::Graphics::updateShape(window, *entity->graphicsShapes[i], newPosition, angle);
+                    Game::Components::Graphics::updateShape(window, *entity->graphicsShapes[i], newPosition, angle);
+                }
             }
         }
 
