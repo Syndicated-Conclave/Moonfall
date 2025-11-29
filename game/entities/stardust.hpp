@@ -5,6 +5,7 @@
 #include "../../engine/ecm.hpp"
 #include "../components/physics.hpp"
 #include "../components/graphics.hpp"
+#include "../components/ai.hpp"
 
 namespace Game
 {
@@ -20,14 +21,17 @@ namespace Game
             void render(sf::RenderWindow &window);
 
             Engine::Entity *entity;
-
+            sf::Vector2f spawnPosition;
+            int type;
             std::vector<sf::Vector2f> constellation;
+            sf::Vector2f direction = {0, 0};
 
             /*
             static constexpr float FIBO_ANGLE = 2.4f; // approximate
             */
             static constexpr float SFML_DIAMETER = 14.f;
             static constexpr float SPACING = 20.f;
+            static constexpr float SPEED = 5.f;
 
             static constexpr float DENSITY = 1.f;
             static constexpr float FRICTION = 0.0f;

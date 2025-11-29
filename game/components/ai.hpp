@@ -1,3 +1,23 @@
+#pragma once
+#include <SFML/Graphics.hpp>
+
+namespace Game
+{
+    namespace Components
+    {
+        class AI
+        {
+        public:
+            static sf::Vector2f getDirection(sf::Vector2f previousDirection, sf::Vector2f spawnPosition, sf::Vector2f currentPosition, int type);
+
+        private:
+            static sf::Vector2f getLyraDirection(sf::Vector2f previousDirection, sf::Vector2f spawnPosition, sf::Vector2f currentPosition);
+            static sf::Vector2f getLeoDirection(sf::Vector2f previousDirection, sf::Vector2f spawnPosition, sf::Vector2f currentPosition);
+            static sf::Vector2f normaliseDirection(sf::Vector2f direction);
+        };
+    }
+}
+
 /*
 
 FROM THE LABS:

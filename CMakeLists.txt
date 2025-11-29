@@ -29,6 +29,7 @@ engine/ecm.cpp
   engine/utils.cpp
   game/components/graphics.cpp
   game/components/physics.cpp
+  game/components/ai.cpp
   game/entities/cityscape.cpp
   game/entities/moon.cpp
   game/entities/stardust.cpp

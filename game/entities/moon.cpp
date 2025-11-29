@@ -11,7 +11,7 @@ namespace Game
             sfmlPosition = sf::Vector2f(sfmlPosX, sfmlPosY);
 
             entity->physicsBodyIds.push_back(b2_nullBodyId);
-            Game::Components::Physics::createCircle(window, entity->physicsBodyIds.back(), sfmlPosition, SFML_DIAMETER, DENSITY, FRICTION, RESTITUTION);
+            Game::Components::Physics::createMoon(window, entity->physicsBodyIds.back(), sfmlPosition, SFML_DIAMETER, DENSITY, FRICTION, RESTITUTION);
 
             entity->graphicsShapes.push_back(std::make_unique<sf::CircleShape>());              // makes a circle shape pointer and assigned the graphicsShapes as its owner
             auto *circle = static_cast<sf::CircleShape *>(entity->graphicsShapes.back().get()); // stores a raw pointer (non owner) of the graphicsShapes, which we know is a circle, in the circle var

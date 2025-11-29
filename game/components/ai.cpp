@@ -1,3 +1,66 @@
+
+#include "ai.hpp"
+#include "../../engine/utils.hpp"
+#include <iostream>
+
+namespace Game
+{
+  namespace Components
+  {
+    sf::Vector2f AI::getDirection(sf::Vector2f previousDirection, sf::Vector2f spawnPosition, sf::Vector2f currentPosition, int type)
+    {
+      sf::Vector2f newDirection;
+      switch (type)
+      {
+      case 1:
+        newDirection = {0, 0};
+        break;
+      case 2:
+        newDirection = getLyraDirection(previousDirection, spawnPosition, currentPosition);
+        break;
+      case 3:
+        newDirection = {0, 0};
+        break;
+      default:
+        newDirection = {0, 0};
+      }
+      return newDirection;
+    }
+
+    sf::Vector2f AI::getLyraDirection(sf::Vector2f previousDirection, sf::Vector2f spawnPosition, sf::Vector2f currentPosition)
+    {
+      sf::Vector2f newDirection;
+
+      sf::Vector2f relationalPosition = currentPosition - spawnPosition;
+
+      sf::Vector2f roundedPosition = {std::round(relationalPosition.x), -std::round(relationalPosition.y)};
+      std::vector<sf::Vector2f> points = {{0, 0}, {50, 0}, {50, 50}, {0, 50}};
+
+      std::vector<sf::Vector2f> directions = {{50, 0}, {0, 50}, {-50, 0}, {0, -50}};
+
+      for (size_t i = 0; i < points.size(); i++)
+      {
+        if (roundedPosition == points[i])
+        {
+          return normaliseDirection(directions[i]);
+        }
+      }
+      return previousDirection;
+    }
+
+    sf::Vector2f AI::normaliseDirection(sf::Vector2f direction)
+    {
+      float len = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+      if (len != 0)
+      {
+        return sf::Vector2f(direction.x / len, direction.y / len);
+      }
+      return direction;
+    }
+
+  }
+}
+
 /*
 
 FROM THE LABS:

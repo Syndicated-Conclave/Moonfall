@@ -15,7 +15,7 @@ namespace Engine
 
     sf::Color Utils::hexToSfmlColour(int hex)
     {
-        std::cout << "Reached hexToSfmlColour\n\n";
+        // std::cout << "Reached hexToSfmlColour\n\n";
         int red = (hex >> 16) & 0xFF;
         int green = (hex >> 8) & 0xFF;
         int blue = hex & 0xFF;

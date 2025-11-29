@@ -13,7 +13,7 @@ namespace Game
             shape.setFillColor(Engine::Utils::hexToSfmlColour(colour));
             shape.setOrigin(sfmlWidth / 2, sfmlHeight / 2); // center origin
             shape.setPosition(sfmlPosition);
-            std::cout << "Set polygon shape attributes\n";
+            //std::cout << "Set polygon shape attributes\n";
         }
 
         void Graphics::createMoon(sf::RenderWindow &window, sf::CircleShape &shape, sf::Vector2f sfmlPosition, float sfmlDiameter, int colour)
@@ -22,7 +22,7 @@ namespace Game
             shape.setFillColor(Engine::Utils::hexToSfmlColour(colour));
             shape.setOrigin(sfmlDiameter / 2, sfmlDiameter / 2); // center origin
             shape.setPosition(sfmlPosition);
-            std::cout << "Set circle shape attributes\n";
+            //std::cout << "Set circle shape attributes\n";
         }
 
         void Graphics::createStar(sf::RenderWindow &window, sf::ConvexShape &shape, sf::Vector2f sfmlPosition, float sfmlDiameter, int colour)
