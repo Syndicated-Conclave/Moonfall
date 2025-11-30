@@ -1,3 +1,27 @@
+#pragma once
+#include <SFML/Graphics.hpp>
+
+namespace Game
+{
+    namespace Components
+    {
+        class AI
+        {
+        public:
+            static sf::Vector2f getDirection(sf::Vector2f previousDirection, sf::Vector2f spawnPosition, sf::Vector2f currentPosition, sf::Vector2f moonPosition, int type);
+
+            static constexpr float FLEE_DISTANCE = 500.f;
+            static constexpr float FLEE_SPEED = 5.f;
+
+        private:
+            static sf::Vector2f getLyraDirection(sf::Vector2f previousDirection, sf::Vector2f spawnPosition, sf::Vector2f currentPosition);
+            static sf::Vector2f getLeoDirection(sf::Vector2f spawnPosition, sf::Vector2f currentPosition, sf::Vector2f moonPosition);
+            static sf::Vector2f normaliseDirection(sf::Vector2f direction);
+            static bool goalReached(sf::Vector2f current, sf::Vector2f goal);
+        };
+    }
+}
+
 /*
 
 FROM THE LABS:

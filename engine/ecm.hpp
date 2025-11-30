@@ -6,8 +6,8 @@ namespace Engine
 {
   struct Entity
   {
-    b2BodyId physicsBodyId = b2_nullBodyId;
-    std::unique_ptr<sf::Shape> graphicsShape = nullptr;
+    std::vector<b2BodyId> physicsBodyIds;
+    std::vector<std::unique_ptr<sf::Shape>> graphicsShapes;
     bool active = true;
   };
 
