@@ -27,7 +27,7 @@ namespace Game
 
             static constexpr float DENSITY = 1.f;
             static constexpr float FRICTION = 0.3f;
-            static constexpr float RESTITUTION = 0.0f;
+            static constexpr float RESTITUTION = 0.1f;
 
             static constexpr int COLOUR = 0xF6F1D5; // hex value!
         };

@@ -25,12 +25,13 @@ namespace Game
             // std::cout << "Created moon.\n";
 
             // std::cout << "Creating stardust...\n";
-            Game::Entities::Stardust stardust(window, ecm, {100, 300}, 1);
+            Game::Entities::Stardust stardust(window, ecm, {300, 600}, 1);
             Game::Entities::Stardust stardust2(window, ecm, {400, 300}, 2);
             Game::Entities::Stardust stardust3(window, ecm, {800, 300}, 3);
 
             // std::cout << "Created stardust.\n";
 
+            int counter = 0;
             // Loop
             while (window.isOpen())
             {
@@ -45,8 +46,12 @@ namespace Game
                 // Step the physics world
                 Engine::Physics::update(Engine::Physics::timeStep);
                 // std::cout << "Time stepped physics world\n";
-
+                // std::cout << counter++ << "\n";
                 // Update cityscape & moon
+
+                stardust.update(window, moon.sfmlPosition);
+                stardust2.update(window, moon.sfmlPosition);
+                stardust3.update(window, moon.sfmlPosition);
                 // std::cout << "Updating cityscape...\n";
                 cityscape.update(window);
                 // std::cout << "Updated cityscape.\n";
@@ -54,10 +59,6 @@ namespace Game
                 // std::cout << "Updating moon...\n";
                 moon.update(window);
                 // std::cout << "Updated moon.\n";
-
-                stardust.update(window, moon.sfmlPosition);
-                stardust2.update(window, moon.sfmlPosition);
-                stardust3.update(window, moon.sfmlPosition);
 
                 // Render everything
                 window.clear(nightskyColour);

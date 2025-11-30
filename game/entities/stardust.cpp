@@ -51,7 +51,10 @@ namespace Game
         {
             for (size_t i = 0; i < entity->physicsBodyIds.size(); i++)
             {
-                window.draw(*entity->graphicsShapes[i]);
+                if (b2Body_IsEnabled(entity->physicsBodyIds[i]))
+                {
+                    window.draw(*entity->graphicsShapes[i]);
+                }
             }
         }
 
