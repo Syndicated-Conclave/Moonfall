@@ -11,7 +11,11 @@ namespace Game
         {
             private:
                 std::stack<std::unique_ptr<Game::Components::State>> m_stateStack;
-                std::unique_ptr<Game::Components::State> m_newState;    
+                std::unique_ptr<Game::Components::State> m_newState;
+                
+                bool m_add;
+                bool m_replace;
+                bool m_remove;
             
             public:
                 StateManager();
