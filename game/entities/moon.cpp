@@ -1,4 +1,5 @@
 #include "moon.hpp"
+#include <iostream>
 
 namespace Game
 {
@@ -20,6 +21,8 @@ namespace Game
 
         void Moon::update(sf::RenderWindow &window)
         {
+            Game::Components::Physics::updateMoon(window, entity->physicsBodyIds.back(), sfmlPosition, JUMP_COOLDOWN_PERIOD, jumpCooldownCounter);
+
             sfmlPosition = Engine::Physics::invertHeight(Engine::Physics::box2dToSfmlScale(b2Body_GetPosition(entity->physicsBodyIds.back())), window.getSize().y);
 
             float angle = b2Rot_GetAngle(b2Body_GetRotation(entity->physicsBodyIds.back())) * 180.f / B2_PI;
@@ -30,6 +33,11 @@ namespace Game
         void Moon::render(sf::RenderWindow &window)
         {
             window.draw(*entity->graphicsShapes.back());
+        }
+
+        void Moon::handleEvent(sf::RenderWindow &window, sf::Event &event)
+        {
+            // Game::Components::Physics::updateMoon(window, event, entity->physicsBodyIds.back(), sfmlPosition, JUMP_COOLDOWN_PERIOD, jumpCooldownCounter);
         }
     }
 

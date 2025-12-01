@@ -18,15 +18,19 @@ namespace Game
 
             void update(sf::RenderWindow &window);
             void render(sf::RenderWindow &window);
+            void handleEvent(sf::RenderWindow &window, sf::Event &event);
 
             Engine::Entity *entity;
 
             sf::Vector2f sfmlPosition;
+            int jumpCooldownCounter = 0;
+
+            static constexpr int JUMP_COOLDOWN_PERIOD = 600;
 
             static constexpr float SFML_DIAMETER = 100.f;
 
             static constexpr float DENSITY = 1.f;
-            static constexpr float FRICTION = 0.3f;
+            static constexpr float FRICTION = 0.5f;
             static constexpr float RESTITUTION = 0.1f;
 
             static constexpr int COLOUR = 0xF6F1D5; // hex value!

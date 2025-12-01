@@ -27,16 +27,11 @@ namespace Game
             auto *rect1 = static_cast<sf::RectangleShape *>(entity->graphicsShapes[0].get());
             Game::Components::Graphics::createCityscape(window, *rect1, sfmlPosition, city[0].width, city[0].height, COLOUR);
 
-            // set offset for second building
-            sf::Vector2f offset = {city[0].width / 2 + city[1].width / 2, 0};
+            // init offset
+            sf::Vector2f offset = {0, 0};
 
-            // create second building
-            entity->graphicsShapes.push_back(std::make_unique<sf::RectangleShape>());
-            auto *rect2 = static_cast<sf::RectangleShape *>(entity->graphicsShapes[1].get());
-            Game::Components::Graphics::createCityscape(window, *rect2, sfmlPosition + offset, city[1].width, city[1].height, COLOUR);
-
-            // loop for third++ building
-            for (size_t i = 2; i < city.size(); i++)
+            // loop for second++ building
+            for (size_t i = 1; i < city.size(); i++)
             {
                 // set offset
                 offset.x += city[i].width / 2 + city[i - 1].width / 2;
@@ -62,15 +57,11 @@ namespace Game
             auto *rect1 = static_cast<sf::RectangleShape *>(entity->graphicsShapes[0].get());
             Game::Components::Graphics::updateShape(window, *rect1, newPosition, angle);
 
-            // set offset for second building
-            sf::Vector2f offset = {city[0].width / 2 + city[1].width / 2, 0};
+            // init offset
+            sf::Vector2f offset = {0, 0};
 
-            // update second building
-            auto *rect2 = static_cast<sf::RectangleShape *>(entity->graphicsShapes[1].get());
-            Game::Components::Graphics::updateShape(window, *rect2, newPosition + offset, angle);
-
-            // loop for third++ buildings and offset
-            for (size_t i = 2; i < city.size(); i++)
+            // loop for second++ buildings and offset
+            for (size_t i = 1; i < city.size(); i++)
             {
                 // set offset
                 offset.x += city[i].width / 2 + city[i - 1].width / 2;
@@ -91,6 +82,8 @@ namespace Game
 
         void Cityscape::init_city()
         {
+            city.push_back({3600.f, 500.f});
+
             city.push_back({120.f, 300.f});
             city.push_back({150.f, 450.f});
             city.push_back({200.f, 150.f});

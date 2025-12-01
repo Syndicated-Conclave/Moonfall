@@ -31,6 +31,7 @@ namespace Game
 
             // std::cout << "Created stardust.\n";
 
+            window.setKeyRepeatEnabled(false);
             int counter = 0;
             // Loop
             while (window.isOpen())
@@ -39,6 +40,8 @@ namespace Game
                 sf::Event event;
                 while (window.pollEvent(event))
                 {
+                    moon.handleEvent(window, event);
+
                     if (event.type == sf::Event::Closed)
                         window.close();
                 }

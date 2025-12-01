@@ -35,7 +35,7 @@ namespace Game
             static constexpr float MAX_BUMP = 1.f;
 
             static constexpr float DENSITY = 999999999999.f;
-            static constexpr float FRICTION = 0.4f;    // glidiness
+            static constexpr float FRICTION = 0.7f;    // glidiness
             static constexpr float RESTITUTION = 0.1f; // bounciness
 
             static constexpr int COLOUR = 0x282828; // hex value!

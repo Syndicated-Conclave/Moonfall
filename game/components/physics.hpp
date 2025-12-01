@@ -17,6 +17,7 @@ namespace Game
             static void createStar(sf::RenderWindow &window, b2BodyId &bodyId, sf::Vector2f sfmlPosition, float sfmlDiameter, float density, float friction, float restitution);
             static void updateStardust(sf::RenderWindow &window, std::vector<b2BodyId> bodyIds, sf::Vector2f direction, float speed);
             static void createMoon(sf::RenderWindow &window, b2BodyId &bodyId, sf::Vector2f sfmlPosition, float sfmlDiameter, float density, float friction, float restitution);
+            static void updateMoon(sf::RenderWindow &window, b2BodyId &bodyId, sf::Vector2f sfmlPosition, int cooldown, int &counter);
 
         private:
             static b2BodyId setUpBodyId(sf::Vector2f sfmlPosition, sf::RenderWindow &window);
