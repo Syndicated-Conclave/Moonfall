@@ -1,4 +1,5 @@
 #include "physics.hpp"
+#include "../entities/cityscape.hpp"
 #include <iostream>
 
 namespace Game
@@ -7,7 +8,7 @@ namespace Game
     {
 
         // Buildings & Cityscape
-        void Physics::createCityscape(sf::RenderWindow &window, b2BodyId &bodyId, sf::Vector2f sfmlPosition, float sfmlWidth, float sfmlHeight, float density, float friction, float restitution)
+        void Physics::createCityscape(sf::RenderWindow &window, b2BodyId &bodyId, sf::Vector2f sfmlPosition, std::vector<Game::Entities::Building> city, float density, float friction, float restitution)
         {
             // std::cout << "Reached createRectangle\n";
             bodyId = setUpBodyId(sfmlPosition, window);
@@ -18,10 +19,27 @@ namespace Game
             b2ShapeDef shapeDef = setUpShapeDef(density, friction, restitution);
             // std::cout << "Set up rectangle shape def\n";
 
-            b2Polygon box2dRect = b2MakeBox(sfmlWidth * Engine::Physics::physicsScaleInv / 2, sfmlHeight * Engine::Physics::physicsScaleInv / 2);
+            sf::Vector2f offset = {city[0].width / 2, 0};
+
+            std::vector<b2Polygon> box2dRects;
+            box2dRects.push_back(b2MakeBox(city[0].width * Engine::Physics::physicsScaleInv / 2, city[0].height * Engine::Physics::physicsScaleInv / 2));
+            b2CreatePolygonShape(bodyId, &shapeDef, &box2dRects[0]);
+
+            for (size_t i = 1; i < city.size(); i++)
+            {
+                box2dRects.push_back(b2MakeBox(city[i].width * Engine::Physics::physicsScaleInv / 2, city[i].height * Engine::Physics::physicsScaleInv / 2));
+
+                for (int j = 0; j < box2dRects[i].count; j++)
+                {
+                    box2dRects[i].vertices[j] += b2Vec2(Engine::Physics::sfmlToBox2dScale(offset));
+                }
+
+                b2CreatePolygonShape(bodyId, &shapeDef, &box2dRects[i]);
+                offset.x += city[i].width;
+            }
+
             // std::cout << "Defined box2dRect\n";
 
-            b2CreatePolygonShape(bodyId, &shapeDef, &box2dRect);
             // b2Body_EnableContactEvents(bodyId, true);
 
             // std::cout << "Created polygon shape\n";
@@ -30,23 +48,8 @@ namespace Game
             // std::cout << "Set cityscape gravity scale.\n";
         }
 
-        void Physics::updateCityscape(sf::RenderWindow &window, b2BodyId &bodyId, float &angle, float maxTilt, float tiltSpeed, sf::Vector2f sfmlPosition, float maxBump, float bumpVelocity)
+        void Physics::updateCityscape(sf::RenderWindow &window, b2BodyId &bodyId, sf::Vector2f sfmlPosition, float maxBump, float bumpVelocity)
         {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-            {
-                if (angle < maxTilt)
-                {
-                    angle += tiltSpeed * Engine::Physics::timeStep;
-                }
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-            {
-                if (angle > -maxTilt)
-                {
-                    angle -= tiltSpeed * Engine::Physics::timeStep;
-                }
-            }
-
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && b2Body_GetPosition(bodyId).y < Engine::Physics::sfmlToBox2dScale(Engine::Physics::invertHeight((sfmlPosition), window.getSize().y)).y + maxBump)
             {
                 b2Body_SetLinearVelocity(bodyId, {0, bumpVelocity});
@@ -62,10 +65,6 @@ namespace Game
                     b2Body_SetLinearVelocity(bodyId, {0, 0});
                 }
             }
-
-            b2Body_SetAngularVelocity(bodyId, angle);
-
-            b2Body_SetTransform(bodyId, b2Body_GetPosition(bodyId), {{cos(angle)}, sin(angle)});
         }
 
         // Stars & Stardust

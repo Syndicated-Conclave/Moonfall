@@ -10,6 +10,12 @@ namespace Game
 {
     namespace Entities
     {
+        struct Building
+        {
+            float width;
+            float height;
+        };
+
         class Cityscape
         {
         public:
@@ -20,13 +26,10 @@ namespace Game
 
             Engine::Entity *entity;
             sf::Vector2f sfmlPosition;
-            float angle = 0.f; // radians
+            static std::vector<Building> city;
 
             static constexpr float SFML_WIDTH = 2000.f;
             static constexpr float SFML_HEIGHT = 200.f;
-
-            static constexpr float TILT_SPEED = 0.02f;
-            static constexpr float MAX_TILT = 0.25f;
 
             static constexpr float BUMP_VELOCITY = 2.f;
             static constexpr float MAX_BUMP = 1.f;
@@ -36,6 +39,9 @@ namespace Game
             static constexpr float RESTITUTION = 0.1f; // bounciness
 
             static constexpr int COLOUR = 0x282828; // hex value!
+        private:
+            static void init_city();
         };
+
     }
 }
