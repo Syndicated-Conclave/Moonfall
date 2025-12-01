@@ -19,23 +19,36 @@ namespace Game
             b2ShapeDef shapeDef = setUpShapeDef(density, friction, restitution);
             // std::cout << "Set up rectangle shape def\n";
 
-            sf::Vector2f offset = {city[0].width / 2, 0};
-
             std::vector<b2Polygon> box2dRects;
+
+            // create first building
             box2dRects.push_back(b2MakeBox(city[0].width * Engine::Physics::physicsScaleInv / 2, city[0].height * Engine::Physics::physicsScaleInv / 2));
             b2CreatePolygonShape(bodyId, &shapeDef, &box2dRects[0]);
 
-            for (size_t i = 1; i < city.size(); i++)
-            {
-                box2dRects.push_back(b2MakeBox(city[i].width * Engine::Physics::physicsScaleInv / 2, city[i].height * Engine::Physics::physicsScaleInv / 2));
+            // set offset for second building
+            sf::Vector2f offset = {city[0].width / 2 + city[1].width / 2, 0};
 
+            // create second building
+            box2dRects.push_back(b2MakeBox(city[1].width * Engine::Physics::physicsScaleInv / 2, city[1].height * Engine::Physics::physicsScaleInv / 2));
+            for (int j = 0; j < box2dRects[1].count; j++)
+            {
+                box2dRects[1].vertices[j] += b2Vec2(Engine::Physics::sfmlToBox2dScale(offset));
+            }
+            b2CreatePolygonShape(bodyId, &shapeDef, &box2dRects[1]);
+
+            // loop for third++ buildings and offset
+            for (size_t i = 2; i < city.size(); i++)
+            {
+                // set offset
+                offset.x += city[i].width / 2 + city[i - 1].width / 2;
+
+                // create building
+                box2dRects.push_back(b2MakeBox(city[i].width * Engine::Physics::physicsScaleInv / 2, city[i].height * Engine::Physics::physicsScaleInv / 2));
                 for (int j = 0; j < box2dRects[i].count; j++)
                 {
                     box2dRects[i].vertices[j] += b2Vec2(Engine::Physics::sfmlToBox2dScale(offset));
                 }
-
                 b2CreatePolygonShape(bodyId, &shapeDef, &box2dRects[i]);
-                offset.x += city[i].width;
             }
 
             // std::cout << "Defined box2dRect\n";

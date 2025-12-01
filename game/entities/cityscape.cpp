@@ -22,20 +22,30 @@ namespace Game
             Game::Components::Physics::createCityscape(window, entity->physicsBodyIds.back(), sfmlPosition, city, DENSITY, FRICTION, RESTITUTION);
 
             // Graphics
+            // create first building
             entity->graphicsShapes.push_back(std::make_unique<sf::RectangleShape>());
-            auto *rect = static_cast<sf::RectangleShape *>(entity->graphicsShapes[0].get());
+            auto *rect1 = static_cast<sf::RectangleShape *>(entity->graphicsShapes[0].get());
+            Game::Components::Graphics::createCityscape(window, *rect1, sfmlPosition, city[0].width, city[0].height, COLOUR);
 
-            Game::Components::Graphics::createCityscape(window, *rect, sfmlPosition, city[0].width, city[0].height, COLOUR);
+            // set offset for second building
+            sf::Vector2f offset = {city[0].width / 2 + city[1].width / 2, 0};
 
-            sf::Vector2f offset = {city[0].width / 2, 0};
+            // create second building
+            entity->graphicsShapes.push_back(std::make_unique<sf::RectangleShape>());
+            auto *rect2 = static_cast<sf::RectangleShape *>(entity->graphicsShapes[1].get());
+            Game::Components::Graphics::createCityscape(window, *rect2, sfmlPosition + offset, city[1].width, city[1].height, COLOUR);
 
-            for (size_t i = 1; i < city.size(); i++)
+            // loop for third++ building
+            for (size_t i = 2; i < city.size(); i++)
             {
+                // set offset
+                offset.x += city[i].width / 2 + city[i - 1].width / 2;
+
+                // create building
+
                 entity->graphicsShapes.push_back(std::make_unique<sf::RectangleShape>());
                 auto *rect = static_cast<sf::RectangleShape *>(entity->graphicsShapes[i].get());
-
                 Game::Components::Graphics::createCityscape(window, *rect, sfmlPosition + offset, city[i].width, city[i].height, COLOUR);
-                offset.x += city[i].width;
             }
         }
 
@@ -46,20 +56,28 @@ namespace Game
 
             // Graphics
             sf::Vector2f newPosition = Engine::Physics::invertHeight(Engine::Physics::box2dToSfmlScale(b2Body_GetPosition(entity->physicsBodyIds.back())), window.getSize().y);
-            float angle = -b2Rot_GetAngle(b2Body_GetRotation(entity->physicsBodyIds.back())) * 180.f / B2_PI;
+            float angle = 0.f;
 
-            auto *rect = static_cast<sf::RectangleShape *>(entity->graphicsShapes[0].get());
+            // update first bulding
+            auto *rect1 = static_cast<sf::RectangleShape *>(entity->graphicsShapes[0].get());
+            Game::Components::Graphics::updateShape(window, *rect1, newPosition, angle);
 
-            Game::Components::Graphics::updateShape(window, *rect, newPosition, angle);
+            // set offset for second building
+            sf::Vector2f offset = {city[0].width / 2 + city[1].width / 2, 0};
 
-            sf::Vector2f offset = {city[0].width / 2, 0};
+            // update second building
+            auto *rect2 = static_cast<sf::RectangleShape *>(entity->graphicsShapes[1].get());
+            Game::Components::Graphics::updateShape(window, *rect2, newPosition + offset, angle);
 
-            for (size_t i = 1; i < city.size(); i++)
+            // loop for third++ buildings and offset
+            for (size_t i = 2; i < city.size(); i++)
             {
-                auto *rect = static_cast<sf::RectangleShape *>(entity->graphicsShapes[i].get());
+                // set offset
+                offset.x += city[i].width / 2 + city[i - 1].width / 2;
 
+                // update building
+                auto *rect = static_cast<sf::RectangleShape *>(entity->graphicsShapes[i].get());
                 Game::Components::Graphics::updateShape(window, *rect, newPosition + offset, angle);
-                offset.x += city[i].width;
             }
         }
 
@@ -74,20 +92,20 @@ namespace Game
         void Cityscape::init_city()
         {
             city.push_back({120.f, 300.f});
-            city.push_back({150.f, 420.f});
-            city.push_back({200.f, 180.f});
+            city.push_back({150.f, 450.f});
+            city.push_back({200.f, 150.f});
             city.push_back({130.f, 400.f});
-            city.push_back({170.f, 390.f});
+            city.push_back({170.f, 300.f});
             city.push_back({120.f, 200.f});
-            city.push_back({150.f, 220.f});
-            city.push_back({200.f, 180.f});
+            city.push_back({150.f, 250.f});
+            city.push_back({200.f, 150.f});
             city.push_back({130.f, 300.f});
-            city.push_back({170.f, 490.f});
+            city.push_back({170.f, 500.f});
             city.push_back({120.f, 200.f});
-            city.push_back({150.f, 320.f});
-            city.push_back({200.f, 180.f});
+            city.push_back({150.f, 350.f});
+            city.push_back({200.f, 150.f});
             city.push_back({130.f, 400.f});
-            city.push_back({170.f, 390.f});
+            city.push_back({170.f, 100.f});
         }
     }
 
