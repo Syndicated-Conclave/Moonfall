@@ -13,7 +13,7 @@ namespace Game
             init_city();
             // float sfmlPosX = window.getSize().x / 2;
             float sfmlPosX = 60.f;
-            float sfmlPosY = window.getSize().y;
+            float sfmlPosY = window.getSize().y + MAX_BUMP * Engine::Physics::physicsScale;
 
             sfmlPosition = sf::Vector2f(sfmlPosX, sfmlPosY);
 
@@ -94,16 +94,20 @@ namespace Game
             city.push_back({120.f, 300.f});
             city.push_back({150.f, 450.f});
             city.push_back({200.f, 150.f});
+            city.push_back({40.f, 1.f}); // gap
             city.push_back({130.f, 400.f});
             city.push_back({170.f, 300.f});
             city.push_back({120.f, 200.f});
             city.push_back({150.f, 250.f});
+            city.push_back({40.f, 1.f}); // gap
             city.push_back({200.f, 150.f});
             city.push_back({130.f, 300.f});
             city.push_back({170.f, 500.f});
             city.push_back({120.f, 200.f});
+            city.push_back({40.f, 1.f}); // gap
             city.push_back({150.f, 350.f});
             city.push_back({200.f, 150.f});
+            city.push_back({40.f, 1.f}); // gap
             city.push_back({130.f, 400.f});
             city.push_back({170.f, 100.f});
         }
