@@ -24,7 +24,7 @@ namespace Game
                 void Add(std::unique_ptr<Game::Components::State> toAdd, bool replace = false);
                 void PopCurrent();
                 void ProcessStateChange();
-                std::unique_ptr<Game::Components::State>& getCurrent();
+                std::unique_ptr<Game::Components::State>& GetCurrent();
         };
 
     }
