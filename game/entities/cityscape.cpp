@@ -25,7 +25,7 @@ namespace Game
             // create first building
             entity->graphicsShapes.push_back(std::make_unique<sf::RectangleShape>());
             auto *rect1 = static_cast<sf::RectangleShape *>(entity->graphicsShapes[0].get());
-            Game::Components::Graphics::createCityscape(window, *rect1, sfmlPosition, city[0].width, city[0].height, COLOUR);
+            Game::Components::Graphics::createBuilding(window, *rect1, sfmlPosition, city[0].width, city[0].height, COLOUR);
 
             // init offset
             sf::Vector2f offset = {0, 0};
@@ -40,7 +40,7 @@ namespace Game
 
                 entity->graphicsShapes.push_back(std::make_unique<sf::RectangleShape>());
                 auto *rect = static_cast<sf::RectangleShape *>(entity->graphicsShapes[i].get());
-                Game::Components::Graphics::createCityscape(window, *rect, sfmlPosition + offset, city[i].width, city[i].height, COLOUR);
+                Game::Components::Graphics::createBuilding(window, *rect, sfmlPosition + offset, city[i].width, city[i].height, COLOUR);
             }
         }
 
