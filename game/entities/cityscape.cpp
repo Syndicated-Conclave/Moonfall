@@ -82,7 +82,7 @@ namespace Game
 
         void Cityscape::init_city()
         {
-            city.push_back({3600.f, 500.f});
+            // city.push_back({3600.f, 500.f});
 
             city.push_back({120.f, 300.f});
             city.push_back({150.f, 450.f});

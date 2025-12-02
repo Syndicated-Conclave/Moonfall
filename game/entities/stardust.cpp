@@ -28,9 +28,9 @@ namespace Game
 
         void Stardust::update(sf::RenderWindow &window, sf::Vector2f moonPosition)
         {
-            sf::Vector2f currrentPosition = Engine::Physics::invertHeight(Engine::Physics::box2dToSfmlScale(b2Body_GetPosition(entity->physicsBodyIds.front())), window.getSize().y);
+            sf::Vector2f currentPosition = Engine::Physics::invertHeight(Engine::Physics::box2dToSfmlScale(b2Body_GetPosition(entity->physicsBodyIds.front())), window.getSize().y);
 
-            direction = Game::Components::AI::getDirection(direction, spawnPosition, currrentPosition, moonPosition, type);
+            direction = Game::Components::AI::getDirection(direction, spawnPosition, currentPosition, moonPosition, type);
 
             Game::Components::Physics::updateStardust(window, entity->physicsBodyIds, direction, SPEED);
 

@@ -99,10 +99,6 @@ namespace Game
             // std::cout << "....\n";
 
             b2ContactEvents events = b2World_GetContactEvents(Engine::Physics::getWorldId());
-            if (events.beginCount != 0)
-            {
-                // std::cout << "beginCount = " << events.beginCount << "\n";
-            }
 
             for (size_t i = 0; i < bodyIds.size(); i++)
             {
@@ -111,72 +107,39 @@ namespace Game
                     if ((B2_ID_EQUALS(b2Shape_GetBody(events.beginEvents[e].shapeIdA), bodyIds[i])) || (B2_ID_EQUALS(b2Shape_GetBody(events.beginEvents[e].shapeIdB), bodyIds[i])))
                     {
                         // std::cout << "YAAAY\n";
-                        b2Body_Disable(bodyIds[i]);
-                        // ++ points
+                        if (i == 0)
+                        {
+                            for (size_t j = 0; j < bodyIds.size(); j++)
+                            {
+                                b2Body_Disable(bodyIds[j]);
+                            }
+
+                            // ++ points
+                        }
+                        else
+                        {
+                            b2Body_Disable(bodyIds[i]);
+                        }
                     }
-
-                    /*
-                    auto bodyA = b2Shape_GetBody(events.beginEvents[e].shapeIdA);
-                    auto bodyB = b2Shape_GetBody(events.beginEvents[e].shapeIdB);
-
-                    std::cout
-                        << "Comparing bodyIds[" << i << "]:\n Star:\t index=" << bodyIds[i].index1 << " gen=" << bodyIds[i].generation << " world=" << bodyIds[i].world0 << "\n";
-
-                    std::cout
-                        << "Event A:\t index=" << bodyA.index1 << " gen=" << bodyA.generation << " world=" << bodyA.world0 << "\n";
-
-                    std::cout
-                        << "Event B:\t index=" << bodyB.index1 << " gen=" << bodyB.generation << " world=" << bodyB.world0 << "\n\n";
-                    */
                 }
-            }
 
-            /*
-            b2SensorEvents events = b2World_GetSensorEvents(Engine::Physics::getWorldId());
-            std::cout << "beginCount = " << events.beginCount << "\n";
+                b2Vec2 velocity = b2MulSV(speed, Engine::Physics::sfmlToBox2dScale({direction.x, -direction.y}));
+                sf::Vector2f maxHeight(0, 0);
+                sf::Vector2f minHeight(0, window.getSize().y);
 
-            for (size_t i = 0; i < bodyIds.size(); i++)
-            {
-                for (int e = 0; e < events.beginCount; e++)
+                for (size_t i = 0; i < bodyIds.size(); i++)
                 {
-                    if (B2_ID_EQUALS(b2Shape_GetBody(events.beginEvents->sensorShapeId), bodyIds[i]))
+                    b2Vec2 currentPosition = b2Body_GetPosition(bodyIds[i]);
+
+                    if ((currentPosition.y <= Engine::Physics::sfmlToBox2dScale(Engine::Physics::invertHeight(minHeight, window.getSize().y)).y && velocity.y < 0) || (currentPosition.y >= Engine::Physics::sfmlToBox2dScale(Engine::Physics::invertHeight(maxHeight, window.getSize().y)).y && velocity.y > 0))
                     {
-                        b2Body_Disable(bodyIds[i]);
-                        // ++ points
+                        velocity.y = 0;
                     }
                 }
-            }
-
-
-           for (size_t i = 0; i < bodyIds.size(); i++)
-           {
-               b2ContactData contactData;
-
-               int numOfElements = b2Body_GetContactData(bodyIds[i], &contactData, 1);
-               // std::cout << "Yay\n" << numOfElements << "\n";
-               if (numOfElements == 0)
-               {
-                   b2Body_Disable(bodyIds[i]);
-               }
-               // ++  points
-           }
-           */
-            b2Vec2 velocity = b2MulSV(speed, Engine::Physics::sfmlToBox2dScale(direction));
-            sf::Vector2f maxHeight(0, 0);
-            sf::Vector2f minHeight(0, window.getSize().y);
-
-            for (size_t i = 0; i < bodyIds.size(); i++)
-            {
-                b2Vec2 currentPosition = b2Body_GetPosition(bodyIds[i]);
-
-                if ((currentPosition.y <= Engine::Physics::sfmlToBox2dScale(Engine::Physics::invertHeight(minHeight, window.getSize().y)).y && velocity.y < 0) || (currentPosition.y >= Engine::Physics::sfmlToBox2dScale(Engine::Physics::invertHeight(maxHeight, window.getSize().y)).y && velocity.y > 0))
+                for (size_t i = 0; i < bodyIds.size(); i++)
                 {
-                    velocity.y = 0;
+                    b2Body_SetLinearVelocity(bodyIds[i], velocity);
                 }
-            }
-            for (size_t i = 0; i < bodyIds.size(); i++)
-            {
-                b2Body_SetLinearVelocity(bodyIds[i], velocity);
             }
         }
 
@@ -215,13 +178,13 @@ namespace Game
                     counter = cooldown;
                 }
             }
-            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
             {
                 b2Body_ApplyForceToCenter(bodyId, {1000, 0}, true);
 
                 // b2Body_SetLinearVelocity(bodyId, {5, 0});
             }
-            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
             {
                 // b2Body_SetLinearVelocity(bodyId, {-5, 0});
 
@@ -311,6 +274,5 @@ namespace Game
 
             return shapeDef;
         }
-
     }
 }

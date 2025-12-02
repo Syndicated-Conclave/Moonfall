@@ -50,19 +50,20 @@ namespace Game
 
     sf::Vector2f AI::getLeoDirection(sf::Vector2f spawnPosition, sf::Vector2f currentPosition, sf::Vector2f moonPosition)
     {
-      sf::Vector2f direction;
-
       sf::Vector2f distanceVector = currentPosition - moonPosition;
 
       float distance = std::sqrt(distanceVector.x * distanceVector.x + distanceVector.y * distanceVector.y);
 
       if (distance < FLEE_DISTANCE)
       {
-        return normaliseDirection({distanceVector.x, -distanceVector.y}) * FLEE_SPEED;
+        return normaliseDirection(distanceVector) * FLEE_SPEED;
       }
-      else if (!goalReached({currentPosition.x, -currentPosition.y}, spawnPosition))
+      else if (!goalReached(currentPosition, spawnPosition))
       {
-        return normaliseDirection({(spawnPosition - currentPosition).x, (currentPosition - spawnPosition).y});
+        // std::cout << "\ncurrent: " << currentPosition.x << ", " << currentPosition.y;
+        // std::cout << "\spawn: " << spawnPosition.x << ", " << spawnPosition.y;
+
+        return normaliseDirection(spawnPosition - currentPosition);
       }
 
       return {0, 0};
@@ -80,7 +81,7 @@ namespace Game
 
     bool AI::goalReached(sf::Vector2f current, sf::Vector2f goal)
     {
-      sf::Vector2f roundedCurrent = {std::round(current.x), -std::round(current.y)};
+      sf::Vector2f roundedCurrent = {std::round(current.x), std::round(current.y)};
       sf::Vector2f roundedGoal = {std::round(goal.x), std::round(goal.y)};
 
       if (roundedCurrent == roundedGoal)
