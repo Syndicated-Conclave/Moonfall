@@ -22,7 +22,7 @@ namespace Game
             std::vector<b2Polygon> box2dRects;
 
             // create first building
-            box2dRects.push_back(b2MakeBox(city[0].width * Engine::Physics::physicsScaleInv / 2, city[0].height * Engine::Physics::physicsScaleInv / 2));
+            box2dRects.push_back(b2MakeBox(city[0].width * Engine::Physics::PHYSICS_SCALE_INV / 2, city[0].height * Engine::Physics::PHYSICS_SCALE_INV / 2));
             b2CreatePolygonShape(bodyId, &shapeDef, &box2dRects[0]);
 
             // init offset
@@ -35,7 +35,7 @@ namespace Game
                 offset.x += city[i].width / 2 + city[i - 1].width / 2;
 
                 // create building
-                box2dRects.push_back(b2MakeBox(city[i].width * Engine::Physics::physicsScaleInv / 2, city[i].height * Engine::Physics::physicsScaleInv / 2));
+                box2dRects.push_back(b2MakeBox(city[i].width * Engine::Physics::PHYSICS_SCALE_INV / 2, city[i].height * Engine::Physics::PHYSICS_SCALE_INV / 2));
                 for (int j = 0; j < box2dRects[i].count; j++)
                 {
                     box2dRects[i].vertices[j] += b2Vec2(Engine::Physics::sfmlToBox2dScale(offset));
@@ -85,7 +85,7 @@ namespace Game
             shapeDef.isSensor = false;
             //    std::cout << "Set up circle shape def\n\n";
 
-            b2Circle box2dCircle = {{0.f, 0.f}, sfmlDiameter * Engine::Physics::physicsScaleInv / 2};
+            b2Circle box2dCircle = {{0.f, 0.f}, sfmlDiameter * Engine::Physics::PHYSICS_SCALE_INV / 2};
             // std::cout << "Defined box2dCircle\n\n";
 
             b2CreateCircleShape(bodyId, &shapeDef, &box2dCircle);
@@ -98,7 +98,7 @@ namespace Game
         {
             // std::cout << "....\n";
 
-            b2ContactEvents events = b2World_GetContactEvents(Engine::Physics::getWorldId());
+            b2ContactEvents events = Engine::Physics::getContactEvents();
 
             for (size_t i = 0; i < bodyIds.size(); i++)
             {
@@ -155,7 +155,7 @@ namespace Game
 
             // std::cout << "Set up circle shape def\n\n";
 
-            b2Circle box2dCircle = {{0.f, 0.f}, sfmlDiameter * Engine::Physics::physicsScaleInv / 2};
+            b2Circle box2dCircle = {{0.f, 0.f}, sfmlDiameter * Engine::Physics::PHYSICS_SCALE_INV / 2};
             // std::cout << "Defined box2dCircle\n\n";
 
             b2CreateCircleShape(bodyId, &shapeDef, &box2dCircle);

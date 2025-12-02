@@ -13,7 +13,7 @@ namespace Game
             init_city();
             // float sfmlPosX = window.getSize().x / 2;
             float sfmlPosX = 60.f;
-            float sfmlPosY = window.getSize().y + MAX_BUMP * Engine::Physics::physicsScale;
+            float sfmlPosY = window.getSize().y + MAX_BUMP * Engine::Physics::PHYSICS_SCALE;
 
             sfmlPosition = sf::Vector2f(sfmlPosX, sfmlPosY);
 

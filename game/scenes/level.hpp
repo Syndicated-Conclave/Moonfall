@@ -10,7 +10,7 @@ namespace Game
         class Level
         {
         public:
-            void basicPhysicsSetUp(sf::RenderWindow &window, Engine::EntityManager &ecm);
+            void level1(sf::RenderWindow &window, Engine::EntityManager &ecm);
         };
     }
 }

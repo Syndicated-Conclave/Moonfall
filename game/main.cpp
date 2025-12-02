@@ -14,9 +14,9 @@ int main()
 
   Engine::EntityManager ecm;
 
-  Game::Scenes::Level level;
+  Game::Scenes::Level levels;
 
-  level.basicPhysicsSetUp(window, ecm);
+  levels.level1(window, ecm);
 
   /*
   // Adding custom font and styling for title
