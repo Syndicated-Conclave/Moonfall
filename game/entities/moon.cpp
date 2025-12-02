@@ -27,7 +27,7 @@ namespace Game
 
             float angle = b2Rot_GetAngle(b2Body_GetRotation(entity->physicsBodyIds.back())) * 180.f / B2_PI;
 
-            Game::Components::Graphics::updateShape(window, *entity->graphicsShapes.back(), sfmlPosition, angle);
+            Game::Components::Graphics::updateShape(window, *entity->graphicsShapes.back(), sfmlPosition, angle, true);
         }
 
         void Moon::render(sf::RenderWindow &window)

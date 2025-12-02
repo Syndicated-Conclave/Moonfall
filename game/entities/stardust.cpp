@@ -42,7 +42,7 @@ namespace Game
 
                     float angle = b2Rot_GetAngle(b2Body_GetRotation(entity->physicsBodyIds[i])) * 180.f / B2_PI;
 
-                    Game::Components::Graphics::updateShape(window, *entity->graphicsShapes[i], newPosition, angle);
+                    Game::Components::Graphics::updateShape(window, *entity->graphicsShapes[i], newPosition, angle, false);
                 }
             }
         }

@@ -6,14 +6,14 @@ namespace Game
 {
     namespace Components
     {
-
+        sf::Vector2f Game::Components::Graphics::cameraOffset = {0.f, 0.f};
         void Graphics::createCityscape(sf::RenderWindow &window, sf::RectangleShape &shape, sf::Vector2f sfmlPosition, float sfmlWidth, float sfmlHeight, int colour)
         {
             shape.setSize({sfmlWidth, sfmlHeight});
             shape.setFillColor(Engine::Utils::hexToSfmlColour(colour));
             shape.setOrigin(sfmlWidth / 2, sfmlHeight / 2); // center origin
             shape.setPosition(sfmlPosition);
-            //std::cout << "Set polygon shape attributes\n";
+            // std::cout << "Set polygon shape attributes\n";
         }
 
         void Graphics::createMoon(sf::RenderWindow &window, sf::CircleShape &shape, sf::Vector2f sfmlPosition, float sfmlDiameter, int colour)
@@ -22,7 +22,7 @@ namespace Game
             shape.setFillColor(Engine::Utils::hexToSfmlColour(colour));
             shape.setOrigin(sfmlDiameter / 2, sfmlDiameter / 2); // center origin
             shape.setPosition(sfmlPosition);
-            //std::cout << "Set circle shape attributes\n";
+            // std::cout << "Set circle shape attributes\n";
         }
 
         void Graphics::createStar(sf::RenderWindow &window, sf::ConvexShape &shape, sf::Vector2f sfmlPosition, float sfmlDiameter, int colour)
@@ -43,9 +43,22 @@ namespace Game
             shape.setPosition(sfmlPosition);
         }
 
-        void Graphics::updateShape(sf::RenderWindow &window, sf::Shape &shape, sf::Vector2f newPosition, float angle)
+        void Graphics::updateShape(sf::RenderWindow &window, sf::Shape &shape, sf::Vector2f newPosition, float angle, bool isMoon)
         {
-            shape.setPosition(newPosition);
+            if (isMoon)
+            {
+                if (newPosition.x > window.getSize().x * 0.5f)
+                {
+                    Game::Components::Graphics::cameraOffset = {window.getSize().x * 0.5f - newPosition.x, 0};
+                }
+                else
+                {
+                    Game::Components::Graphics::cameraOffset = {0, 0};
+                }
+                shape.setPosition(newPosition - Game::Components::Graphics::cameraOffset);
+                shape.setRotation(angle);
+            }
+            shape.setPosition(newPosition + Game::Components::Graphics::cameraOffset);
             shape.setRotation(angle);
         }
 

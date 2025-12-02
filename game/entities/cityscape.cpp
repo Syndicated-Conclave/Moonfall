@@ -55,7 +55,7 @@ namespace Game
 
             // update first bulding
             auto *rect1 = static_cast<sf::RectangleShape *>(entity->graphicsShapes[0].get());
-            Game::Components::Graphics::updateShape(window, *rect1, newPosition, angle);
+            Game::Components::Graphics::updateShape(window, *rect1, newPosition, angle, false);
 
             // init offset
             sf::Vector2f offset = {0, 0};
@@ -68,7 +68,7 @@ namespace Game
 
                 // update building
                 auto *rect = static_cast<sf::RectangleShape *>(entity->graphicsShapes[i].get());
-                Game::Components::Graphics::updateShape(window, *rect, newPosition + offset, angle);
+                Game::Components::Graphics::updateShape(window, *rect, newPosition + offset, angle, false);
             }
         }
 
