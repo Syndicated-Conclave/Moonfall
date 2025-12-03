@@ -9,7 +9,7 @@ namespace Game
 {
     namespace Scenes
     {
-        void Level::basicPhysicsSetUp(sf::RenderWindow &window, Engine::EntityManager &ecm)
+        void Level::level1(sf::RenderWindow &window, Engine::EntityManager &ecm)
         {
             // std::cout << "Reached basicPhysicsSetUp\n";
             //  Vars
@@ -31,6 +31,7 @@ namespace Game
 
             // std::cout << "Created stardust.\n";
 
+            window.setKeyRepeatEnabled(false);
             int counter = 0;
             // Loop
             while (window.isOpen())
@@ -40,11 +41,13 @@ namespace Game
                 while (window.pollEvent(event))
                 {
                     if (event.type == sf::Event::Closed)
+                    {
                         window.close();
+                    }
                 }
 
                 // Step the physics world
-                Engine::Physics::update(Engine::Physics::timeStep);
+                Engine::Physics::update();
                 // std::cout << "Time stepped physics world\n";
                 // std::cout << counter++ << "\n";
                 // Update cityscape & moon

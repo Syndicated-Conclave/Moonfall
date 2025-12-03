@@ -2,12 +2,12 @@
 
 namespace Engine
 {
-    b2WorldId Physics::_worldId = b2_nullWorldId;
+    b2WorldId Physics::_worldId = b2_nullWorldId; // initialise static variable with null value
 
     void Physics::initialise()
     {
         b2WorldDef worldDef = b2DefaultWorldDef();
-        worldDef.gravity = b2Vec2({0.0f, gravity});
+        worldDef.gravity = b2Vec2({0.0f, GRAVITY});
         _worldId = b2CreateWorld(&worldDef);
     }
 
@@ -16,9 +16,9 @@ namespace Engine
         b2DestroyWorld(_worldId);
     }
 
-    void Physics::update(const float &time_step)
+    void Physics::update()
     {
-        b2World_Step(_worldId, time_step, subStepCount);
+        b2World_Step(_worldId, TIME_STEP, SUB_STEP_COUNT);
     }
 
     b2WorldId Physics::getWorldId()
@@ -26,27 +26,21 @@ namespace Engine
         return _worldId;
     }
 
-    // COMPARED WITH DOCUMENTATION UP TO HERE
-
     b2ContactEvents Physics::getContactEvents()
     {
         return b2World_GetContactEvents(_worldId);
     }
 
-    // Convert from b2Vec2 to a Vector2f
-    const sf::Vector2f Physics::box2dToSfmlScale(const b2Vec2 &in)
+    sf::Vector2f Physics::box2dToSfmlScale(b2Vec2 box2dVec)
     {
-        return sf::Vector2f(in.x * physicsScale, (in.y * physicsScale));
+        return sf::Vector2f(box2dVec.x * PHYSICS_SCALE, (box2dVec.y * PHYSICS_SCALE));
     }
-    // Convert from Vector2f to a b2Vec2
-    const b2Vec2 Physics::sfmlToBox2dScale(const sf::Vector2f &in)
+    b2Vec2 Physics::sfmlToBox2dScale(sf::Vector2f sfmlVec)
     {
-        return {in.x * physicsScaleInv, in.y * physicsScaleInv};
+        return {sfmlVec.x * PHYSICS_SCALE_INV, sfmlVec.y * PHYSICS_SCALE_INV};
     }
-    // Convert from screenspace.y to physics.y (as they are the other way around)
-    const sf::Vector2f Physics::invertHeight(const sf::Vector2f &in, const int &game_height)
+    sf::Vector2f Physics::invertHeight(sf::Vector2f sfmlVec, int game_height)
     {
-        return sf::Vector2f(in.x, game_height - in.y);
+        return sf::Vector2f(sfmlVec.x, game_height - sfmlVec.y);
     }
-
 }
