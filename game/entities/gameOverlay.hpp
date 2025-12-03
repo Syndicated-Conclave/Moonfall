@@ -12,12 +12,14 @@ namespace Game
             public:
                 
                 //Objects                   
-                sf::Clock countdown;    
+                sf::Clock countdown;
+                Game::Entities::UI ui;    
                 
                 //variables
                 sf::Vector2f posX;
                 sf::Vector2f posY;
 
+                int points;
                 int gameTime;
                 float timeTaken;
                 int timeLeft;

@@ -14,6 +14,16 @@ namespace Game
 {
     namespace Entities
     {
+        //points
+        int Game::Entities::points = 0;
+        
+        //timer
+        sf::Clock countdown;
+        /*Setting game time to two minutes*/
+        int gameTime = 120;
+        float timeTaken = countdown.getElapsedTime().asSeconds();
+        int timeLeft = gameTime - countdown.getElapsedTime().asSeconds();
+        
         
         //while(game_isPlaying == true) // some sort of while loop with a bool so that the UI only shows when the game is being played
         //{
@@ -29,14 +39,14 @@ namespace Game
                 Timer.setFont(font);
                 Timer.setCharacterSize(48);
                 
-                Timer.setString("Time Left: "); // needs timer code plugged in from Cass' sunrise code
+                Timer.setString("Time Left: " + timeLeft);
 
                 //star dust counter variables
                 StarDustCounter.setFillColor(sf::Color(255, 255, 225));
                 StarDustCounter.setPosition({1500.f, 10.f});
                 StarDustCounter.setFont(font);
                 StarDustCounter.setCharacterSize(48);
-                StarDustCounter.setString("Star Dust Collected: " + main.points ); // will need a counter made to plug into string
+                StarDustCounter.setString("Star Dust Collected: " + Game::Entities::points + " / " +  ); 
             };
 
             void UI::input(sf::RenderWindow &window)
