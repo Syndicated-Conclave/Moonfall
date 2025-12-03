@@ -8,18 +8,22 @@ namespace Game
         {
             constellation = init_constellation(type);
 
+            // each star in the stardust constellation has its own physics body and graphics shape
+            // this is so they can easily move and act as one or as the individual stars as needed
             for (size_t i = 0; i < constellation.size(); i++)
             {
+                // in each constellation a central star was determined which is used for positioning
+                // this star is at the stardust's {0,0} so the offset is each stars coordinate
                 spawnPosition = sfmlPosition;
                 Stardust::type = type;
-
                 sf::Vector2f offset = constellation[i];
-
                 sf::Vector2f starSfmlPosition = sfmlPosition + offset;
 
+                // Physics
                 entity->physicsBodyIds.push_back(b2_nullBodyId);
                 Game::Components::Physics::createStar(window, entity->physicsBodyIds.back(), starSfmlPosition, SFML_DIAMETER, DENSITY, FRICTION, RESTITUTION);
 
+                // Graphics
                 entity->graphicsShapes.push_back(std::make_unique<sf::ConvexShape>());
                 auto *star = static_cast<sf::ConvexShape *>(entity->graphicsShapes.back().get());
                 Game::Components::Graphics::createStar(window, *star, starSfmlPosition, SFML_DIAMETER, COLOUR);
@@ -28,20 +32,21 @@ namespace Game
 
         void Stardust::update(sf::RenderWindow &window, sf::Vector2f moonPosition)
         {
+            // AI (automated steering behaviour)
             sf::Vector2f currentPosition = Engine::Physics::invertHeight(Engine::Physics::box2dToSfmlScale(b2Body_GetPosition(entity->physicsBodyIds.front())), window.getSize().y);
-
             direction = Game::Components::AI::getDirection(direction, spawnPosition, currentPosition, moonPosition, type);
 
+            // Physics
             Game::Components::Physics::updateStardust(window, entity->physicsBodyIds, direction, SPEED);
 
+            // Graphics
             for (size_t i = 0; i < entity->physicsBodyIds.size(); i++)
             {
+                // if the star has not been collected
                 if (b2Body_IsEnabled(entity->physicsBodyIds[i]))
                 {
                     sf::Vector2f newPosition = Engine::Physics::invertHeight(Engine::Physics::box2dToSfmlScale(b2Body_GetPosition(entity->physicsBodyIds[i])), window.getSize().y);
-
                     float angle = b2Rot_GetAngle(b2Body_GetRotation(entity->physicsBodyIds[i])) * 180.f / B2_PI;
-
                     Game::Components::Graphics::updateShape(window, *entity->graphicsShapes[i], newPosition, angle, false);
                 }
             }
@@ -51,6 +56,7 @@ namespace Game
         {
             for (size_t i = 0; i < entity->physicsBodyIds.size(); i++)
             {
+                // if the star has not been collected
                 if (b2Body_IsEnabled(entity->physicsBodyIds[i]))
                 {
                     window.draw(*entity->graphicsShapes[i]);
@@ -75,7 +81,7 @@ namespace Game
                 return leo;
                 break;
             default:
-                return orionsBelt;
+                return orionsBelt; // should not happen, added as a failsafe
             }
         }
 

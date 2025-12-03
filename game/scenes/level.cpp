@@ -40,10 +40,10 @@ namespace Game
                 sf::Event event;
                 while (window.pollEvent(event))
                 {
-                    moon.handleEvent(window, event);
-
                     if (event.type == sf::Event::Closed)
+                    {
                         window.close();
+                    }
                 }
 
                 // Step the physics world
