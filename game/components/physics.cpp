@@ -74,7 +74,7 @@ namespace Game
             b2Body_EnableContactEvents(bodyId, true);
         }
 
-        void Physics::updateStardust(sf::RenderWindow &window, std::vector<b2BodyId> bodyIds, sf::Vector2f direction, float speed)
+        void Physics::updateStardust(sf::RenderWindow &window, std::vector<b2BodyId> bodyIds, sf::Vector2f direction, float speed, int &collectedPoints)
         {
             b2ContactEvents events = Engine::Physics::getContactEvents();
 
@@ -90,14 +90,17 @@ namespace Game
                         {
                             for (size_t j = 0; j < bodyIds.size(); j++)
                             {
-                                b2Body_Disable(bodyIds[j]);
-                                // ++ points
+                                if (b2Body_IsEnabled(bodyIds[j]))
+                                {
+                                    b2Body_Disable(bodyIds[j]);
+                                    collectedPoints++;
+                                }
                             }
                         }
                         else // just the contact star is collected
                         {
                             b2Body_Disable(bodyIds[i]);
-                            // ++ points
+                            collectedPoints++;
                         }
                     }
                 }

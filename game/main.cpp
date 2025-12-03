@@ -11,25 +11,6 @@ int main()
 {
     Game::State gameState = Game::State::Menu;
 
-    switch (gameState)
-    {
-    case Game::State::Menu:
-
-        break;
-
-    case Game::State::Playing:
-
-        break;
-
-    case Game::State::GameLose:
-
-        break;
-
-    case Game::State::GameWin:
-
-        break;
-    };
-
     sf::RenderWindow window(sf::VideoMode({Parameters::game_width, Parameters::game_height}), "Moonfall");
 
     // Adding custom font and styling for title
@@ -110,7 +91,7 @@ int main()
             {
                 window.close();
             }
-            if (event.type == sf::Event::MouseButtonPressed)
+            if (gameState == Game::State::Menu && event.type == sf::Event::MouseButtonPressed)
             {
                 sf::Vector2f mouse = window.mapPixelToCoords(
                     sf::Mouse::getPosition(window));
@@ -125,20 +106,20 @@ int main()
                 if (play.getGlobalBounds().contains(mouse))
                 {
                     std::cout << "Play" << std::endl;
-                    Engine::Physics::initialise();
-
-                    Engine::EntityManager ecm;
-
-                    Game::Scenes::Level level;
-
-                    level.level1(window, ecm);
+                    gameState = Game::State::Playing;
+                    // this will change to being a call to levelMenu and then pressing a level button will change the gamestate to playing
                 }
                 if (controls.getGlobalBounds().contains(mouse))
                 {
                     std::cout << "Controls" << std::endl;
                 }
             }
+        }
 
+        switch (gameState)
+        {
+        case Game::State::Menu:
+        {
             window.clear();
             window.draw(sky);
             window.draw(title);
@@ -173,7 +154,32 @@ int main()
             window.draw(exit);
             window.draw(Exit);
             window.display();
+            break;
         }
+
+        case Game::State::Playing:
+
+        {
+            Engine::Physics::initialise();
+
+            Engine::EntityManager ecm;
+
+            Game::Scenes::Level level;
+
+            level.level1(window, ecm, gameState);
+            break;
+        }
+        case Game::State::GameLose:
+        {
+            break;
+        }
+
+        case Game::State::GameWin:
+
+        {
+            break;
+        }
+        };
     }
 
     return 0;

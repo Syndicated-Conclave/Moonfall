@@ -9,7 +9,7 @@ namespace Game
 {
     namespace Scenes
     {
-        void Level::level1(sf::RenderWindow &window, Engine::EntityManager &ecm)
+        void Level::level1(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::State &gameState)
         {
             // std::cout << "Reached basicPhysicsSetUp\n";
             //  Vars
@@ -29,14 +29,18 @@ namespace Game
             Game::Entities::Stardust stardust2(window, ecm, {400, 300}, 2);
             Game::Entities::Stardust stardust3(window, ecm, {800, 300}, 3);
 
+            int requiredPoints = 15;
+
             // std::cout << "Created stardust.\n";
 
             window.setKeyRepeatEnabled(false);
             int counter = 0;
             // Loop
-            while (window.isOpen())
+            while (gameState == Game::State::Playing)
             {
                 // std::cout << "Reached loop\n";
+
+                // this should be removed as far as i know but removing it makes the window stop responding after a few seconds of playing
                 sf::Event event;
                 while (window.pollEvent(event))
                 {
@@ -52,9 +56,13 @@ namespace Game
                 // std::cout << counter++ << "\n";
                 // Update cityscape & moon
 
-                stardust.update(window, moon.sfmlPosition);
-                stardust2.update(window, moon.sfmlPosition);
-                stardust3.update(window, moon.sfmlPosition);
+                stardust.update(window, moon.sfmlPosition, Level::collectedPoints);
+                stardust2.update(window, moon.sfmlPosition, Level::collectedPoints);
+                stardust3.update(window, moon.sfmlPosition, Level::collectedPoints);
+                if (collectedPoints >= requiredPoints)
+                {
+                    gameState = Game::State::Menu; // TEMP AS MENU
+                }
                 // std::cout << "Updating cityscape...\n";
                 cityscape.update(window);
                 // std::cout << "Updated cityscape.\n";

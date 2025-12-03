@@ -24,7 +24,7 @@ namespace Game
             // constructor which creates a new stardust entity made up of stars
             Stardust(sf::RenderWindow &window, Engine::EntityManager &ecm, sf::Vector2f sfmlPosition, int type);
             // handles updating all star components
-            void update(sf::RenderWindow &window, sf::Vector2f moonPosition);
+            void update(sf::RenderWindow &window, sf::Vector2f moonPosition, int &collectedPoints);
             // handles rendering the stars
             void render(sf::RenderWindow &window);
 

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "../../engine/physics.hpp"
 #include "../../engine/ecm.hpp"
+#include "../gameStates.hpp"
 
 namespace Game
 {
@@ -10,7 +11,9 @@ namespace Game
         class Level
         {
         public:
-            void level1(sf::RenderWindow &window, Engine::EntityManager &ecm);
+            void level1(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::State &gameState);
+
+            int collectedPoints = 0;
         };
     }
 }
