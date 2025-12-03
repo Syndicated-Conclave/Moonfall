@@ -34,6 +34,9 @@ engine/ecm.cpp
   game/entities/moon.cpp
   game/entities/stardust.cpp
   game/scenes/level.cpp
+  game/scenes/menu.cpp
+  game/scenes/levelMenu.cpp
+  game/scenes/guide.cpp
   game/main.cpp
 )
 target_include_directories(Moonfall PRIVATE ${SFML_INCS} ${B2D_INCS} engine game)

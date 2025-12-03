@@ -1,18 +1,14 @@
-#pragma once
-#include <SFML/Graphics.hpp>
-#include "../../engine/ecm.hpp"
-
+guide.hpp
 namespace Game
 {
     namespace Scenes
     {
-        class Menu
+        class Guide
         {
         public:
             void mainMenu(sf::RenderWindow& window, Engine::EntityManager& ecm);
             void handleEvent(sf::RenderWindow& window, sf::Event& event);
-        private:
-            void levelMenu(sf::RenderWindow& window, Engine::EntityManager& ecm);
+
         };
 
     }

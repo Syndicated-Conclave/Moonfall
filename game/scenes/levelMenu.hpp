@@ -6,13 +6,14 @@ namespace Game
 {
     namespace Scenes
     {
-        class Menu
+        class levelMenu
         {
         public:
             void mainMenu(sf::RenderWindow& window, Engine::EntityManager& ecm);
             void handleEvent(sf::RenderWindow& window, sf::Event& event);
+            void basicPhysicsSetUp(sf::RenderWindow& window, Engine::EntityManager& ecm);
         private:
-            void levelMenu(sf::RenderWindow& window, Engine::EntityManager& ecm);
+            //void levelMenu(sf::RenderWindow& window, Engine::EntityManager& ecm);
         };
 
     }
