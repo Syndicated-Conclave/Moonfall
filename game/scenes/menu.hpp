@@ -1,4 +1,3 @@
-menu.hpp
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../../engine/ecm.hpp"
