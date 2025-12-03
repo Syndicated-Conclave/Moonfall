@@ -5,27 +5,27 @@
 #include "../engine/physics.hpp"
 #include "../engine/ecm.hpp"
 #include "scenes/level.hpp"
-#include "../game/components/gameStates.hpp"
+#include "../game/gameStates.hpp"
 
 int main()
 {
-  Game::Components::GameState gameState = Game::Components::GameState::Menu;
+  Game::State gameState = Game::State::Menu;
   
   switch(gameState)
   {
-    case Game::Components::GameState::Menu:
+    case Game::State::Menu:
     
     break;
 
-    case Game::Components::GameState::Playing:
+    case Game::State::Playing:
     
     break;
 
-    case Game::Components::GameState::GameLose:
+    case Game::State::GameLose:
     
     break;
 
-    case Game::Components::GameState::GameWin:
+    case Game::State::GameWin:
     
     break;
 
