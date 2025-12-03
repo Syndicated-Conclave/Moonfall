@@ -14,39 +14,16 @@ namespace Game
 {
     namespace Entities
     {
-        //points
-        int Game::Entities::points = 0;
+        Game::Entities::UI *ui;
         
-        //timer
-        sf::Clock countdown;
-        /*Setting game time to two minutes*/
-        int gameTime = 120;
-        float timeTaken = countdown.getElapsedTime().asSeconds();
-        int timeLeft = gameTime - countdown.getElapsedTime().asSeconds();
-        
-        
-        //while(game_isPlaying == true) // some sort of while loop with a bool so that the UI only shows when the game is being played
+        //while (Game::State gameState.Playing)
         //{
             void UI::init(sf::RenderWindow &window)
             {
-                //font object
-                sf::Font font;
-                font.loadFromFile("resources/HUSKYSTA.otf");
-                
-                //timer variables
-                Timer.setFillColor(sf::Color(255, 255, 225));
-                Timer.setPosition({20.f, 10.f});
-                Timer.setFont(font);
-                Timer.setCharacterSize(48);
-                
-                Timer.setString("Time Left: " + timeLeft);
+                Game::Entities::Timer timer;
+                Game::Entities::StarDustCounter starDustCounter;
 
-                //star dust counter variables
-                StarDustCounter.setFillColor(sf::Color(255, 255, 225));
-                StarDustCounter.setPosition({1500.f, 10.f});
-                StarDustCounter.setFont(font);
-                StarDustCounter.setCharacterSize(48);
-                StarDustCounter.setString("Star Dust Collected: " + Game::Entities::points + " / " +  ); 
+                
             };
 
             void UI::input(sf::RenderWindow &window)
@@ -74,6 +51,13 @@ namespace Game
             {                
                 while (window.isOpen())
                 {
+                    
+                    input();
+                    render();
+                    Game::Entities::Timer::init();
+                    Game::Entities::StarDustCounter::init();
+                    
+                    
                     sf::Event event;
                     while (window.pollEvent(event))
                     {
@@ -100,11 +84,51 @@ namespace Game
                 };
 
                 window.clear();
-                window.draw(Timer);
-                window.draw(StarDustCounter);               
+                window.draw(Game::Entities::Timer::timerText);
+                window.draw(Game::Entities::StarDustCounter::starDustCounterText);               
                 window.display();
                 
             };
+
+            void Timer::init()
+            {
+                //timer
+                sf::Clock countdown;
+                /*Setting game time to two minutes*/
+                int gameTime = 120;
+                float timeTaken = countdown.getElapsedTime().asSeconds();
+                int timeLeft = gameTime - countdown.getElapsedTime().asSeconds();
+                
+                //font object
+                sf::Font font;
+                font.loadFromFile("resources/HUSKYSTA.otf");
+
+                //points
+                int Game::Entities::StarDustCounter::points = 0;
+                
+                //timer variables
+                timer.setFillColor(sf::Color(255, 255, 225));
+                timer.setPosition({20.f, 10.f});
+                timer.setFont(font);
+                timer.setCharacterSize(48);
+                
+                timer.setString("Time Left: " + timeLeft);
+            }
+            
+            void StarDustCounter::init()
+            {
+                //font object
+                sf::Font font;
+                font.loadFromFile("resources/HUSKYSTA.otf");
+                
+                //star dust counter variables
+                starDustCounter.setFillColor(sf::Color(255, 255, 225));
+                starDustCounter.setPosition({1500.f, 10.f});
+                starDustCounter.setFont(font);
+                starDustCounter.setCharacterSize(48);
+                starDustCounter.setString("Star Dust Collected: " + Game::Entities::StarDustCounter::points);
+            }
+
         //}
     }  
 }

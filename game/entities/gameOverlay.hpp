@@ -12,22 +12,15 @@ namespace Game
             public:
                 
                 //Objects                   
-                sf::Clock countdown;
-                Game::Entities::UI ui;    
+                
+                Game::Entities::UI *ui;
+                
+                Game::Entities::Timer timer;
+                Game::Entities::StarDustCounter starDustCounter;
                 
                 //variables
                 sf::Vector2f posX;
                 sf::Vector2f posY;
-
-                int points;
-                int gameTime;
-                float timeTaken;
-                int timeLeft;
-
-                sf::Font font;
-                sf::Text Timer;
-                sf::Text StarDustCounter;
-                sf::Color color;
 
                 //methods
                 void init(sf::RenderWindow &window);
@@ -35,6 +28,32 @@ namespace Game
                 void update(sf::RenderWindow &window);               
                 void render(sf::RenderWindow &window);
                 
-        };   
+        };
+        
+        class Timer
+        {
+            //variables
+            sf::Clock countdown;
+            int gameTime;
+            float timeTaken;
+            int timeLeft;
+            sf::Font font;
+            sf::Color color;
+            sf::Text timerText;
+
+            //methods
+            void init();
+        };
+
+        class StarDustCounter
+        {
+            static int points;
+            sf::Font font;
+            sf::Color color;
+            sf::Text starDustCounterText;
+
+            //methods
+            void init();
+        };
     }
 }
