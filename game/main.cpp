@@ -5,10 +5,34 @@
 #include "../engine/physics.hpp"
 #include "../engine/ecm.hpp"
 #include "scenes/level.hpp"
+#include "../game/gameStates.hpp"
 
 
 int main()
 {
+    Game::State gameState = Game::State::Menu;
+  
+  switch(gameState)
+  {
+    case Game::State::Menu:
+    
+    break;
+
+    case Game::State::Playing:
+    
+    break;
+
+    case Game::State::GameLose:
+    
+    break;
+
+    case Game::State::GameWin:
+    
+    break;
+
+
+  };
+  
     sf::RenderWindow window(sf::VideoMode({ Parameters::game_width, Parameters::game_height }), "Moonfall");
 
 
@@ -84,8 +108,8 @@ int main()
     Exit.setPosition(740.f, 600.f);
 
 
-    while (window.isOpen())
-    {
+  while (window.isOpen())
+  {
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -124,7 +148,7 @@ int main()
                     std::cout << "Controls" << std::endl;
                 }
             }
-        }
+        
 
 
 
@@ -163,6 +187,6 @@ int main()
         window.draw(Exit);
         window.display();
     }
-
+   
     return 0;
 }
