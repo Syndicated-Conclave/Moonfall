@@ -6,8 +6,8 @@ namespace Game
 {
     namespace Components
     {
-        // OOP with an abstract class
-       enum GameState
+        // enum that holds states for Menu and game levels
+       enum State
        {
             Menu,
             Playing,
