@@ -5,10 +5,10 @@ namespace Game
 {
     namespace Entities
     {
-        Cityscape::Cityscape(sf::RenderWindow &window, Engine::EntityManager &ecm) : entity(ecm.createEntity())
-        {
-            init_city();
+        Cityscape::Cityscape(Engine::EntityManager &ecm) : entity(ecm.createEntity()) {}
 
+        void Cityscape::create(sf::RenderWindow &window)
+        {
             // since the first building's center is the origin of the cityscape
             float sfmlPosX = city[0].width / 2;
             // gaps in the cityscape are buildings with height 1, to avoid that being visible on bump the cityscape is offset by max bump
@@ -77,30 +77,10 @@ namespace Game
             }
         }
 
-        void Cityscape::init_city()
+        void Cityscape::addBuilding(float width, float height)
         {
-            // -> REFACTOR NEEDED: pass a list of values into the cityscape constructor to feed into init_city so its reusable across levels
-            // ideally reading it in from a csv file so we would have a csv file for each level that can be read in and parsed
-
-            city.push_back({120.f, 300.f});
-            city.push_back({150.f, 450.f});
-            city.push_back({200.f, 150.f});
-            city.push_back({40.f, 1.f}); // gap
-            city.push_back({130.f, 400.f});
-            city.push_back({170.f, 300.f});
-            city.push_back({120.f, 200.f});
-            city.push_back({150.f, 250.f});
-            city.push_back({40.f, 1.f}); // gap
-            city.push_back({200.f, 150.f});
-            city.push_back({130.f, 300.f});
-            city.push_back({170.f, 500.f});
-            city.push_back({120.f, 200.f});
-            city.push_back({40.f, 1.f}); // gap
-            city.push_back({150.f, 350.f});
-            city.push_back({200.f, 150.f});
-            city.push_back({40.f, 1.f}); // gap
-            city.push_back({130.f, 400.f});
-            city.push_back({170.f, 100.f});
+            city.push_back({width, height});
         }
+
     }
 }

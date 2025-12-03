@@ -166,7 +166,7 @@ int main()
 
             Game::Scenes::Level level;
 
-            level.level1(window, ecm, gameState);
+            level.play(window, ecm, gameState, 1); // 1 for level 1, when testing your levels just change this number so play starts that while level menu is still being made
             break;
         }
         case Game::State::GameLose:

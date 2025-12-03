@@ -1,44 +1,32 @@
 #include "level.hpp"
 #include <vector>
 #include <iostream>
-#include "../entities/cityscape.hpp"
-#include "../entities/moon.hpp"
-#include "../entities/stardust.hpp"
 
 namespace Game
 {
     namespace Scenes
     {
-        void Level::level1(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::State &gameState)
+        void Level::play(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::State &gameState, int level)
         {
-            // std::cout << "Reached basicPhysicsSetUp\n";
-            //  Vars
+            //  TEMP, WILL BE REPLACED BY CASSIE'S NIGHTSKY
             sf::Color nightskyColour(24, 50, 100);
 
-            // std::cout << "Creating cityscape...\n";
-            //  Create cityscape & moon
-            Game::Entities::Cityscape cityscape(window, ecm);
-            // std::cout << "Created cityscape.\n";
-
-            // std::cout << "Creating moon...\n";
             Game::Entities::Moon moon(window, ecm);
-            // std::cout << "Created moon.\n";
+            Game::Entities::Cityscape cityscape(ecm);
+            std::vector<Game::Entities::Stardust> allStardust;
 
-            // std::cout << "Creating stardust...\n";
-            Game::Entities::Stardust stardust(window, ecm, {300, 600}, 1);
-            Game::Entities::Stardust stardust2(window, ecm, {400, 300}, 2);
-            Game::Entities::Stardust stardust3(window, ecm, {800, 300}, 3);
+            int requiredPoints;
+            switch (level)
+            {
+            case 1:
+                requiredPoints = Level::levelOne(window, ecm, cityscape, allStardust);
+            }
 
-            int requiredPoints = 15;
+            cityscape.create(window);
 
-            // std::cout << "Created stardust.\n";
-
-            window.setKeyRepeatEnabled(false);
             int counter = 0;
-            // Loop
             while (gameState == Game::State::Playing)
             {
-                // std::cout << "Reached loop\n";
 
                 // this should be removed as far as i know but removing it makes the window stop responding after a few seconds of playing
                 sf::Event event;
@@ -52,45 +40,78 @@ namespace Game
 
                 // Step the physics world
                 Engine::Physics::update();
-                // std::cout << "Time stepped physics world\n";
-                // std::cout << counter++ << "\n";
-                // Update cityscape & moon
 
-                stardust.update(window, moon.sfmlPosition, Level::collectedPoints);
-                stardust2.update(window, moon.sfmlPosition, Level::collectedPoints);
-                stardust3.update(window, moon.sfmlPosition, Level::collectedPoints);
+                // Update entities
+                for (size_t i = 0; i < allStardust.size(); i++)
+                {
+                    allStardust[i].update(window, moon.sfmlPosition, Level::collectedPoints);
+                }
+
+                cityscape.update(window);
+                moon.update(window);
+
+                // TEMPORARY WIN CONDITION ON WHICH RETURNS TO MENU
                 if (collectedPoints >= requiredPoints)
                 {
-                    gameState = Game::State::Menu; // TEMP AS MENU
+                    gameState = Game::State::Menu;
                 }
-                // std::cout << "Updating cityscape...\n";
-                cityscape.update(window);
-                // std::cout << "Updated cityscape.\n";
-
-                // std::cout << "Updating moon...\n";
-                moon.update(window);
-                // std::cout << "Updated moon.\n";
 
                 // Render everything
                 window.clear(nightskyColour);
-                // std::cout << "Rendered nightsky.\n";
                 cityscape.render(window);
-                // std::cout << "Rendered cityscape.\n";
                 moon.render(window);
-                // std::cout << "Rendered moon.\n";
-
-                stardust.render(window);
-                stardust2.render(window);
-                stardust3.render(window);
+                for (size_t i = 0; i < allStardust.size(); i++)
+                {
+                    allStardust[i].render(window);
+                }
 
                 window.display();
-                // std::cout << "Displaying window.\n";
             }
 
-            // Cleanup lab physics world
-            // std::cout << "Shutting down physics world...\n";
+            // Cleanup physics world
             Engine::Physics::shutdown();
-            // std::cout << "Shut down physics world.\n";
+        }
+
+        int Level::levelOne(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::Entities::Cityscape &cityscape, std::vector<Game::Entities::Stardust> &allStardust)
+        {
+            cityscape.addBuilding(120, 300);
+            cityscape.addBuilding(150, 450);
+            cityscape.addBuilding(200, 150);
+            cityscape.addBuilding(40, 1);
+            cityscape.addBuilding(130, 400);
+            cityscape.addBuilding(170, 300);
+            cityscape.addBuilding(120, 200);
+            cityscape.addBuilding(150, 250);
+            cityscape.addBuilding(40, 1);
+            cityscape.addBuilding(200, 150);
+            cityscape.addBuilding(130, 300);
+            cityscape.addBuilding(170, 500);
+            cityscape.addBuilding(120, 200);
+            cityscape.addBuilding(40, 1);
+            cityscape.addBuilding(150, 350);
+            cityscape.addBuilding(200, 150);
+            cityscape.addBuilding(40, 1);
+            cityscape.addBuilding(130, 400);
+            cityscape.addBuilding(170, 100);
+            cityscape.addBuilding(200, 250);
+            cityscape.addBuilding(150, 350);
+            cityscape.addBuilding(40, 1);
+            cityscape.addBuilding(200, 600);
+            cityscape.addBuilding(40, 1);
+            cityscape.addBuilding(150, 200);
+            cityscape.addBuilding(120, 450);
+            cityscape.addBuilding(170, 500);
+            cityscape.addBuilding(130, 450);
+            cityscape.addBuilding(250, 300);
+            cityscape.addBuilding(40, 1);
+            cityscape.addBuilding(140, 450);
+            cityscape.addBuilding(180, 250);
+
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {300, 600}, 1));
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {400, 300}, 2));
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {800, 300}, 3));
+
+            return 15;
         }
 
     }
