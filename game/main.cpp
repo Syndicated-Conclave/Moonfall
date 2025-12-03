@@ -7,41 +7,37 @@
 #include "scenes/level.hpp"
 #include "../game/gameStates.hpp"
 
-
 int main()
 {
     Game::State gameState = Game::State::Menu;
-  
-  switch(gameState)
-  {
+
+    switch (gameState)
+    {
     case Game::State::Menu:
-    
-    break;
+
+        break;
 
     case Game::State::Playing:
-    
-    break;
+
+        break;
 
     case Game::State::GameLose:
-    
-    break;
+
+        break;
 
     case Game::State::GameWin:
-    
-    break;
 
+        break;
+    };
 
-  };
-  
-    sf::RenderWindow window(sf::VideoMode({ Parameters::game_width, Parameters::game_height }), "Moonfall");
-
+    sf::RenderWindow window(sf::VideoMode({Parameters::game_width, Parameters::game_height}), "Moonfall");
 
     // Adding custom font and styling for title
     sf::Font font;
     font.loadFromFile("resources/HUSKYSTA.otf");
     sf::Text title("Moonfall", font, 88);
     title.setFillColor(sf::Color(255, 255, 224));
-    title.setPosition({ 600.f, 100.f });
+    title.setPosition({600.f, 100.f});
 
     // Creating gradient background colour
     sf::VertexArray sky(sf::Quads, 4);
@@ -70,21 +66,20 @@ int main()
     star.setPoint(8, sf::Vector2f(1, 3));
     star.setPoint(9, sf::Vector2f(6, 3));
     star.setFillColor(sf::Color(255, 253, 208));
-    star.scale({ 1.75f,1.75f });
+    star.scale({1.75f, 1.75f});
     // Creating Menu Buttons
-    sf::RectangleShape guide({ 380.f, 65.f });
+    sf::RectangleShape guide({380.f, 65.f});
     guide.setPosition(600.f, 300.f);
-    sf::RectangleShape play({ 380.f, 65.f });
+    sf::RectangleShape play({380.f, 65.f});
     play.setPosition(600.f, 400.f);
-    sf::RectangleShape controls({ 380.f, 65.f });
+    sf::RectangleShape controls({380.f, 65.f});
     controls.setPosition(600.f, 500.f);
-    sf::RectangleShape exit({ 380.f, 65.f });
+    sf::RectangleShape exit({380.f, 65.f});
     exit.setPosition(600.f, 600.f);
     guide.setFillColor(sf::Color(255, 255, 224));
     play.setFillColor(sf::Color(255, 255, 224));
     controls.setFillColor(sf::Color(255, 255, 224));
     exit.setFillColor(sf::Color(255, 255, 224));
-
 
     sf::Text Guide("Guide", font);
     Guide.setCharacterSize(40);
@@ -96,7 +91,6 @@ int main()
     Play.setFillColor(sf::Color(11, 27, 44));
     Play.setPosition(740.f, 400.f);
 
-
     sf::Text Controls("Controls", font);
     Controls.setCharacterSize(40);
     Controls.setFillColor(sf::Color(11, 27, 44));
@@ -107,9 +101,8 @@ int main()
     Exit.setFillColor(sf::Color(11, 27, 44));
     Exit.setPosition(740.f, 600.f);
 
-
-  while (window.isOpen())
-  {
+    while (window.isOpen())
+    {
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -120,8 +113,7 @@ int main()
             if (event.type == sf::Event::MouseButtonPressed)
             {
                 sf::Vector2f mouse = window.mapPixelToCoords(
-                    sf::Mouse::getPosition(window)
-                );
+                    sf::Mouse::getPosition(window));
                 if (exit.getGlobalBounds().contains(mouse))
                 {
                     window.close();
@@ -140,53 +132,49 @@ int main()
                     Game::Scenes::Level level;
 
                     level.level1(window, ecm);
-
-
                 }
                 if (controls.getGlobalBounds().contains(mouse))
                 {
                     std::cout << "Controls" << std::endl;
                 }
             }
-        
 
-
-
-        window.clear();
-        window.draw(sky);
-        window.draw(title);
-        star.setPosition({ 590.f, 200.f });
-        window.draw(star);
-        star.setPosition({ 620.f, 200.f });
-        window.draw(star);
-        star.setPosition({ 720.f, 200.f });
-        window.draw(star);
-        star.setPosition({ 750.f, 200.f });
-        window.draw(star);
-        star.setPosition({ 780.f, 200.f });
-        window.draw(star);
-        star.setPosition({ 810.f, 200.f });
-        window.draw(star);
-        star.setPosition({ 840.f, 200.f });
-        window.draw(star);
-        star.setPosition({ 870.f, 200.f });
-        window.draw(star);
-        star.setPosition({ 900.f, 200.f });
-        window.draw(star);
-        star.setPosition({ 930.f, 200.f });
-        window.draw(star);
-        star.setPosition({ 960.f, 200.f });
-        window.draw(star);
-        window.draw(guide);
-        window.draw(Guide);
-        window.draw(play);
-        window.draw(Play);
-        window.draw(controls);
-        window.draw(Controls);
-        window.draw(exit);
-        window.draw(Exit);
-        window.display();
+            window.clear();
+            window.draw(sky);
+            window.draw(title);
+            star.setPosition({590.f, 200.f});
+            window.draw(star);
+            star.setPosition({620.f, 200.f});
+            window.draw(star);
+            star.setPosition({720.f, 200.f});
+            window.draw(star);
+            star.setPosition({750.f, 200.f});
+            window.draw(star);
+            star.setPosition({780.f, 200.f});
+            window.draw(star);
+            star.setPosition({810.f, 200.f});
+            window.draw(star);
+            star.setPosition({840.f, 200.f});
+            window.draw(star);
+            star.setPosition({870.f, 200.f});
+            window.draw(star);
+            star.setPosition({900.f, 200.f});
+            window.draw(star);
+            star.setPosition({930.f, 200.f});
+            window.draw(star);
+            star.setPosition({960.f, 200.f});
+            window.draw(star);
+            window.draw(guide);
+            window.draw(Guide);
+            window.draw(play);
+            window.draw(Play);
+            window.draw(controls);
+            window.draw(Controls);
+            window.draw(exit);
+            window.draw(Exit);
+            window.display();
+        }
     }
-   
+
     return 0;
 }
