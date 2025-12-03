@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <game/entities/gameOverlay.hpp>
+#include "game/main.cpp"
 #include <iostream>
 
 #define WIDTH 1600
@@ -32,10 +33,10 @@ namespace Game
 
                 //star dust counter variables
                 StarDustCounter.setFillColor(sf::Color(255, 255, 225));
-                StarDustCounter.setPosition({20.f, 10.f});
+                StarDustCounter.setPosition({1500.f, 10.f});
                 StarDustCounter.setFont(font);
                 StarDustCounter.setCharacterSize(48);
-                StarDustCounter.setString("Star Dust Collected: "); // will need a counter made to plug into string
+                StarDustCounter.setString("Star Dust Collected: " + main.points ); // will need a counter made to plug into string
             };
 
             void UI::input(sf::RenderWindow &window)
