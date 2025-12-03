@@ -5,9 +5,33 @@
 #include "../engine/physics.hpp"
 #include "../engine/ecm.hpp"
 #include "scenes/level.hpp"
+#include "../game/gameStates.hpp"
 
 int main()
 {
+  Game::State gameState = Game::State::Menu;
+  
+  switch(gameState)
+  {
+    case Game::State::Menu:
+    
+    break;
+
+    case Game::State::Playing:
+    
+    break;
+
+    case Game::State::GameLose:
+    
+    break;
+
+    case Game::State::GameWin:
+    
+    break;
+
+
+  };
+  
   sf::RenderWindow window(sf::VideoMode({Parameters::game_width, Parameters::game_height}), "Moonfall");
 
   Engine::Physics::initialise();
