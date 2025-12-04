@@ -8,21 +8,22 @@
 
 int main()
 {
-  sf::RenderWindow window(sf::VideoMode({Parameters::game_width, Parameters::game_height}), "Moonfall");
+  sf::RenderWindow window(sf::VideoMode({ 1600, 900 }), "Moonfall");
 
-  Engine::Physics::initialise();
 
-  Engine::EntityManager ecm;
+  // Engine::Physics::initialise();
 
-  Game::Scenes::Level levels;
+  // Engine::EntityManager ecm;
 
-  levels.level1(window, ecm);
+  // Game::Scenes::Level levels;
 
-  /*
+  // levels.level1(window, ecm);
+
+  
   // Adding custom font and styling for title
   sf::Font font;
   font.loadFromFile("resources/HUSKYSTA.otf");
-  sf::Text title("Moonfall", font, 48);
+  sf::Text title("Time Till Sunrise: ", font, 28);
   title.setFillColor(sf::Color(255, 255, 224));
   title.setPosition({300.f, 30.f});
 
@@ -39,35 +40,27 @@ int main()
   sky[3].color = light;
   sky[2].color = light;
 
-  // Creating star object
-  sf::ConvexShape star;
-  star.setPointCount(10);
-  star.setPoint(0, sf::Vector2f(8, -2));
-  star.setPoint(1, sf::Vector2f(10, 3));
-  star.setPoint(2, sf::Vector2f(15, 3));
-  star.setPoint(3, sf::Vector2f(11, 6));
-  star.setPoint(4, sf::Vector2f(12, 11));
-  star.setPoint(5, sf::Vector2f(8, 8));
-  star.setPoint(6, sf::Vector2f(4, 11));
-  star.setPoint(7, sf::Vector2f(5, 6));
-  star.setPoint(8, sf::Vector2f(1, 3));
-  star.setPoint(9, sf::Vector2f(6, 3));
-  star.setFillColor(sf::Color(255, 253, 208));
-
+  
   // Creating Menu Buttons
-  sf::RectangleShape guide({180.f, 35.f});
-  guide.setPosition(300.f, 130.f);
-  sf::RectangleShape play({180.f, 35.f});
-  play.setPosition(300.f, 180.f);
-  sf::RectangleShape controls({180.f, 35.f});
-  controls.setPosition(300.f, 230.f);
-  sf::RectangleShape exit({180.f, 35.f});
-  exit.setPosition(300.f, 280.f);
-  guide.setFillColor(sf::Color(255, 255, 224));
-  play.setFillColor(sf::Color(255, 255, 224));
-  controls.setFillColor(sf::Color(255, 255, 224));
-  exit.setFillColor(sf::Color(255, 255, 224));
+  sf::RectangleShape block({400.f, 65.f});
+  block.setPosition(600.f, 20.f);
+  sf::RectangleShape countdownBox({180.f, 35.f});
+  countdownBox.setPosition(880.f, 33.f); 
+ 
+  block.setFillColor(sf::Color(11, 11, 24));
+  countdownBox.setFillColor(sf::Color(8, 10, 43));
 
+  //timer
+  sf::Clock countdown;
+  /*Setting game time to two minutes*/
+  int gameTime = 120;
+  sf::Text CountdownText(" : ", font, 28);
+  CountdownText.setFillColor(sf::Color(255, 255, 224));
+  CountdownText.setPosition(890.f, 35.f); 
+ 
+
+
+  
   while (window.isOpen())
   {
     sf::Event event;
@@ -75,27 +68,24 @@ int main()
     {
       if (event.type == sf::Event::Closed)
       {
+        
         window.close();
       }
+      float timeLeft = countdown.getElapsedTime().asSeconds();
+      float countdowntext = gameTime - timeLeft;
+      if(countdowntext < 0) countdowntext = 0;
+      CountdownText.setString(std::to_string((int)countdowntext));
+      
+
     }
 
     window.clear();
     window.draw(sky);
+    window.draw(block);
+    window.draw(countdownBox);
     window.draw(title);
-    star.setPosition({299.f, 87.f});
-    window.draw(star);
-    star.setPosition({360.f, 87.f});
-    window.draw(star);
-    star.setPosition({409.f, 87.f});
-    window.draw(star);
-    star.setPosition({464.f, 87.f});
-    window.draw(star);
-    window.draw(guide);
-    window.draw(play);
-    window.draw(controls);
-    window.draw(exit);
+    window.draw(CountdownText);
     window.display();
   }
-  */
   return 0;
 }
