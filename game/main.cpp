@@ -40,26 +40,45 @@ int main()
   sky[3].color = light;
   sky[2].color = light;
 
-  
-  // Creating Menu Buttons
-  sf::RectangleShape block({400.f, 65.f});
-  block.setPosition(600.f, 20.f);
-  sf::RectangleShape countdownBox({180.f, 35.f});
-  countdownBox.setPosition(880.f, 33.f); 
+  // Adding custom font and styling for counter text
+    int CollectedPoints = 0;
+    int RequiredPoints;
+    
+    sf::Text counterText("Star Dust Collected: " + CollectedPoints, font, 28);
+    counterText.setFillColor(sf::Color(255, 255, 224));
+    counterText.setPosition({380.f, 40.f});
+
+    // Creating boxes for timer text
+    sf::RectangleShape counterBlock({400.f, 65.f});
+    counterBlock.setPosition(380.f, 40.f);
+    sf::RectangleShape counterBox({180.f, 35.f});
+    counterBox.setPosition(380.f, 40.f);
+    
+    counterBlock.setFillColor(sf::Color(11, 11, 24));
+    counterBox.setFillColor(sf::Color(8, 10, 43));
+    
+    // Adding custom font and styling for countdown text   
+    sf::Text timerText("Time Till Sunrise: ", font, 28);
+    timerText.setFillColor(sf::Color(255, 255, 224));
+    timerText.setPosition({1200.f, 30.f});
+
+    // Creating boxes for timer text
+    sf::RectangleShape timerBlock({400.f, 65.f});
+    timerBlock.setPosition(1180.f, 20.f);
+    sf::RectangleShape timerBox({180.f, 35.f });
+    timerBox.setPosition(1180.f, 33.f); 
+    
+    timerBlock.setFillColor(sf::Color(11, 11, 24));
+    timerBox.setFillColor(sf::Color(8, 10, 43));
+
+    //timer functionality
+    sf::Clock timer;
+    /*Setting game time to two minutes*/
+    int gameTime = 120;
+    sf::Text TimerText(" : ", font, 28);
+    TimerText.setFillColor(sf::Color(255, 255, 224));
+    TimerText.setPosition(890.f, 35.f);
  
-  block.setFillColor(sf::Color(11, 11, 24));
-  countdownBox.setFillColor(sf::Color(8, 10, 43));
-
-  //timer
-  sf::Clock countdown;
-  /*Setting game time to two minutes*/
-  int gameTime = 120;
-  sf::Text CountdownText(" : ", font, 28);
-  CountdownText.setFillColor(sf::Color(255, 255, 224));
-  CountdownText.setPosition(890.f, 35.f); 
- 
-
-
   
   while (window.isOpen())
   {
@@ -71,20 +90,24 @@ int main()
         
         window.close();
       }
-      float timeLeft = countdown.getElapsedTime().asSeconds();
-      float countdowntext = gameTime - timeLeft;
-      if(countdowntext < 0) countdowntext = 0;
-      CountdownText.setString(std::to_string((int)countdowntext));
+      float timeLeft = timer.getElapsedTime().asSeconds();
+      float timertext = gameTime - timeLeft;
+      if(timertext < 0) timertext = 0;
+      TimerText.setString(std::to_string((int)timertext));
       
 
     }
 
     window.clear();
     window.draw(sky);
-    window.draw(block);
-    window.draw(countdownBox);
-    window.draw(title);
-    window.draw(CountdownText);
+    window.draw(timerBlock);
+    window.draw(timerBox);
+    window.draw(timerText);
+    window.draw(TimerText);
+
+    window.draw(counterBlock);
+    window.draw(counterBox);
+    window.draw(counterText);
     window.display();
   }
   return 0;
