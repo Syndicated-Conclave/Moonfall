@@ -187,8 +187,8 @@ namespace Game
             cityscape.addBuilding(4650, 500); //SD
             cityscape.addBuilding(4700, 550); 
 
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, {500, 850}, 1));
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, {800, 600}, 1));
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {500, 500}, 1));
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {800, 550}, 1));
             allStardust.push_back(Game::Entities::Stardust(window, ecm, {1500, 450}, 2));
             allStardust.push_back(Game::Entities::Stardust(window, ecm, {1950, 450}, 2));
             allStardust.push_back(Game::Entities::Stardust(window, ecm, {2350, 700}, 3));
