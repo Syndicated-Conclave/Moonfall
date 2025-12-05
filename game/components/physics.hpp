@@ -1,5 +1,6 @@
 #pragma once
 #include "../../engine/physics.hpp"
+#include "../components/AudioManager.hpp"
 
 // namespace for all game specific things
 namespace Game
@@ -26,7 +27,7 @@ namespace Game
             // used to create the individual star physics bodies of each stardust entity
             static void createStar(sf::RenderWindow &window, b2BodyId &bodyId, sf::Vector2f sfmlPosition, float sfmlDiameter, float density, float friction, float restitution);
             // used to update the stardust entities including all their stars
-            static void updateStardust(sf::RenderWindow &window, std::vector<b2BodyId> bodyIds, sf::Vector2f direction, float speed, int &collectedPoints);
+            static void updateStardust(sf::RenderWindow &window, std::vector<b2BodyId> bodyIds, sf::Vector2f direction, float speed, int &collectedPoints, Game::Components::AudioManager &audioManager);
             // used to create the moon entity
             static void createMoon(sf::RenderWindow &window, b2BodyId &bodyId, sf::Vector2f sfmlPosition, float sfmlDiameter, float density, float friction, float restitution);
             // used to update the moon entity, including handling user input

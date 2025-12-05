@@ -14,7 +14,7 @@ namespace Game
         class Level
         {
         public:
-            void play(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::State &gameState, int level);
+            void play(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::Components::AudioManager &audioManager, Game::State &gameState, int level);
 
             int collectedPoints = 0;
             static float levelWidth;

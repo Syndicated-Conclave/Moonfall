@@ -30,6 +30,7 @@ engine/ecm.cpp
   game/components/graphics.cpp
   game/components/physics.cpp
   game/components/ai.cpp
+  game/components/AudioManager.cpp
   game/entities/cityscape.cpp
   game/entities/moon.cpp
   game/entities/stardust.cpp
@@ -40,7 +41,7 @@ engine/ecm.cpp
   game/main.cpp
  "game/scenes/win.cpp" "game/scenes/lose.cpp")
 target_include_directories(Moonfall PRIVATE ${SFML_INCS} ${B2D_INCS} engine game)
-target_link_libraries(Moonfall sfml-graphics box2d)
+target_link_libraries(Moonfall sfml-graphics sfml-audio box2d)
 
 
 # Check Config type

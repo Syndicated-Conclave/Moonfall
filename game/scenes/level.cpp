@@ -8,7 +8,7 @@ namespace Game
     {
         float Game::Scenes::Level::levelWidth = 0;
 
-        void Level::play(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::State &gameState, int level)
+        void Level::play(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::Components::AudioManager &audioManager, Game::State &gameState, int level)
         {
             //  TEMP, WILL BE REPLACED BY CASSIE'S NIGHTSKY
             sf::Color nightskyColour(24, 50, 100);
@@ -62,7 +62,7 @@ namespace Game
                 // Update entities
                 for (size_t i = 0; i < allStardust.size(); i++)
                 {
-                    allStardust[i].update(window, moon.sfmlPosition, Level::collectedPoints);
+                    allStardust[i].update(window, moon.sfmlPosition, Level::collectedPoints, audioManager);
                 }
 
                 cityscape.update(window);
@@ -132,7 +132,7 @@ namespace Game
             return 15;
         }
 
-        int Level::levelThree(sf::RenderWindow& window, Engine::EntityManager& ecm, Game::Entities::Cityscape& cityscape, std::vector<Game::Entities::Stardust>& allStardust)
+        int Level::levelThree(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::Entities::Cityscape &cityscape, std::vector<Game::Entities::Stardust> &allStardust)
         {
             cityscape.addBuilding(50, 1075);
             cityscape.addBuilding(150, 325);
@@ -172,10 +172,10 @@ namespace Game
             cityscape.addBuilding(250, 425);
             cityscape.addBuilding(150, 550);
 
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, { 1000, 300 }, 1));
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, { 2100, 300 }, 2));
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, { 3000, 300 }, 3));
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, { 3700, 300 }, 1));
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {1000, 300}, 1));
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {2100, 300}, 2));
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {3000, 300}, 3));
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {3700, 300}, 1));
 
             return 17;
         }
