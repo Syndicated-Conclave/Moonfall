@@ -23,8 +23,12 @@ namespace Game
             {
             case 1:
                 requiredPoints = Level::levelOne(window, ecm, cityscape, allStardust);
+                break;
             case 2:
                 requiredPoints = Level::levelThree(window, ecm, cityscape, allStardust);
+                break;
+            case 3:
+                requiredPoints = Level::levelFour(window, ecm, cityscape, allStardust);
                 break;
         }
 
@@ -175,6 +179,109 @@ namespace Game
 
             return 17;
         }
+        
+        int Level::levelFour(sf::RenderWindow& window, Engine::EntityManager& ecm, Game::Entities::Cityscape& cityscape, std::vector<Game::Entities::Stardust>& allStardust)
+        {
+            cityscape.addBuilding(120, 280);
+            cityscape.addBuilding(20, 1);
+            cityscape.addBuilding(80, 320);
+            cityscape.addBuilding(100, 400);
+            cityscape.addBuilding(40, 1);
+            cityscape.addBuilding(60, 440);
+            cityscape.addBuilding(90, 520);
+            cityscape.addBuilding(30, 1);
+            cityscape.addBuilding(110, 600);
+            cityscape.addBuilding(70, 480);
+            cityscape.addBuilding(20, 1);
+            cityscape.addBuilding(80, 360);
+            cityscape.addBuilding(100, 440);
+            cityscape.addBuilding(120, 520);
+            cityscape.addBuilding(50, 1);
+            cityscape.addBuilding(90, 600);
+            cityscape.addBuilding(70, 560);
+            cityscape.addBuilding(60, 400);
+            cityscape.addBuilding(40, 1);
+            cityscape.addBuilding(100, 300);
+            cityscape.addBuilding(120, 360);
+            cityscape.addBuilding(110, 460);
+            cityscape.addBuilding(80, 520);
+            cityscape.addBuilding(20, 1);
+            cityscape.addBuilding(90, 600);
+            cityscape.addBuilding(100, 520);
+            cityscape.addBuilding(120, 480);
+            cityscape.addBuilding(60, 420);
+            cityscape.addBuilding(70, 320);
+            cityscape.addBuilding(30, 1);
+            cityscape.addBuilding(80, 380);
+            cityscape.addBuilding(100, 460);
+            cityscape.addBuilding(120, 600);
+            cityscape.addBuilding(90, 540);
+            cityscape.addBuilding(60, 400);  // stardust checkpoint at 2640
+            cityscape.addBuilding(80, 480);
+            cityscape.addBuilding(100, 560);
+            cityscape.addBuilding(120, 520);
+            cityscape.addBuilding(60, 1);
+            cityscape.addBuilding(70, 420);
+            cityscape.addBuilding(80, 360);
+            cityscape.addBuilding(110, 460);
+            cityscape.addBuilding(90, 520);
+            cityscape.addBuilding(100, 600);
+            cityscape.addBuilding(120, 540);
+            cityscape.addBuilding(80, 440);
+            cityscape.addBuilding(70, 360);
+            cityscape.addBuilding(60, 280);
+            cityscape.addBuilding(100, 400);
+            cityscape.addBuilding(50, 1);
+            cityscape.addBuilding(120, 480);
+            cityscape.addBuilding(80, 520);
+            cityscape.addBuilding(100, 600);
+            cityscape.addBuilding(70, 560);
+            cityscape.addBuilding(60, 400);
+            cityscape.addBuilding(20, 1);
+            cityscape.addBuilding(90, 360);
+            cityscape.addBuilding(120, 440);
+            cityscape.addBuilding(110, 520);
+            cityscape.addBuilding(80, 600);
+            cityscape.addBuilding(100, 520);
+            cityscape.addBuilding(120, 480);
+            cityscape.addBuilding(40, 1);
+            cityscape.addBuilding(60, 400);
+            cityscape.addBuilding(80, 360);
+            cityscape.addBuilding(100, 440);
+            cityscape.addBuilding(110, 520);
+            cityscape.addBuilding(90, 500);  // stardust checkpoint at 5460
+            cityscape.addBuilding(70, 500);
+            cityscape.addBuilding(80, 440);
+            cityscape.addBuilding(100, 360);
+            cityscape.addBuilding(120, 300);
+            cityscape.addBuilding(90, 400);
+            cityscape.addBuilding(30, 1);
+            cityscape.addBuilding(110, 480);
+            cityscape.addBuilding(100, 560);
+            cityscape.addBuilding(70, 600);
+            cityscape.addBuilding(60, 520);
+            cityscape.addBuilding(80, 460);
+            cityscape.addBuilding(120, 400);
+            cityscape.addBuilding(100, 340);
+            cityscape.addBuilding(110, 280);
+            cityscape.addBuilding(120, 360);
+            cityscape.addBuilding(100, 440);
+            cityscape.addBuilding(90, 1);
+            cityscape.addBuilding(80, 520);
+            cityscape.addBuilding(60, 480);
+            cityscape.addBuilding(100, 600);
+            cityscape.addBuilding(110, 560);
+            cityscape.addBuilding(120, 520);
+            cityscape.addBuilding(80, 440);
+            cityscape.addBuilding(100, 360);
+            cityscape.addBuilding(120, 280);
+            cityscape.addBuilding(220, 200); // stardust checkpoint at 8200
 
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, { 2640, 300 }, 1));
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, { 5460, 300 }, 2));
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, { 8200, 300 }, 3));
+
+            return 15;
+        }
     }
 }
