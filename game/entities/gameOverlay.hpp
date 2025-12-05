@@ -11,16 +11,7 @@ namespace Game
         {            
             public:
                 
-                //Objects                   
-                
-                // Game::Entities::UI *ui;
-                
-                // Game::Entities::Timer timer;
-                // Game::Entities::StarDustCounter starDustCounter;
-                
-                //variables
-                sf::Vector2f posX;
-                sf::Vector2f posY;
+                //variables               
                 int CollectedPoints;
                 int RequiredPoints;
                 sf::Text counterText;
@@ -28,14 +19,11 @@ namespace Game
                 sf::RectangleShape counterBox;
                 sf::Font font;
                 sf::Text timerText;
-                sf::RectangleShape timerBlock;
-                sf::RectangleShape timerBox;
-
-                
-                sf::Clock timer;
-               
-                int gameTime = 120;
                 sf::Text TimerText;
+                sf::RectangleShape timerBlock;
+                sf::RectangleShape timerBox;                
+                sf::Clock timer;               
+                int gameTime = 120;                
                 float timeLeft;
                 float countdowntext;
                 
@@ -45,32 +33,6 @@ namespace Game
                 //void update(sf::RenderWindow &window);               
                 //void render(sf::RenderWindow &window);
                 
-        };
-        
-        // class Timer
-        // {
-        //     //variables
-        //     sf::Clock countdown;
-        //     int gameTime;
-        //     float timeTaken;
-        //     int timeLeft;
-        //     sf::Font font;
-        //     sf::Color color;
-        //     sf::Text timerText;
-
-        //     //methods
-        //     void init();
-        // };
-
-        // class StarDustCounter
-        // {
-        //     static int points;
-        //     sf::Font font;
-        //     sf::Color color;
-        //     sf::Text starDustCounterText;
-
-        //     //methods
-        //     void init();
-        // };
+        };               
     }
 }
