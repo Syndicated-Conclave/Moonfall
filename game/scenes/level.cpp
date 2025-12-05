@@ -74,6 +74,9 @@ namespace Game
                     gameState = Game::State::Menu;
                 }
 
+                ui.updateCounter(4, 8);
+                ui.updateTimer(clock.getElapsedTime().asSeconds());
+
                 // Render everything
                 window.clear(nightskyColour);
                 cityscape.render(window);
