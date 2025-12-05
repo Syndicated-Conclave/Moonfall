@@ -9,41 +9,42 @@ namespace Game
     namespace Components
     {
 
-class AudioManager {
-public:
-    AudioManager();
-    ~AudioManager();
+        class AudioManager
+        {
+        public:
+            AudioManager();
+            ~AudioManager();
 
-    static void playMenuMusic();
-    static void playGameplayMusic();
-    static void playImpactSound();
-    static void playMenuUISound();
-    static void playTwinkleSound();
+            void playMenuMusic();
+            void playGameplayMusic();
+            void playImpactSound();
+            void playMenuUISound();
+            void playTwinkleSound();
 
-    static void stopMusic();
-    static void setMusicVolume(float volume);
-    static void setSFXVolume(float volume);
+            void stopMusic();
+            void setMusicVolume(float volume);
+            void setSFXVolume(float volume);
 
-private:
-    // Music
-    static sf::Music menuMusic;
-    static sf::Music gameplayMusic;
+        private:
+            // Music
+            sf::Music menuMusic;
+            sf::Music gameplayMusic;
 
-    // Buffers for sound effects
-    static sf::SoundBuffer impactBuffer;
-    static sf::SoundBuffer menuUIBuffer;
-    static sf::SoundBuffer twinkleBuffer;
+            // Buffers for sound effects
+            sf::SoundBuffer impactBuffer;
+            sf::SoundBuffer menuUIBuffer;
+            sf::SoundBuffer twinkleBuffer;
 
-    // Sound effects
-    static sf::Sound impactSound;
-    static sf::Sound menuUISound;
-    static sf::Sound twinkleSound;
+            // Sound effects
+            sf::Sound impactSound;
+            sf::Sound menuUISound;
+            sf::Sound twinkleSound;
 
-    static float musicVolume;
-    static float sfxVolume;
+            float musicVolume = 50.f;
+            float sfxVolume = 70.f;
 
-    static const std::string audioPath;
-};
+            const std::string audioPath = "resources/audio/";
+        };
 
     }
-} 
+}

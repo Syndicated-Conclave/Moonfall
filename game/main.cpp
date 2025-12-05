@@ -14,7 +14,8 @@ int main()
     Game::State gameState = Game::State::Menu;
 
     sf::RenderWindow window(sf::VideoMode({Parameters::game_width, Parameters::game_height}), "Moonfall");
-    Game::Components::AudioManager::playMenuMusic();
+    Game::Components::AudioManager audioManager;
+    audioManager.playMenuMusic();
 
     Game::Scenes::Menu menu;
     menu.mainMenu(window);
@@ -45,14 +46,14 @@ int main()
         }
         case Game::State::Playing:
         {
-            Game::Components::AudioManager::playGameplayMusic();
+            audioManager.playGameplayMusic();
             Engine::Physics::initialise();
 
             Engine::EntityManager ecm;
 
             Game::Scenes::Level level;
 
-            level.play(window, ecm, gameState, 2); // 1 for level 1, when testing your levels just change this number so play starts that while level menu is still being made
+            level.play(window, ecm, audioManager, gameState, 2); // 1 for level 1, when testing your levels just change this number so play starts that while level menu is still being made
             break;
         }
         case Game::State::GameLose:
