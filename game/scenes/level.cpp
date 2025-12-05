@@ -6,6 +6,8 @@ namespace Game
 {
     namespace Scenes
     {
+        float Game::Scenes::Level::levelWidth = 0;
+
         void Level::play(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::State &gameState, int level)
         {
             //  TEMP, WILL BE REPLACED BY CASSIE'S NIGHTSKY
@@ -15,11 +17,20 @@ namespace Game
             Game::Entities::Cityscape cityscape(ecm);
             std::vector<Game::Entities::Stardust> allStardust;
 
+            cityscape.addBuilding(1, 1800);
             int requiredPoints;
             switch (level)
             {
             case 1:
                 requiredPoints = Level::levelOne(window, ecm, cityscape, allStardust);
+            }
+
+            cityscape.addBuilding(1, 1800);
+
+            Game::Scenes::Level::levelWidth = 0;
+            for (size_t i = 1; i < cityscape.city.size() - 1; i++)
+            {
+                Game::Scenes::Level::levelWidth += cityscape.city[i].width;
             }
 
             cityscape.create(window);
