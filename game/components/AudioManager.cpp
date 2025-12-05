@@ -7,6 +7,10 @@ namespace Game
     // namespace for all components
     namespace Components
     {
+    static float musicVolume = 50.f;
+    static float sfxVolume = 70.f;
+
+    static const std::string audioPath = "resources/audio/";
 
 AudioManager::AudioManager() {
     // Load music
@@ -24,14 +28,21 @@ AudioManager::AudioManager() {
     if (!menuUIBuffer.loadFromFile(audioPath + "menuUI_soundEffect.mp3")) {
         std::cerr << "Error: could not load menuUI_soundEffect.mp3\n";
     }
+    if (!twinkleBuffer.loadFromFile(audioPath + "twinkle_soundEffect.mp3")) {
+        std::cerr << "Error: could not load twinkle_soundEffect.mp3\n";
+    }
 
+    // Assign buffers to sound objects
     impactSound.setBuffer(impactBuffer);
     menuUISound.setBuffer(menuUIBuffer);
+    twinkleSound.setBuffer(twinkleBuffer);
 
+    // Set volumes
     menuMusic.setVolume(musicVolume);
     gameplayMusic.setVolume(musicVolume);
     impactSound.setVolume(sfxVolume);
     menuUISound.setVolume(sfxVolume);
+    twinkleSound.setVolume(sfxVolume);
 }
 
 AudioManager::~AudioManager() {
@@ -58,6 +69,10 @@ void AudioManager::playMenuUISound() {
     menuUISound.play();
 }
 
+void AudioManager::playTwinkleSound() {
+    twinkleSound.play();
+}
+
 void AudioManager::stopMusic() {
     menuMusic.stop();
     gameplayMusic.stop();
@@ -73,6 +88,7 @@ void AudioManager::setSFXVolume(float volume) {
     sfxVolume = volume;
     impactSound.setVolume(volume);
     menuUISound.setVolume(volume);
+    twinkleSound.setVolume(volume);
 }
 
     }

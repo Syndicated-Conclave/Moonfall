@@ -1,4 +1,4 @@
-    #pragma once
+#pragma once
 #include <SFML/Audio.hpp>
 #include <string>
 
@@ -7,36 +7,43 @@ namespace Game
 {
     // namespace for all components
     namespace Components
-{
+    {
+
 class AudioManager {
 public:
     AudioManager();
     ~AudioManager();
 
-    void playMenuMusic();
-    void playGameplayMusic();
-    void playImpactSound();
-    void playMenuUISound();
+    static void playMenuMusic();
+    static void playGameplayMusic();
+    static void playImpactSound();
+    static void playMenuUISound();
+    static void playTwinkleSound();
 
-    void stopMusic();
-    void setMusicVolume(float volume);
-    void setSFXVolume(float volume);
+    static void stopMusic();
+    static void setMusicVolume(float volume);
+    static void setSFXVolume(float volume);
 
 private:
-    sf::Music menuMusic;
-    sf::Music gameplayMusic;
+    // Music
+    static sf::Music menuMusic;
+    static sf::Music gameplayMusic;
 
-    sf::SoundBuffer impactBuffer;
-    sf::SoundBuffer menuUIBuffer;
+    // Buffers for sound effects
+    static sf::SoundBuffer impactBuffer;
+    static sf::SoundBuffer menuUIBuffer;
+    static sf::SoundBuffer twinkleBuffer;
 
-    sf::Sound impactSound;
-    sf::Sound menuUISound;
+    // Sound effects
+    static sf::Sound impactSound;
+    static sf::Sound menuUISound;
+    static sf::Sound twinkleSound;
 
-    float musicVolume = 50.f;
-    float sfxVolume = 70.f;
+    static float musicVolume;
+    static float sfxVolume;
 
-    const std::string audioPath = "resources/audio/";
+    static const std::string audioPath;
 };
 
     }
-}
+} 

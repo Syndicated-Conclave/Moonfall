@@ -14,8 +14,7 @@ int main()
     Game::State gameState = Game::State::Menu;
 
     sf::RenderWindow window(sf::VideoMode({Parameters::game_width, Parameters::game_height}), "Moonfall");
-    Game::Components::AudioManager audioManager;
-    audioManager.playMenuMusic();
+    Game::Components::AudioManager::playMenuMusic();
 
     Game::Scenes::Menu menu;
     menu.mainMenu(window);
@@ -46,7 +45,7 @@ int main()
         }
         case Game::State::Playing:
         {
-            audioManager.playGameplayMusic();
+            Game::Components::AudioManager::playGameplayMusic();
             Engine::Physics::initialise();
 
             Engine::EntityManager ecm;
