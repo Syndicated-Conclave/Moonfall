@@ -33,6 +33,7 @@ engine/ecm.cpp
   game/entities/cityscape.cpp
   game/entities/moon.cpp
   game/entities/stardust.cpp
+  game/entities/gameOverlay.cpp
   game/scenes/level.cpp
   game/main.cpp
 )

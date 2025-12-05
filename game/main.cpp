@@ -5,13 +5,10 @@
 #include "../engine/physics.hpp"
 #include "../engine/ecm.hpp"
 #include "scenes/level.hpp"
-#include "../entities/gameOverlay.hpp"
 
 int main()
 {
-  sf::RenderWindow window(sf::VideoMode({ 1600, 900 }), "Moonfall");
-
-  Game::Entities::UI ui;
+  sf::RenderWindow window(sf::VideoMode({1600, 900}), "Moonfall");
 
   Engine::Physics::initialise();
 
@@ -20,6 +17,4 @@ int main()
   Game::Scenes::Level levels;
 
   levels.level1(window, ecm);
-
-  
 }

@@ -4,6 +4,7 @@
 #include "../entities/cityscape.hpp"
 #include "../entities/moon.hpp"
 #include "../entities/stardust.hpp"
+#include "../entities/gameOverlay.hpp"
 
 namespace Game
 {
@@ -33,7 +34,12 @@ namespace Game
 
             window.setKeyRepeatEnabled(false);
             int counter = 0;
+
+            Game::Entities::UI ui(window);
+
             // Loop
+            sf::Clock clock;
+            clock.restart();
             while (window.isOpen())
             {
                 // std::cout << "Reached loop\n";
@@ -63,6 +69,9 @@ namespace Game
                 moon.update(window);
                 // std::cout << "Updated moon.\n";
 
+                ui.updateCounter(4, 8);
+                ui.updateTimer(clock.getElapsedTime().asSeconds());
+
                 // Render everything
                 window.clear(nightskyColour);
                 // std::cout << "Rendered nightsky.\n";
@@ -74,6 +83,8 @@ namespace Game
                 stardust.render(window);
                 stardust2.render(window);
                 stardust3.render(window);
+                ui.drawCounter(window);
+                ui.drawTimer(window);
 
                 window.display();
                 // std::cout << "Displaying window.\n";
