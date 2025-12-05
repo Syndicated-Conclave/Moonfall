@@ -1,5 +1,5 @@
 
-/*#include "menu.hpp"
+#include "menu.hpp"
 #include "levelMenu.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -9,17 +9,18 @@ namespace Game
 {
     namespace Scenes
     {
-        void Menu::mainMenu(sf::RenderWindow& window, Engine::EntityManager& ecm)
+        void Menu::mainMenu(sf::RenderWindow& window)
         {
             // Adding custom font and styling for title
-            sf::Font font;
-            font.loadFromFile("HUSKYSTA.otf");
-            sf::Text title("Moonfall", font, 88);
+            font.loadFromFile("resources/HUSKYSTA.otf");
+            sf::Text localTitle("Moonfall", font, 88);
+            title = localTitle;
             title.setFillColor(sf::Color(255, 255, 224));
             title.setPosition({ 600.f, 100.f });
 
             // Creating gradient background colour
-            sf::VertexArray sky(sf::Quads, 4);
+            sf::VertexArray localSky(sf::Quads, 4);
+            sky = localSky;
             sky[0].position = sf::Vector2f(0, 0);
             sky[1].position = sf::Vector2f(window.getSize().x, 0);
             sky[2].position = sf::Vector2f(window.getSize().x, window.getSize().y);
@@ -32,7 +33,8 @@ namespace Game
             sky[2].color = light;
 
             // Creating star object
-            sf::ConvexShape star;
+            sf::ConvexShape localStar;
+            star = localStar;
             star.setPointCount(10);
             star.setPoint(0, sf::Vector2f(8, -2));
             star.setPoint(1, sf::Vector2f(10, 3));
@@ -48,41 +50,49 @@ namespace Game
             star.scale({ 1.75f,1.75f });
 
             // Creating Menu Buttons
-            sf::RectangleShape guide({ 380.f, 65.f });
+            guide.setSize({ 380.f,65.f });
             guide.setPosition(600.f, 300.f);
-            sf::RectangleShape play({ 380.f, 65.f });
+            play.setSize({ 380.f,65.f });
             play.setPosition(600.f, 400.f);
-            sf::RectangleShape controls({ 380.f, 65.f });
+            controls.setSize({ 380.f,65.f });
             controls.setPosition(600.f, 500.f);
-            sf::RectangleShape exit({ 380.f, 65.f });
+            exit.setSize({ 380.f,65.f });
             exit.setPosition(600.f, 600.f);
+
             guide.setFillColor(sf::Color(255, 255, 224));
             play.setFillColor(sf::Color(255, 255, 224));
             controls.setFillColor(sf::Color(255, 255, 224));
             exit.setFillColor(sf::Color(255, 255, 224));
 
             //Making labels for my buttons
-            sf::Text Guide("Guide", font);
-            Guide.setCharacterSize(40);
-            Guide.setFillColor(sf::Color(11, 27, 44));
-            Guide.setPosition(730.f, 300.f);
+            sf::Text localGuideText("Guide", font);
+            guideText = localGuideText;
+            guideText.setCharacterSize(40);
+            guideText.setFillColor(sf::Color(11, 27, 44));
+            guideText.setPosition(730.f, 300.f);
 
-            sf::Text Play("Play", font);
-            Play.setCharacterSize(40);
-            Play.setFillColor(sf::Color(11, 27, 44));
-            Play.setPosition(740.f, 400.f);
+            sf::Text localPlayText("Play", font);
+            playText = localPlayText;
+            playText.setCharacterSize(40);
+            playText.setFillColor(sf::Color(11, 27, 44));
+            playText.setPosition(740.f, 400.f);
 
 
-            sf::Text Controls("Controls", font);
-            Controls.setCharacterSize(40);
-            Controls.setFillColor(sf::Color(11, 27, 44));
-            Controls.setPosition(710.f, 500.f);
+            sf::Text localControlsText("Controls", font);
+            controlsText = localControlsText;
+            controlsText.setCharacterSize(40);
+            controlsText.setFillColor(sf::Color(11, 27, 44));
+            controlsText.setPosition(710.f, 500.f);
 
-            sf::Text Exit("Exit", font);
-            Exit.setCharacterSize(40);
-            Exit.setFillColor(sf::Color(11, 27, 44));
-            Exit.setPosition(740.f, 600.f);
+            sf::Text localExitText("Exit", font);
+            exitText = localExitText;
+            exitText.setCharacterSize(40);
+            exitText.setFillColor(sf::Color(11, 27, 44));
+            exitText.setPosition(740.f, 600.f);
+        }
 
+        void Menu::draw(sf::RenderWindow& window)
+        {
 
             window.clear();
             window.draw(sky);
@@ -110,46 +120,56 @@ namespace Game
             star.setPosition({ 960.f, 200.f });
             window.draw(star);
             window.draw(guide);
-            window.draw(Guide);
+            window.draw(guideText);
             window.draw(play);
-            window.draw(Play);
+            window.draw(playText);
             window.draw(controls);
-            window.draw(Controls);
+            window.draw(controlsText);
             window.draw(exit);
-            window.draw(Exit);
+            window.draw(exitText);
             window.display();
 
 
 
         }
-            void Menu::handleEvent(sf::RenderWindow & window, sf::Event & event)
-            {
-                if (event.type == sf::Event::MouseButtonPressed)
-                {
-                    sf::Vector2f mouse = window.mapPixelToCoords(
-                        sf::Mouse::getPosition(window)
-                    );
-                    if (exit.getGlobalBounds().contains(mouse))
-                    {
-                        window.close();
-                    }
-                    if (guide.getGlobalBounds().contains(mouse))
-                    {
-                        std::cout << "Guide" << std::endl;
-                    }
-                    if (play.getGlobalBounds().contains(mouse))
-                    {
-                        std::cout << "Play" << std::endl;
 
-                        levelMenu.chooseLevel(window, ecm);
-                    }
-                    if (controls.getGlobalBounds().contains(mouse))
-                    {
-                        std::cout << "Controls" << std::endl;
-                    }
+
+
+
+
+
+
+        void Menu::handleEvent(sf::RenderWindow& window, sf::Event& event, Game::State& gameState)
+        {
+            if (event.type == sf::Event::MouseButtonPressed)
+            {
+                sf::Vector2f mouse = window.mapPixelToCoords(
+                    sf::Mouse::getPosition(window)
+                );
+                if (exit.getGlobalBounds().contains(mouse))
+                {
+                    window.close();
+                }
+                if (guide.getGlobalBounds().contains(mouse))
+                {
+                    std::cout << "Guide" << std::endl;
+                }
+                if (play.getGlobalBounds().contains(mouse))
+                {
+                    std::cout << "Play" << std::endl;
+
+                    Engine::EntityManager ecm;
+                    gameState = Game::State::Playing;
+                    std::cout << gameState;
+                }
+                if (controls.getGlobalBounds().contains(mouse))
+                {
+                    std::cout << "Controls" << std::endl;
+                }
 
             }
 
 
+        }
     }
-} */
+}
