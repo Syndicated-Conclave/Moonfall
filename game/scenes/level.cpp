@@ -132,72 +132,60 @@ namespace Game
         int Level::levelTwo(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::Entities::Cityscape &cityscape, std::vector<Game::Entities::Stardust> &allStardust) //Rob's Level
         {
             
-            cityscape.addBuilding(200, 600);
-            cityscape.addBuilding(300, 600);
+            cityscape.addBuilding(100, 600);
+            cityscape.addBuilding(400, 600);
             cityscape.addBuilding(400, 700);
-            cityscape.addBuilding(500, 800); //SD
+            cityscape.addBuilding(500, 800);//SD
             cityscape.addBuilding(600, 600);
             cityscape.addBuilding(700, 1); //gap
             cityscape.addBuilding(750, 500);
             cityscape.addBuilding(800, 550); //SD
             cityscape.addBuilding(900, 550);
-            cityscape.addBuilding(1000, 500);
-            cityscape.addBuilding(1100, 1); //gap
-            cityscape.addBuilding(1200, 1); //gap
-            cityscape.addBuilding(1350, 550);
-            cityscape.addBuilding(1450, 500);
-            cityscape.addBuilding(1500, 400); // SD
-            cityscape.addBuilding(1650, 400);
-            cityscape.addBuilding(1700, 400);
-            cityscape.addBuilding(1750, 1); //gap
-            cityscape.addBuilding(1800, 1); //gap
-            cityscape.addBuilding(1850, 450);
-            cityscape.addBuilding(1900, 400);
-            cityscape.addBuilding(1950, 400); //SD           
-            cityscape.addBuilding(2000, 500);
-            cityscape.addBuilding(2050, 500);
-            cityscape.addBuilding(2100, 600);
-            cityscape.addBuilding(2150, 1); //gap
-            cityscape.addBuilding(2200, 600);
-            cityscape.addBuilding(2350, 650); //SD
-            cityscape.addBuilding(2400, 600);
-            cityscape.addBuilding(2450, 600);
-            cityscape.addBuilding(2500, 1); //gap
-            cityscape.addBuilding(2550, 500);
-            cityscape.addBuilding(2600, 450); //SD
-            cityscape.addBuilding(2650, 400);
-            cityscape.addBuilding(2700, 400);
-            cityscape.addBuilding(2800, 1); //gap
-            cityscape.addBuilding(2850, 450);
-            cityscape.addBuilding(2900, 400);
-            cityscape.addBuilding(4100, 1); //gap
-            cityscape.addBuilding(4150, 400);
-            cityscape.addBuilding(4200, 450); //SD
-            cityscape.addBuilding(4250, 400);
-            cityscape.addBuilding(4250, 450);
-            cityscape.addBuilding(4300, 1); //gap
-            cityscape.addBuilding(4350, 400);
-            cityscape.addBuilding(4350, 1); //gap
-            cityscape.addBuilding(4400, 400);
-            cityscape.addBuilding(4450, 400);
-            cityscape.addBuilding(4450, 450); //SD
-            cityscape.addBuilding(4500, 500);
-            cityscape.addBuilding(4500, 500);
-            cityscape.addBuilding(4600, 1); //gap
-            cityscape.addBuilding(4650, 500); //SD
-            cityscape.addBuilding(4700, 550); 
+            cityscape.addBuilding(100, 500);
+            cityscape.addBuilding(110, 1); //gap
+            cityscape.addBuilding(120, 1); //gap
+            cityscape.addBuilding(135, 550);
+            cityscape.addBuilding(145, 500);
+            cityscape.addBuilding(150, 400); // SD
+            cityscape.addBuilding(165, 400);
+            cityscape.addBuilding(170, 400);
+            cityscape.addBuilding(175, 1); //gap
+            cityscape.addBuilding(180, 1); //gap
+            cityscape.addBuilding(185, 450);
+            cityscape.addBuilding(190, 400);
+            cityscape.addBuilding(195, 400); //SD           
+            cityscape.addBuilding(200, 500);
+            cityscape.addBuilding(205, 500);
+            cityscape.addBuilding(210, 600);
+            cityscape.addBuilding(215, 1); //gap
+            cityscape.addBuilding(220, 600);
+            cityscape.addBuilding(235, 650); //SD
+            cityscape.addBuilding(240, 600);
+            cityscape.addBuilding(245, 600);
+            cityscape.addBuilding(250, 1); //gap
+            cityscape.addBuilding(255, 500);
+            cityscape.addBuilding(260, 450); //SD
+            cityscape.addBuilding(265, 400);
+            cityscape.addBuilding(270, 400);
+            cityscape.addBuilding(280, 1); //gap
+            cityscape.addBuilding(285, 450);
+            cityscape.addBuilding(290, 400);
+            cityscape.addBuilding(410, 1); //gap
+            cityscape.addBuilding(415, 400);
+            
 
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, {500, 500}, 1));
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, {800, 550}, 1));
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, {1500, 450}, 2));
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, {1950, 450}, 2));
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, {2350, 700}, 3));
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, {2600, 500}, 2));
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, {4200, 500}, 2));
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, {4450, 500}, 2));
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, {4650, 500}, 2));
+            // total amount of stars: 100 
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {200, 500}, 1)); //3
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {1000, 450}, 1)); //3
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {5000, 500}, 2));//5
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {8000, 450}, 2));//5
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {10500, 500}, 3));//9
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {15000, 450}, 2));//5
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {25000, 450}, 2));//5
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {30000, 500}, 2));//5
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {40000, 500}, 2));//5
 
-            return 15;
+            return 80;
         }
 
     }
