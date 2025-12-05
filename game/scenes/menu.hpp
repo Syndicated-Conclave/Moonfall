@@ -1,41 +1,34 @@
-/*
-
-FROM THE LABS:
-
-
 #pragma once
-#include "game_system.hpp"
+#include <SFML/Graphics.hpp>
+#include "../../engine/ecm.hpp"
+#include "levelMenu.hpp"
+#include "../gameStates.hpp"
 
-//Loads and renders Menu scene
-class MenuScene: public Scene{
-public:
-    MenuScene() = default;
-    void update(const float &dt) override;
-    void render() override;
-    void load()override;
-    void unload() override;
-private:
-    std::shared_ptr<Entity> _player;
-    sf::Text _text;
-    sf::Font _font;
-};
+namespace Game
+{
+    namespace Scenes
+    {
+        class Menu
+        {
+        public:
+            void mainMenu(sf::RenderWindow& window);
+            void draw(sf::RenderWindow& window);
+            void handleEvent(sf::RenderWindow& window, sf::Event& event, Game::State &gameState);
+            sf::Font font;
+            sf::Text title;
+            sf::VertexArray sky;
+            sf::ConvexShape star;
+            sf::RectangleShape exit;
+            sf::RectangleShape guide;
+            sf::RectangleShape play;
+            sf::RectangleShape controls;
+            sf::Text exitText;
+            sf::Text guideText;
+            sf::Text playText;
+            sf::Text controlsText;
+        private:
+            //void levelMenu(sf::RenderWindow& window, Engine::EntityManager& ecm);
+        };
 
-//Loads and renders level 1 scene
-class Level1Scene: public Scene{
-public:
-    LevelScene() = default;
-    void update(const float &dt) override;
-    void render() override;
-    void load()override;
-    void unload() override;
-private:
-    std::shared_ptr<Entity> _player;
-    std::vector<std::shared_ptr<Entity>> _walls;
-    void _load_level(const std::string &file_path);
-};
-
-struct Scenes{
-    static std::shared_ptr<Scene> menu;
-    static std::shared_ptr<Scene> level;
-};
-*/
+    }
+}

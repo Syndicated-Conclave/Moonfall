@@ -1,6 +1,7 @@
 #include "physics.hpp"
 #include "../entities/cityscape.hpp" // to access the Building struct
 #include <iostream>
+#include "../components/AudioManager.hpp"
 
 namespace Game
 {
@@ -74,7 +75,7 @@ namespace Game
             b2Body_EnableContactEvents(bodyId, true);
         }
 
-        void Physics::updateStardust(sf::RenderWindow &window, std::vector<b2BodyId> bodyIds, sf::Vector2f direction, float speed)
+        void Physics::updateStardust(sf::RenderWindow &window, std::vector<b2BodyId> bodyIds, sf::Vector2f direction, float speed, int &collectedPoints, Game::Components::AudioManager &audioManager)
         {
             b2ContactEvents events = Engine::Physics::getContactEvents();
 
@@ -90,14 +91,19 @@ namespace Game
                         {
                             for (size_t j = 0; j < bodyIds.size(); j++)
                             {
-                                b2Body_Disable(bodyIds[j]);
-                                // ++ points
+                                if (b2Body_IsEnabled(bodyIds[j]))
+                                {
+                                    b2Body_Disable(bodyIds[j]);
+                                    audioManager.playTwinkleSound();
+                                    collectedPoints++;
+                                }
                             }
                         }
                         else // just the contact star is collected
                         {
                             b2Body_Disable(bodyIds[i]);
-                            // ++ points
+                            audioManager.playTwinkleSound();
+                            collectedPoints++;
                         }
                     }
                 }

@@ -30,14 +30,14 @@ namespace Game
             }
         }
 
-        void Stardust::update(sf::RenderWindow &window, sf::Vector2f moonPosition)
+        void Stardust::update(sf::RenderWindow &window, sf::Vector2f moonPosition, int &collectedPoints, Game::Components::AudioManager &audioManager)
         {
             // AI (automated steering behaviour)
             sf::Vector2f currentPosition = Engine::Physics::invertHeight(Engine::Physics::box2dToSfmlScale(b2Body_GetPosition(entity->physicsBodyIds.front())), window.getSize().y);
             direction = Game::Components::AI::getDirection(direction, spawnPosition, currentPosition, moonPosition, type);
 
             // Physics
-            Game::Components::Physics::updateStardust(window, entity->physicsBodyIds, direction, SPEED);
+            Game::Components::Physics::updateStardust(window, entity->physicsBodyIds, direction, SPEED, collectedPoints, audioManager);
 
             // Graphics
             for (size_t i = 0; i < entity->physicsBodyIds.size(); i++)

@@ -2,6 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include "../../engine/physics.hpp"
 #include "../../engine/ecm.hpp"
+#include "../gameStates.hpp"
+#include "../entities/cityscape.hpp"
+#include "../entities/moon.hpp"
+#include "../entities/stardust.hpp"
 
 namespace Game
 {
@@ -10,7 +14,15 @@ namespace Game
         class Level
         {
         public:
-            void level1(sf::RenderWindow &window, Engine::EntityManager &ecm);
+            void play(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::Components::AudioManager &audioManager, Game::State &gameState, int level);
+
+            int collectedPoints = 0;
+            static float levelWidth;
+
+        private:
+            int levelOne(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::Entities::Cityscape &cityscape, std::vector<Game::Entities::Stardust> &allStardust);
+            int levelThree(sf::RenderWindow& window, Engine::EntityManager& ecm, Game::Entities::Cityscape& cityscape, std::vector<Game::Entities::Stardust>& allStardust);
+            int levelFour(sf::RenderWindow& window, Engine::EntityManager& ecm, Game::Entities::Cityscape& cityscape, std::vector<Game::Entities::Stardust>& allStardust);
         };
     }
 }

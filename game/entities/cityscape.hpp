@@ -30,11 +30,14 @@ namespace Game
             //  FUNCTIONS
 
             // constructor which creates a new cityscape
-            Cityscape(sf::RenderWindow &window, Engine::EntityManager &ecm);
+            Cityscape(Engine::EntityManager &ecm);
+            void create(sf::RenderWindow &window);
             // handles updating all cityscape components
             void update(sf::RenderWindow &window);
             // handles rendering the cityscape
             void render(sf::RenderWindow &window);
+            // creates and adds a building to the cityscape
+            void addBuilding(float width, float height);
 
             // VARIABLES
 
@@ -59,10 +62,6 @@ namespace Game
             static constexpr float RESTITUTION = 0.1f;
             // colour of the buildings as a hex value
             static constexpr int COLOUR = 0x282828;
-
-        private:
-            // function to populate the city vector with buildings
-            void init_city();
         };
 
     }
