@@ -23,7 +23,10 @@ namespace Game
             {
             case 1:
                 requiredPoints = Level::levelOne(window, ecm, cityscape, allStardust);
-            }
+            case 2:
+                requiredPoints = Level::levelThree(window, ecm, cityscape, allStardust);
+                break;
+        }
 
             cityscape.addBuilding(1, 3600);
 
@@ -123,6 +126,54 @@ namespace Game
             allStardust.push_back(Game::Entities::Stardust(window, ecm, {800, 300}, 3));
 
             return 15;
+        }
+
+        int Level::levelThree(sf::RenderWindow& window, Engine::EntityManager& ecm, Game::Entities::Cityscape& cityscape, std::vector<Game::Entities::Stardust>& allStardust)
+        {
+            cityscape.addBuilding(50, 1075);
+            cityscape.addBuilding(150, 325);
+            cityscape.addBuilding(30, 1);
+            cityscape.addBuilding(200, 400);
+            cityscape.addBuilding(130, 200);
+            cityscape.addBuilding(170, 250);
+            cityscape.addBuilding(40, 1);
+            cityscape.addBuilding(320, 350);
+            cityscape.addBuilding(250, 425);
+            cityscape.addBuilding(200, 325);
+            cityscape.addBuilding(130, 160);
+            cityscape.addBuilding(30, 1);
+            cityscape.addBuilding(170, 700);
+            cityscape.addBuilding(120, 200);
+            cityscape.addBuilding(170, 700);
+            cityscape.addBuilding(40, 1);
+            cityscape.addBuilding(200, 150);
+            cityscape.addBuilding(20, 1);
+            cityscape.addBuilding(130, 400);
+            cityscape.addBuilding(170, 100);
+            cityscape.addBuilding(200, 250);
+            cityscape.addBuilding(150, 550);
+            cityscape.addBuilding(40, 1);
+            cityscape.addBuilding(200, 600);
+            cityscape.addBuilding(60, 1);
+            cityscape.addBuilding(150, 200);
+            cityscape.addBuilding(120, 450);
+            cityscape.addBuilding(170, 700);
+            cityscape.addBuilding(130, 450);
+            cityscape.addBuilding(20, 1);
+            cityscape.addBuilding(110, 900);
+            cityscape.addBuilding(110, 750);
+            cityscape.addBuilding(110, 900);
+            cityscape.addBuilding(60, 1);
+            cityscape.addBuilding(150, 550);
+            cityscape.addBuilding(250, 425);
+            cityscape.addBuilding(150, 550);
+
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, { 1000, 300 }, 1));
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, { 2100, 300 }, 2));
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, { 3000, 300 }, 3));
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, { 3700, 300 }, 1));
+
+            return 17;
         }
 
     }
