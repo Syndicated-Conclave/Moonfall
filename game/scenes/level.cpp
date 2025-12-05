@@ -30,7 +30,7 @@ namespace Game
             case 3:
                 requiredPoints = Level::levelFour(window, ecm, cityscape, allStardust);
                 break;
-        }
+            }
 
             cityscape.addBuilding(1, 3600);
 
@@ -73,9 +73,6 @@ namespace Game
                 {
                     gameState = Game::State::Menu;
                 }
-
-                ui.updateCounter(4, 8);
-                ui.updateTimer(clock.getElapsedTime().asSeconds());
 
                 // Render everything
                 window.clear(nightskyColour);
@@ -182,8 +179,8 @@ namespace Game
 
             return 17;
         }
-        
-        int Level::levelFour(sf::RenderWindow& window, Engine::EntityManager& ecm, Game::Entities::Cityscape& cityscape, std::vector<Game::Entities::Stardust>& allStardust)
+
+        int Level::levelFour(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::Entities::Cityscape &cityscape, std::vector<Game::Entities::Stardust> &allStardust)
         {
             cityscape.addBuilding(120, 280);
             cityscape.addBuilding(20, 1);
@@ -219,7 +216,7 @@ namespace Game
             cityscape.addBuilding(100, 460);
             cityscape.addBuilding(120, 600);
             cityscape.addBuilding(90, 540);
-            cityscape.addBuilding(60, 400);  // stardust checkpoint at 2640
+            cityscape.addBuilding(60, 400); // stardust checkpoint at 2640
             cityscape.addBuilding(80, 480);
             cityscape.addBuilding(100, 560);
             cityscape.addBuilding(120, 520);
@@ -252,7 +249,7 @@ namespace Game
             cityscape.addBuilding(80, 360);
             cityscape.addBuilding(100, 440);
             cityscape.addBuilding(110, 520);
-            cityscape.addBuilding(90, 500);  // stardust checkpoint at 5460
+            cityscape.addBuilding(90, 500); // stardust checkpoint at 5460
             cityscape.addBuilding(70, 500);
             cityscape.addBuilding(80, 440);
             cityscape.addBuilding(100, 360);
@@ -280,9 +277,9 @@ namespace Game
             cityscape.addBuilding(120, 280);
             cityscape.addBuilding(220, 200); // stardust checkpoint at 8200
 
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, { 2640, 300 }, 1));
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, { 5460, 300 }, 2));
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, { 8200, 300 }, 3));
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {2640, 300}, 1));
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {5460, 300}, 2));
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {8200, 300}, 3));
 
             return 15;
         }
