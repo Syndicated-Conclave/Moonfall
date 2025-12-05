@@ -38,7 +38,7 @@ engine/ecm.cpp
   game/scenes/levelMenu.cpp
   game/scenes/guide.cpp
   game/main.cpp
-)
+ "game/scenes/win.cpp" "game/scenes/lose.cpp")
 target_include_directories(Moonfall PRIVATE ${SFML_INCS} ${B2D_INCS} engine game)
 target_link_libraries(Moonfall sfml-graphics box2d)
 
