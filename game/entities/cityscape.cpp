@@ -10,7 +10,7 @@ namespace Game
         void Cityscape::create(sf::RenderWindow &window)
         {
             // since the first building's center is the origin of the cityscape
-            float sfmlPosX = city[0].width / 2;
+            float sfmlPosX = city[0].width / 2 - 1;
             // gaps in the cityscape are buildings with height 1, to avoid that being visible on bump the cityscape is offset by max bump
             float sfmlPosY = window.getSize().y + MAX_BUMP * Engine::Physics::PHYSICS_SCALE;
             sfmlPosition = sf::Vector2f(sfmlPosX, sfmlPosY);
