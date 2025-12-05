@@ -1,15 +1,16 @@
 
-/*#include "menu.hpp"
-#include "levelMenu.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <iostream>
+#include "../../engine/ecm.hpp"
+#include "guide.hpp"
+
 
 namespace Game
 {
     namespace Scenes
     {
-        void Menu::mainMenu(sf::RenderWindow& window, Engine::EntityManager& ecm)
+        void Guide::instruct(sf::RenderWindow& window, Engine::EntityManager& ecm)
         {
             // Adding custom font and styling for title
             sf::Font font;
@@ -68,21 +69,24 @@ namespace Game
 
 
         }
-            void Menu::handleEvent(sf::RenderWindow & window, sf::Event & event)
+        void Guide::handleEvent(sf::RenderWindow& window, sf::Event& event)
+        {
+            if (event.type == sf::Event::MouseButtonPressed)
             {
-                if (event.type == sf::Event::MouseButtonPressed)
+                sf::Vector2f mouse = window.mapPixelToCoords(
+                    sf::Mouse::getPosition(window)
+                );
+                if (back.getGlobalBounds().contains(mouse));
                 {
-                    sf::Vector2f mouse = window.mapPixelToCoords(
-                        sf::Mouse::getPosition(window)
-                    );
-                    if (back.getGlobalBounds().contains(mouse))
-                    {
-                        Menu.mainMenu(window, ecm);
-                    }
+                    Engine::EntityManager ecm;
+                    //Menu.mainMenu(window, ecm);
+                }
+
 
 
             }
+        }
 
 
     }
-} */
+} 

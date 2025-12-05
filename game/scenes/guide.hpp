@@ -1,4 +1,5 @@
-guide.hpp
+#include <SFML/Graphics.hpp>
+#include "../../engine/ecm.hpp"
 namespace Game
 {
     namespace Scenes
@@ -6,10 +7,15 @@ namespace Game
         class Guide
         {
         public:
-            void mainMenu(sf::RenderWindow& window, Engine::EntityManager& ecm);
+            void instruct(sf::RenderWindow& window, Engine::EntityManager& ecm);
+            //void Menu(sf::RenderWindow& window, Engine::EntityManager& ecm);
             void handleEvent(sf::RenderWindow& window, sf::Event& event);
-
+            sf::RectangleShape back;
+            
         };
+
+        
+        
 
     }
 }

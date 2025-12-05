@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "../../engine/physics.hpp"
 #include "../../engine/ecm.hpp"
 
 namespace Game
@@ -9,11 +10,13 @@ namespace Game
         class levelMenu
         {
         public:
-            void mainMenu(sf::RenderWindow& window, Engine::EntityManager& ecm);
+            void chooseLevel(sf::RenderWindow& window, Engine::EntityManager& ecm);
             void handleEvent(sf::RenderWindow& window, sf::Event& event);
-            void basicPhysicsSetUp(sf::RenderWindow& window, Engine::EntityManager& ecm);
-        private:
-            //void levelMenu(sf::RenderWindow& window, Engine::EntityManager& ecm);
+            sf::RectangleShape levelOne;
+            sf::RectangleShape levelTwo;
+            sf::RectangleShape levelThree;
+            sf::RectangleShape returnMenu;
+            
         };
 
     }

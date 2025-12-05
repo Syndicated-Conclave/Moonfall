@@ -1,9 +1,10 @@
-
-/*#include "menu.hpp"
+#include "menu.hpp"
 #include "levelMenu.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <iostream>
+
+
 
 namespace Game
 {
@@ -122,34 +123,37 @@ namespace Game
 
 
         }
-            void Menu::handleEvent(sf::RenderWindow & window, sf::Event & event)
+    
+        void Menu::handleEvent(sf::RenderWindow& window, sf::Event& event)
+        {
+            if (event.type == sf::Event::MouseButtonPressed)
             {
-                if (event.type == sf::Event::MouseButtonPressed)
+                sf::Vector2f mouse = window.mapPixelToCoords(
+                    sf::Mouse::getPosition(window)
+                );
+                if (exit.getGlobalBounds().contains(mouse))
                 {
-                    sf::Vector2f mouse = window.mapPixelToCoords(
-                        sf::Mouse::getPosition(window)
-                    );
-                    if (exit.getGlobalBounds().contains(mouse))
-                    {
-                        window.close();
-                    }
-                    if (guide.getGlobalBounds().contains(mouse))
-                    {
-                        std::cout << "Guide" << std::endl;
-                    }
-                    if (play.getGlobalBounds().contains(mouse))
-                    {
-                        std::cout << "Play" << std::endl;
+                    window.close();
+                }
+                if (guide.getGlobalBounds().contains(mouse))
+                {
+                    std::cout << "Guide" << std::endl;
+                }
+                if (play.getGlobalBounds().contains(mouse))
+                {
+                    std::cout << "Play" << std::endl;
+                    Engine::EntityManager ecm;
 
-                        levelMenu.chooseLevel(window, ecm);
-                    }
-                    if (controls.getGlobalBounds().contains(mouse))
-                    {
-                        std::cout << "Controls" << std::endl;
-                    }
+                    //Game::Scenes::levelMenu chooseLevel(window, ecm);
+                }
+                if (controls.getGlobalBounds().contains(mouse))
+                {
+                    std::cout << "Controls" << std::endl;
+                }
 
             }
 
 
+        }
     }
-} */
+}

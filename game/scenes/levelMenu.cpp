@@ -1,8 +1,8 @@
-/*#include "levelMenu.hpp"
-* #include "menu.hpp"
+#include "levelMenu.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <iostream>
+#include "menu.hpp"
 
 namespace Game
 {
@@ -39,13 +39,13 @@ namespace Game
             levelTwo.setPosition(600.f, 400.f);
             sf::RectangleShape levelThree({ 380.f, 65.f });
             levelThree.setPosition(600.f, 500.f);
-            sf::RectangleShape return({ 380.f, 65.f });
+            sf::RectangleShape returnMenu({ 380.f, 65.f });
             returnMenu.setPosition(600.f, 600.f);
 
             levelOne.setFillColor(sf::Color(255, 255, 224));
             levelTwo.setFillColor(sf::Color(255, 255, 224));
             levelThree.setFillColor(sf::Color(255, 255, 224));
-            return.setFillColor(sf::Color(255, 255, 224));
+            returnMenu.setFillColor(sf::Color(255, 255, 224));
 
             //Making labels for my buttons
             sf::Text LevelOne("Level One", font);
@@ -86,41 +86,44 @@ namespace Game
 
 
         }
-            void Menu::handleEvent(sf::RenderWindow & window, sf::Event & event)
+        void levelMenu::handleEvent(sf::RenderWindow& window, sf::Event& event)
+        {
+            if (event.type == sf::Event::MouseButtonPressed)
             {
-                if (event.type == sf::Event::MouseButtonPressed)
+                sf::Vector2f mouse = window.mapPixelToCoords(
+                    sf::Mouse::getPosition(window)
+                );
+                if (levelOne.getGlobalBounds().contains(mouse))
                 {
-                    sf::Vector2f mouse = window.mapPixelToCoords(
-                        sf::Mouse::getPosition(window)
-                    );
-                    if (levelOne.getGlobalBounds().contains(mouse))
-                    {
-                        std::cout << "Lvl1" << std::endl;
+                    std::cout << "Lvl1" << std::endl;
 
-                        Engine::Physics::initialise();
+                    Engine::Physics::initialise();
 
-                        Engine::EntityManager ecm;
+                    Engine::EntityManager ecm;
 
-                        Game::Scenes::Level level;
+                    //Game::Scenes::Level level1;
 
-                        level.basicPhysicsSetUp(window, ecm);
-                    }
-                    if (levelTwo.getGlobalBounds().contains(mouse))
-                    {
-                        std::cout << "Lvl2" << std::endl;
-                    }
-                    if (levelThree.getGlobalBounds().contains(mouse))
-                    {
-                        std::cout << "Lvl3" << std::endl;
-                    }
-                    if (returnMenu.getGlobalBounds().contains(mouse))
-                    {
-                        std::cout << "Back" << std::endl;
-                        Menu.mainMenu(window, ecm);
-                    }
+                    //level1.basicPhysicsSetUp(window, ecm);
+                }
+                if (levelTwo.getGlobalBounds().contains(mouse))
+                {
+                    std::cout << "Lvl2" << std::endl;
+                }
+                if (levelThree.getGlobalBounds().contains(mouse))
+                {
+                    std::cout << "Lvl3" << std::endl;
+                }
+                if (returnMenu.getGlobalBounds().contains(mouse))
+                {
+                    std::cout << "Back" << std::endl;
 
+                }
             }
-
-
+        }
     }
-} */
+}
+
+            
+
+
+    
