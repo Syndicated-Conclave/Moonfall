@@ -6,6 +6,7 @@
 #include "../components/physics.hpp"
 #include "../components/graphics.hpp"
 #include "../components/ai.hpp"
+#include "../components/AudioManager.hpp"
 
 // namespace for all game specific things
 namespace Game
@@ -24,7 +25,7 @@ namespace Game
             // constructor which creates a new stardust entity made up of stars
             Stardust(sf::RenderWindow &window, Engine::EntityManager &ecm, sf::Vector2f sfmlPosition, int type);
             // handles updating all star components
-            void update(sf::RenderWindow &window, sf::Vector2f moonPosition, int &collectedPoints);
+            void update(sf::RenderWindow &window, sf::Vector2f moonPosition, int &collectedPoints, Game::Components::AudioManager &audioManager);
             // handles rendering the stars
             void render(sf::RenderWindow &window);
 
