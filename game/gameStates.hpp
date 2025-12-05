@@ -3,7 +3,7 @@
 
 namespace Game
 {
-    
+
     // enum that holds states for Menu and game levels
     enum State
     {
@@ -11,7 +11,7 @@ namespace Game
         Playing,
         GameWin,
         GameLose
-                    
+
     };
-    
+
 }
