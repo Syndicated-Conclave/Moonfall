@@ -7,12 +7,14 @@
 #include "scenes/level.hpp"
 #include "scenes/menu.hpp"
 #include "../game/gameStates.hpp"
+#include "../game/components/AudioManager.hpp"
 
 int main()
 {
     Game::State gameState = Game::State::Menu;
 
     sf::RenderWindow window(sf::VideoMode({ Parameters::game_width, Parameters::game_height }), "Moonfall");
+    Game::Components::AudioManager audioManager;
 
     Game::Scenes::Menu menu;
     menu.mainMenu(window);
@@ -36,12 +38,12 @@ int main()
         switch (gameState)
         {
         case Game::State::Menu:
-        {
+        {   audioManager.playMenuMusic();
             menu.draw(window);
             break;
         }
         case Game::State::Playing:
-        {
+        {   audioManager.playGameplayMusic();
             Engine::Physics::initialise();
 
             Engine::EntityManager ecm;

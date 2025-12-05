@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <iostream>
+#include "../components/AudioManager.hpp"
 
 namespace Game
 {
@@ -140,22 +141,22 @@ namespace Game
 
 
         void Menu::handleEvent(sf::RenderWindow& window, sf::Event& event, Game::State& gameState)
-        {
+        {   Game::Components::AudioManager audioManager;
             if (event.type == sf::Event::MouseButtonPressed)
             {
                 sf::Vector2f mouse = window.mapPixelToCoords(
                     sf::Mouse::getPosition(window)
                 );
                 if (exit.getGlobalBounds().contains(mouse))
-                {
+                {   audioManager.playMenuUISound();
                     window.close();
                 }
                 if (guide.getGlobalBounds().contains(mouse))
-                {
+                {   audioManager.playMenuUISound();
                     std::cout << "Guide" << std::endl;
                 }
                 if (play.getGlobalBounds().contains(mouse))
-                {
+                {   audioManager.playMenuUISound();
                     std::cout << "Play" << std::endl;
 
                     Engine::EntityManager ecm;
@@ -163,7 +164,7 @@ namespace Game
                     std::cout << gameState;
                 }
                 if (controls.getGlobalBounds().contains(mouse))
-                {
+                {   audioManager.playMenuUISound();
                     std::cout << "Controls" << std::endl;
                 }
 
