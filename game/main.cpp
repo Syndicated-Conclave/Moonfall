@@ -13,8 +13,9 @@ int main()
 {
     Game::State gameState = Game::State::Menu;
 
-    sf::RenderWindow window(sf::VideoMode({ Parameters::game_width, Parameters::game_height }), "Moonfall");
+    sf::RenderWindow window(sf::VideoMode({Parameters::game_width, Parameters::game_height}), "Moonfall");
     Game::Components::AudioManager audioManager;
+    audioManager.playMenuMusic();
 
     Game::Scenes::Menu menu;
     menu.mainMenu(window);
@@ -24,7 +25,7 @@ int main()
         sf::Event event;
         while (window.pollEvent(event))
         {
-            
+
             if (event.type == sf::Event::Closed)
             {
                 window.close();
@@ -38,12 +39,14 @@ int main()
         switch (gameState)
         {
         case Game::State::Menu:
-        {   audioManager.playMenuMusic();
+        {
+
             menu.draw(window);
             break;
         }
         case Game::State::Playing:
-        {   audioManager.playGameplayMusic();
+        {
+            audioManager.playGameplayMusic();
             Engine::Physics::initialise();
 
             Engine::EntityManager ecm;
