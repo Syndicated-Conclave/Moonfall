@@ -11,7 +11,6 @@ namespace Game
     {
         UI::UI(sf::RenderWindow &window)
         {
-            
 
             // Adding custom font and styling for counter text
 
@@ -19,7 +18,7 @@ namespace Game
             font = localFont;
             font.loadFromFile("resources/HUSKYSTA.otf");
 
-            counterBaseText = "Star Dust Collected: ";
+            counterBaseText = "Stardust Collected: ";
 
             sf::Text localCounterText(counterBaseText, font, 28);
             counterText = localCounterText;
@@ -27,11 +26,11 @@ namespace Game
             counterText.setPosition({120.f, 30.f});
 
             // Creating boxes for timer text
-            sf::RectangleShape localCounterBlock({400.f, 65.f});
+            sf::RectangleShape localCounterBlock({480.f, 65.f});
             counterBlock = localCounterBlock;
             counterBlock.setPosition(100.f, 20.f);
 
-            sf::RectangleShape localCounterBox({400.f, 65.f});
+            sf::RectangleShape localCounterBox({480.f, 65.f});
             counterBox = localCounterBox;
             counterBox.setPosition(100.f, 20.f);
 
@@ -40,34 +39,33 @@ namespace Game
 
             // Adding custom font and styling for countdown text
 
-            timerBaseText = "Time Till Sunrise: ";
+            timerBaseText = "Seconds Till Sunrise: ";
 
             sf::Text localTimerText(timerBaseText, font, 28);
             timerText = localTimerText;
             timerText.setFillColor(sf::Color(255, 255, 224));
-            timerText.setPosition({1120.f, 30.f});
+            timerText.setPosition({1130.f, 30.f});
 
             // Creating boxes for timer text
-            sf::RectangleShape localTimerBlock({400.f, 65.f});
+            sf::RectangleShape localTimerBlock({390.f, 65.f});
             timerBlock = localTimerBlock;
-            timerBlock.setPosition(1100.f, 20.f);
+            timerBlock.setPosition(1110.f, 20.f);
 
-            sf::RectangleShape localTimerBox({400.f, 65.f});
+            sf::RectangleShape localTimerBox({390.f, 65.f});
             timerBox = localTimerBox;
-            timerBox.setPosition(1100.f, 20.f);
+            timerBox.setPosition(1110.f, 20.f);
 
             timerBlock.setFillColor(sf::Color(11, 11, 24));
             timerBox.setFillColor(sf::Color(8, 10, 43));
-
-            
         }
 
-        void UI::updateTimer(float timePassed)
+        void UI::updateTimer(float timePassed, int gameTimeLimit)
         {
-            timeLeft = round(gameTime - timePassed);
+            timeLeft = round(gameTimeLimit - timePassed);
             std::string timerString = timerBaseText + std::to_string(timeLeft);
 
             timerText.setString(timerString);
+            // std::cout << "\nTimer: " << timerText.getGlobalBounds().width;
         }
         void UI::drawTimer(sf::RenderWindow &window)
         {
@@ -77,9 +75,10 @@ namespace Game
         }
         void UI::updateCounter(int collectedStars, int requiredStars)
         {
-            std::string counterString = counterBaseText + std::to_string(collectedStars) + " / " + std::to_string(requiredStars);
+            std::string counterString = counterBaseText + std::to_string(collectedStars) + " out of " + std::to_string(requiredStars);
 
             counterText.setString(counterString);
+            // std::cout << "\nCounter: " << counterText.getGlobalBounds().width;
         }
         void UI::drawCounter(sf::RenderWindow &window)
         {

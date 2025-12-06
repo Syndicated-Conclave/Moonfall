@@ -1,6 +1,7 @@
 #include "level.hpp"
 #include <vector>
 #include <iostream>
+#include "../entities/gameOverlay.hpp"
 
 namespace Game
 {
@@ -24,10 +25,10 @@ namespace Game
             case 1:
                 requiredPoints = Level::levelOne(window, ecm, cityscape, allStardust);
                 break;
-            case 2:
+            case 3:
                 requiredPoints = Level::levelThree(window, ecm, cityscape, allStardust);
                 break;
-            case 3:
+            case 4:
                 requiredPoints = Level::levelFour(window, ecm, cityscape, allStardust);
                 break;
             }
@@ -42,17 +43,18 @@ namespace Game
 
             cityscape.create(window);
 
+            sf::Clock clock;
+            Game::Entities::UI ui(window);
+
             int counter = 0;
             while (gameState == Game::State::Playing)
             {
-
-                // this should be removed as far as i know but removing it makes the window stop responding after a few seconds of playing
                 sf::Event event;
                 while (window.pollEvent(event))
                 {
                     if (event.type == sf::Event::Closed)
                     {
-                        window.close();
+                        gameState = Game::State::Exit;
                     }
                 }
 
@@ -69,10 +71,19 @@ namespace Game
                 moon.update(window);
 
                 // TEMPORARY WIN CONDITION ON WHICH RETURNS TO MENU
+                if (clock.getElapsedTime().asSeconds() > gameTimeLimit)
+                {
+                    gameState = Game::State::GameLose;
+                    audioManager.playMenuMusic();
+                }
                 if (collectedPoints >= requiredPoints)
                 {
-                    gameState = Game::State::Menu;
+                    gameState = Game::State::GameWin;
+                    audioManager.playMenuMusic();
                 }
+
+                ui.updateCounter(collectedPoints, requiredPoints);
+                ui.updateTimer(clock.getElapsedTime().asSeconds(), gameTimeLimit);
 
                 // Render everything
                 window.clear(nightskyColour);
@@ -82,6 +93,8 @@ namespace Game
                 {
                     allStardust[i].render(window);
                 }
+                ui.drawCounter(window);
+                ui.drawTimer(window);
 
                 window.display();
             }

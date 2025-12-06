@@ -8,9 +8,11 @@ namespace Game
     enum State
     {
         Menu,
+        LevelSelection,
         Playing,
         GameWin,
-        GameLose
+        GameLose,
+        Exit
 
     };
 

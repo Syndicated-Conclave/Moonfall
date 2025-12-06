@@ -10,7 +10,7 @@ namespace Game
         {
         public:
             UI(sf::RenderWindow &window);
-            void updateTimer(float timePassed);
+            void updateTimer(float timePassed, int gameTimeLimit);
             void drawTimer(sf::RenderWindow &window);
             void updateCounter(int collectedStars, int requiredStars);
             void drawCounter(sf::RenderWindow &window);
@@ -18,7 +18,7 @@ namespace Game
             sf::Font font;
 
             // variables
-            
+
             std::string counterBaseText;
             sf::Text counterText;
             sf::RectangleShape counterBlock;
@@ -26,15 +26,12 @@ namespace Game
 
             std::string timerBaseText;
             sf::Text timerText;
-            
+
             sf::RectangleShape timerBlock;
             sf::RectangleShape timerBox;
 
             // sf::Clock timer;
-            int gameTime = 120;
             int timeLeft;
-            
-            
         };
     }
 }

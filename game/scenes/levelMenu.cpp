@@ -13,14 +13,14 @@ namespace Game
 {
     namespace Scenes
     {
-        void levelMenu::chooseLevel(sf::RenderWindow& window)
+        void levelMenu::chooseLevel(sf::RenderWindow &window)
         {
             // Adding custom font and styling for title
             font.loadFromFile("resources/HUSKYSTA.otf");
             sf::Text thisTitle("Select Level", font, 88);
             title = thisTitle;
             title.setFillColor(sf::Color(255, 255, 224));
-            title.setPosition({ 600.f, 100.f });
+            title.setPosition({Parameters::game_width / 2 - title.getGlobalBounds().width / 2, 100.f});
 
             // Creating gradient background colour
             sf::VertexArray thisSky(sf::Quads, 4);
@@ -36,52 +36,57 @@ namespace Game
             sky[3].color = light;
             sky[2].color = light;
 
-
-
             // Creating Level Buttons
-            levelOne.setSize({ 380.f, 65.f });
-            levelOne.setPosition(600.f, 300.f);
-            levelTwo.setSize({ 380.f, 65.f });
-            levelTwo.setPosition(600.f, 400.f);
-            levelThree.setSize({ 380.f, 65.f });
-            levelThree.setPosition(600.f, 500.f);
-            returnMenu.setSize({ 380.f, 65.f });
-            returnMenu.setPosition(600.f, 600.f);
+            levelOne.setSize({380.f, 65.f});
+            levelOne.setPosition(Parameters::game_width / 2 - levelOne.getGlobalBounds().width / 2, 300.f);
+            levelTwo.setSize({380.f, 65.f});
+            levelTwo.setPosition(Parameters::game_width / 2 - levelTwo.getGlobalBounds().width / 2, 400.f);
+            levelThree.setSize({380.f, 65.f});
+            levelThree.setPosition(Parameters::game_width / 2 - levelOne.getGlobalBounds().width / 2, 500.f);
+            levelFour.setSize({380.f, 65.f});
+            levelFour.setPosition(Parameters::game_width / 2 - levelFour.getGlobalBounds().width / 2, 600.f);
+            returnMenu.setSize({380.f, 65.f});
+            returnMenu.setPosition(Parameters::game_width / 2 - returnMenu.getGlobalBounds().width / 2, 700.f);
 
             levelOne.setFillColor(sf::Color(255, 255, 224));
             levelTwo.setFillColor(sf::Color(255, 255, 224));
             levelThree.setFillColor(sf::Color(255, 255, 224));
+            levelFour.setFillColor(sf::Color(255, 255, 224));
             returnMenu.setFillColor(sf::Color(255, 255, 224));
 
-            //Making labels for my buttons
+            // Making labels for my buttons
             sf::Text localLevelOne("Level One", font);
             LevelOne = localLevelOne;
             LevelOne.setCharacterSize(40);
             LevelOne.setFillColor(sf::Color(11, 27, 44));
-            LevelOne.setPosition(730.f, 300.f);
+            LevelOne.setPosition(Parameters::game_width / 2 - LevelOne.getGlobalBounds().width / 2, 300.f);
 
             sf::Text localLevelTwo("Level Two", font);
-            LevelTwo = localLevelOne;
+            LevelTwo = localLevelTwo;
             LevelTwo.setCharacterSize(40);
             LevelTwo.setFillColor(sf::Color(11, 27, 44));
-            LevelTwo.setPosition(740.f, 400.f);
-
+            LevelTwo.setPosition(Parameters::game_width / 2 - LevelOne.getGlobalBounds().width / 2, 400.f);
 
             sf::Text localLevelThree("Level Three", font);
             LevelThree = localLevelThree;
             LevelThree.setCharacterSize(40);
             LevelThree.setFillColor(sf::Color(11, 27, 44));
-            LevelThree.setPosition(710.f, 500.f);
+            LevelThree.setPosition(Parameters::game_width / 2 - LevelOne.getGlobalBounds().width / 2, 500.f);
+
+            sf::Text localLevelFour("Level Four", font);
+            LevelFour = localLevelFour;
+            LevelFour.setCharacterSize(40);
+            LevelFour.setFillColor(sf::Color(11, 27, 44));
+            LevelFour.setPosition(Parameters::game_width / 2 - LevelOne.getGlobalBounds().width / 2, 600.f);
 
             sf::Text localReturnMenu("Return", font);
             ReturnMenu = localReturnMenu;
             ReturnMenu.setCharacterSize(40);
             ReturnMenu.setFillColor(sf::Color(11, 27, 44));
-            ReturnMenu.setPosition(740.f, 600.f);
-
+            ReturnMenu.setPosition(Parameters::game_width / 2 - ReturnMenu.getGlobalBounds().width / 2, 700.f);
         }
 
-        void levelMenu::draw(sf::RenderWindow& window)
+        void levelMenu::draw(sf::RenderWindow &window)
         {
             window.clear();
             window.draw(sky);
@@ -92,57 +97,56 @@ namespace Game
             window.draw(LevelTwo);
             window.draw(levelThree);
             window.draw(LevelThree);
+            window.draw(levelFour);
+            window.draw(LevelFour);
             window.draw(returnMenu);
             window.draw(ReturnMenu);
             window.display();
         }
 
-
-
-
-
-
-
-        void levelMenu::handleEvent(sf::RenderWindow& window, sf::Event& event, Game::State& gameState)
+        int levelMenu::handleEvent(sf::RenderWindow &window, Game::Components::AudioManager &audioManager, sf::Event &event, Game::State &gameState)
         {
             if (event.type == sf::Event::MouseButtonPressed)
             {
                 sf::Vector2f mouse = window.mapPixelToCoords(
-                    sf::Mouse::getPosition(window)
-                );
+                    sf::Mouse::getPosition(window));
                 if (levelOne.getGlobalBounds().contains(mouse))
                 {
-                    std::cout << "Play" << std::endl;
+                    std::cout << "Lvl1" << std::endl;
+                    audioManager.playMenuUISound();
 
-                    Engine::EntityManager ecm;
                     gameState = Game::State::Playing;
-                    std::cout << gameState;
+                    return 1;
                 }
                 if (levelTwo.getGlobalBounds().contains(mouse))
-                {
+                { // COMMENTED OUT AS NOT ADDED YET
                     std::cout << "Lvl2" << std::endl;
+                    audioManager.playMenuUISound();
+
+                    // gameState = Game::State::Playing;
+                    // return 2;
                 }
                 if (levelThree.getGlobalBounds().contains(mouse))
                 {
                     std::cout << "Lvl3" << std::endl;
+                    audioManager.playMenuUISound();
+                    gameState = Game::State::Playing;
+                    return 3;
+                }
+                if (levelFour.getGlobalBounds().contains(mouse))
+                {
+                    std::cout << "Lvl4" << std::endl;
+                    audioManager.playMenuUISound();
+                    gameState = Game::State::Playing;
+                    return 3;
                 }
                 if (returnMenu.getGlobalBounds().contains(mouse))
                 {
+                    gameState = Game::State::Menu;
+                    audioManager.playMenuUISound();
                     std::cout << "Back" << std::endl;
-
                 }
-
-
             }
-
-
         }
     }
 }
-
-
-            
-
-
-        
-    
