@@ -273,13 +273,13 @@ namespace Game
             cityscape.addBuilding(110, 560);
             cityscape.addBuilding(120, 520);
             cityscape.addBuilding(80, 440);
-            cityscape.addBuilding(100, 360);
+            cityscape.addBuilding(100, 360); // stardust checkpoint at 7860
             cityscape.addBuilding(120, 280);
-            cityscape.addBuilding(220, 200); // stardust checkpoint at 8200
+            cityscape.addBuilding(220, 200); 
 
             allStardust.push_back(Game::Entities::Stardust(window, ecm, { 2640, 300 }, 1));
             allStardust.push_back(Game::Entities::Stardust(window, ecm, { 5460, 300 }, 2));
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, { 8200, 300 }, 3));
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, { 7860, 300 }, 3));
 
             return 15;
         }
