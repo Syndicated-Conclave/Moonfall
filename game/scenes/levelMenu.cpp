@@ -119,12 +119,12 @@ namespace Game
                     return 1;
                 }
                 if (levelTwo.getGlobalBounds().contains(mouse))
-                { // COMMENTED OUT AS NOT ADDED YET
+                {
                     std::cout << "Lvl2" << std::endl;
                     audioManager.playMenuUISound();
 
-                    // gameState = Game::State::Playing;
-                    // return 2;
+                    gameState = Game::State::Playing;
+                    return 2;
                 }
                 if (levelThree.getGlobalBounds().contains(mouse))
                 {
@@ -138,7 +138,7 @@ namespace Game
                     std::cout << "Lvl4" << std::endl;
                     audioManager.playMenuUISound();
                     gameState = Game::State::Playing;
-                    return 3;
+                    return 4;
                 }
                 if (returnMenu.getGlobalBounds().contains(mouse))
                 {

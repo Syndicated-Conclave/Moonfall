@@ -196,13 +196,13 @@ namespace Game
             allStardust.push_back(Game::Entities::Stardust(window, ecm, {1000, 450}, 1)); // 3
             allStardust.push_back(Game::Entities::Stardust(window, ecm, {5000, 500}, 2)); // 5
             allStardust.push_back(Game::Entities::Stardust(window, ecm, {6000, 450}, 2)); // 5
-            allStardust.push_back(Game::Entities::Stardust(window, ecm, {7500, 500}, 3)); // 9
+            allStardust.push_back(Game::Entities::Stardust(window, ecm, {7500, 400}, 3)); // 9
             allStardust.push_back(Game::Entities::Stardust(window, ecm, {8000, 450}, 2)); // 5
             allStardust.push_back(Game::Entities::Stardust(window, ecm, {8500, 450}, 2)); // 5
             allStardust.push_back(Game::Entities::Stardust(window, ecm, {9000, 500}, 2)); // 5
             allStardust.push_back(Game::Entities::Stardust(window, ecm, {9500, 500}, 2)); // 5
 
-            return 80;
+            return 36;
         }
 
         int Level::levelThree(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::Entities::Cityscape &cityscape, std::vector<Game::Entities::Stardust> &allStardust)
