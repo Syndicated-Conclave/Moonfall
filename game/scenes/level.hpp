@@ -17,14 +17,14 @@ namespace Game
             void play(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::Components::AudioManager &audioManager, Game::State &gameState, int level);
 
             int collectedPoints = 0;
+            int gameTimeLimit = 120;
             static float levelWidth;
 
         private:
             int levelOne(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::Entities::Cityscape &cityscape, std::vector<Game::Entities::Stardust> &allStardust);
             int levelTwo(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::Entities::Cityscape &cityscape, std::vector<Game::Entities::Stardust> &allStardust);
-
-            int levelThree(sf::RenderWindow& window, Engine::EntityManager& ecm, Game::Entities::Cityscape& cityscape, std::vector<Game::Entities::Stardust>& allStardust);
-            int levelFour(sf::RenderWindow& window, Engine::EntityManager& ecm, Game::Entities::Cityscape& cityscape, std::vector<Game::Entities::Stardust>& allStardust);
+            int levelThree(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::Entities::Cityscape &cityscape, std::vector<Game::Entities::Stardust> &allStardust);
+            int levelFour(sf::RenderWindow &window, Engine::EntityManager &ecm, Game::Entities::Cityscape &cityscape, std::vector<Game::Entities::Stardust> &allStardust);
         };
     }
 }

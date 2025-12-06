@@ -3,16 +3,17 @@
 #include <SFML/Graphics.hpp>
 #include "../../engine/ecm.hpp"
 #include "../gameStates.hpp"
+#include "parameters.hpp"
 
 namespace Game
 {
     namespace Scenes
     {
-        void Win::showResult(sf::RenderWindow& window)
+        void Win::showResult(sf::RenderWindow &window)
         {
-            // Adding custom font 
+            // Adding custom font
             font.loadFromFile("resources/HUSKYSTA.otf");
-            
+
             // Creating gradient background colour
             sf::VertexArray localSky(sf::Quads, 4);
             sky = localSky;
@@ -28,34 +29,29 @@ namespace Game
             sky[2].color = light;
 
             // Creating Menu Buttons
-            win.setSize({ 380.f,65.f });
-            win.setPosition(600.f, 300.f);
-            back.setSize({ 380.f,65.f });
-            back.setPosition(600.f, 500.f);
-            
-            win.setFillColor(sf::Color(255, 255, 224));
-            back.setFillColor(sf::Color(255, 255, 224));
-            
+            win.setSize({380.f, 65.f});
+            win.setPosition(Parameters::game_width / 2 - win.getGlobalBounds().width / 2, 300.f);
+            back.setSize({380.f, 65.f});
+            back.setPosition(Parameters::game_width / 2 - back.getGlobalBounds().width / 2, 500.f);
 
-            //Making labels for my buttons
+            win.setFillColor(sf::Color(11, 11, 24));
+            back.setFillColor(sf::Color(255, 255, 224));
+
+            // Making labels for my buttons
             sf::Text localwinText("You've won!", font);
             winText = localwinText;
             winText.setCharacterSize(40);
-            winText.setFillColor(sf::Color(11, 27, 44));
-            winText.setPosition(730.f, 300.f);
-
-
+            winText.setFillColor(sf::Color(255, 255, 224));
+            winText.setPosition(Parameters::game_width / 2 - winText.getGlobalBounds().width / 2 + 20, 300.f);
 
             sf::Text localbackText("Return to menu", font);
             backText = localbackText;
             backText.setCharacterSize(40);
             backText.setFillColor(sf::Color(11, 27, 44));
-            backText.setPosition(710.f, 500.f);
-
-            
+            backText.setPosition(Parameters::game_width / 2 - backText.getGlobalBounds().width / 2, 500.f);
         }
 
-        void Win::draw(sf::RenderWindow& window)
+        void Win::draw(sf::RenderWindow &window)
         {
 
             window.clear();
@@ -65,33 +61,21 @@ namespace Game
             window.draw(back);
             window.draw(backText);
             window.display();
-
-
-
         }
 
-
-
-
-
-
-
-        void Win::handleEvent(sf::RenderWindow& window, sf::Event& event, Game::State& gameState)
+        void Win::handleEvent(sf::RenderWindow &window, sf::Event &event, Game::State &gameState)
         {
             if (event.type == sf::Event::MouseButtonPressed)
             {
                 sf::Vector2f mouse = window.mapPixelToCoords(
-                    sf::Mouse::getPosition(window)
-                );
+                    sf::Mouse::getPosition(window));
                 if (back.getGlobalBounds().contains(mouse))
                 {
+
+                    gameState = Game::State::Menu;
                     std::cout << "Return to menu" << std::endl;
                 }
-                
-
             }
-
-
         }
     }
 }

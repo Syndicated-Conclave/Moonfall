@@ -8,6 +8,7 @@
 #include "scenes/menu.hpp"
 #include "../game/gameStates.hpp"
 #include "../game/components/AudioManager.hpp"
+#include "scenes/result.hpp"
 
 int main()
 {
@@ -20,6 +21,16 @@ int main()
     Game::Scenes::Menu menu;
     menu.mainMenu(window);
 
+    Game::Scenes::levelMenu levelMenu;
+    levelMenu.chooseLevel(window);
+
+    Game::Scenes::Win win;
+    win.showResult(window);
+
+    Game::Scenes::Lose lose;
+    lose.showResult(window);
+
+    int levelSelection = 0;
     while (window.isOpen())
     {
         sf::Event event;
@@ -28,11 +39,23 @@ int main()
 
             if (event.type == sf::Event::Closed)
             {
-                window.close();
+                gameState = Game::State::Exit;
             }
-            if (gameState == Game::State::Menu)
+            else if (gameState == Game::State::Menu)
             {
-                menu.handleEvent(window, event, gameState);
+                menu.handleEvent(window, audioManager, event, gameState);
+            }
+            else if (gameState == Game::State::LevelSelection)
+            {
+                levelSelection = levelMenu.handleEvent(window, audioManager, event, gameState);
+            }
+            else if (gameState == Game::State::GameWin)
+            {
+                win.handleEvent(window, event, gameState);
+            }
+            else if (gameState == Game::State::GameLose)
+            {
+                lose.handleEvent(window, event, gameState);
             }
         }
 
@@ -44,25 +67,45 @@ int main()
             menu.draw(window);
             break;
         }
+        case Game::State::LevelSelection:
+        {
+            levelMenu.draw(window);
+        }
         case Game::State::Playing:
         {
-            audioManager.playGameplayMusic();
-            Engine::Physics::initialise();
+            if (levelSelection)
+            {
+                audioManager.playGameplayMusic();
+                Engine::Physics::initialise();
 
-            Engine::EntityManager ecm;
+                Engine::EntityManager ecm;
 
-            Game::Scenes::Level level;
+                Game::Scenes::Level level;
 
-            level.play(window, ecm, audioManager, gameState, 2); // 1 for level 1, when testing your levels just change this number so play starts that while level menu is still being made
+                level.play(window, ecm, audioManager, gameState, levelSelection);
+            }
+            else
+            {
+                gameState = Game::State::LevelSelection;
+            }
+
             break;
         }
         case Game::State::GameLose:
         {
+            lose.draw(window);
             break;
         }
         case Game::State::GameWin:
 
         {
+            win.draw(window);
+            break;
+        }
+        case Game::State::Exit:
+        {
+            Engine::Physics::shutdown;
+            window.close();
             break;
         }
         };
