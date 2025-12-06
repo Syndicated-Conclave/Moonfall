@@ -149,7 +149,7 @@ namespace Game
             {
                 counter--; // counts down til the jump cooldown is over
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
             {
                 if (counter == 0) // applying cooldown to avoid spamming the up key and rising higher than intended
                 {
@@ -157,11 +157,11 @@ namespace Game
                     counter = cooldown;
                 }
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
             {
                 b2Body_ApplyForceToCenter(bodyId, {1000, 0}, true);
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
             {
 
                 b2Body_ApplyForceToCenter(bodyId, {-1000, 0}, true);
@@ -180,7 +180,7 @@ namespace Game
             }
 
             // makes moon come to a halt horizontally when neither right nor left key are pressed
-            if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) && !(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
+            if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) && !(sf::Keyboard::isKeyPressed(sf::Keyboard::D)))
             {
                 velocity.x *= 0.9f;
             }
