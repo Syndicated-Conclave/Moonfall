@@ -2,6 +2,8 @@
 #include <box2d/box2d.h>
 #include <SFML/Graphics.hpp>
 
+// the physics engine was implemented by adapting the version created during a lab
+
 // namespace used for all game engine specific classes, structs and variables
 namespace Engine
 {

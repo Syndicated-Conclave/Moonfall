@@ -8,6 +8,8 @@
 #include "../components/ai.hpp"
 #include "../components/AudioManager.hpp"
 
+// FUTURE IMPROVEMENT: make abstract entity class which all entities inherit for shared update and render functions to be called once in an ecm loop
+
 // namespace for all game specific things
 namespace Game
 {
@@ -36,7 +38,7 @@ namespace Game
             // holds the initial position of the stardust
             sf::Vector2f spawnPosition;
             // holds the type of stardust - 1 : Orion's Belt, 2 : Lyra, 3 : Leo
-            // -> REFACTOR NEEDED: turn type into an enum
+            // -> FUTURE IMPROVEMENT: turn type into an enum
             int type;
             // holds the positions of each star in the stardust constellation
             std::vector<sf::Vector2f> constellation;
