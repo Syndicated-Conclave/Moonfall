@@ -73,7 +73,7 @@ namespace Game
                 {
 
                     gameState = Game::State::Menu;
-                    std::cout << "Return to menu" << std::endl;
+                    // std::cout << "Return to menu" << std::endl;
                 }
             }
         }

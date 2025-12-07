@@ -1,5 +1,7 @@
 #include "ecm.hpp"
 
+// the ecm was implemented by adapting the version created during a lab
+
 namespace Engine
 {
   Entity *EntityManager::createEntity()

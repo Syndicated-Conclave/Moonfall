@@ -112,7 +112,7 @@ namespace Game
                     sf::Mouse::getPosition(window));
                 if (levelOne.getGlobalBounds().contains(mouse))
                 {
-                    std::cout << "Lvl1" << std::endl;
+                    // std::cout << "Lvl1" << std::endl;
                     audioManager.playMenuUISound();
 
                     gameState = Game::State::Playing;
@@ -120,7 +120,7 @@ namespace Game
                 }
                 if (levelTwo.getGlobalBounds().contains(mouse))
                 {
-                    std::cout << "Lvl2" << std::endl;
+                    // std::cout << "Lvl2" << std::endl;
                     audioManager.playMenuUISound();
 
                     gameState = Game::State::Playing;
@@ -128,14 +128,14 @@ namespace Game
                 }
                 if (levelThree.getGlobalBounds().contains(mouse))
                 {
-                    std::cout << "Lvl3" << std::endl;
+                    // std::cout << "Lvl3" << std::endl;
                     audioManager.playMenuUISound();
                     gameState = Game::State::Playing;
                     return 3;
                 }
                 if (levelFour.getGlobalBounds().contains(mouse))
                 {
-                    std::cout << "Lvl4" << std::endl;
+                    // std::cout << "Lvl4" << std::endl;
                     audioManager.playMenuUISound();
                     gameState = Game::State::Playing;
                     return 4;
@@ -144,7 +144,7 @@ namespace Game
                 {
                     gameState = Game::State::Menu;
                     audioManager.playMenuUISound();
-                    std::cout << "Back" << std::endl;
+                    // std::cout << "Back" << std::endl;
                 }
             }
         }

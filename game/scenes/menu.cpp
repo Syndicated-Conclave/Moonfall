@@ -145,22 +145,22 @@ namespace Game
                 if (guide.getGlobalBounds().contains(mouse))
                 {
                     audioManager.playMenuUISound();
-                    std::cout << "Guide" << std::endl;
+                    // std::cout << "Guide" << std::endl;
                     gameState = Game::State::Guide;
                 }
                 if (play.getGlobalBounds().contains(mouse))
                 {
                     audioManager.playMenuUISound();
-                    std::cout << "Play" << std::endl;
+                    // std::cout << "Play" << std::endl;
 
                     Engine::EntityManager ecm;
                     gameState = Game::State::LevelSelection;
-                    std::cout << gameState;
+                    // std::cout << gameState;
                 }
                 if (controls.getGlobalBounds().contains(mouse))
                 {
                     audioManager.playMenuUISound();
-                    std::cout << "Controls" << std::endl;
+                    // std::cout << "Controls" << std::endl;
                 }
             }
         }
