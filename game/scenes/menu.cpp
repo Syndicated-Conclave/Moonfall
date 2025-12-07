@@ -146,6 +146,7 @@ namespace Game
                 {
                     audioManager.playMenuUISound();
                     // std::cout << "Guide" << std::endl;
+                    gameState = Game::State::Guide;
                 }
                 if (play.getGlobalBounds().contains(mouse))
                 {
