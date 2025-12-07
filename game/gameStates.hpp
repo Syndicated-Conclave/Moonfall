@@ -9,10 +9,11 @@ namespace Game
     {
         Menu,
         LevelSelection,
+        Guide,
         Playing,
         GameWin,
         GameLose,
-        Exit
+        Exit,
 
     };
 

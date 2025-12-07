@@ -9,6 +9,7 @@
 #include "../game/gameStates.hpp"
 #include "../game/components/AudioManager.hpp"
 #include "scenes/result.hpp"
+#include "scenes/guide.hpp"
 
 int main()
 {
@@ -20,6 +21,9 @@ int main()
 
     Game::Scenes::Menu menu;
     menu.mainMenu(window);
+
+    Game::Scenes::Guide guide;
+    guide.instruct(window);
 
     Game::Scenes::levelMenu levelMenu;
     levelMenu.chooseLevel(window);
@@ -41,6 +45,10 @@ int main()
             {
                 gameState = Game::State::Exit;
             }
+            else if (gameState == Game::State::Guide)
+            {
+                guide.handleEvent(window, event, gameState);
+            }
             else if (gameState == Game::State::Menu)
             {
                 menu.handleEvent(window, audioManager, event, gameState);
@@ -57,6 +65,7 @@ int main()
             {
                 lose.handleEvent(window, event, gameState);
             }
+            
         }
 
         switch (gameState)
@@ -70,6 +79,11 @@ int main()
         case Game::State::LevelSelection:
         {
             levelMenu.draw(window);
+        }
+        case Game::State::Guide:
+        {
+            guide.draw(window);
+            break;
         }
         case Game::State::Playing:
         {
