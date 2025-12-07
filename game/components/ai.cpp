@@ -29,10 +29,10 @@ namespace Game
       sf::Vector2f newDirection;
 
       sf::Vector2f relationalPosition = currentPosition - spawnPosition;
-      float rectSize = 100;
+      
 
       // coordinates of the different points the stardust will move between
-      std::vector<sf::Vector2f> points = {{0, 0}, {rectSize, 0}, {rectSize, rectSize}, {0, rectSize}};
+      std::vector<sf::Vector2f> points = {{0, 0}, {37.5,22.5}, {4, 33}, {12.5, 60}};
 
       for (size_t i = 0; i < points.size(); i++)
       {
