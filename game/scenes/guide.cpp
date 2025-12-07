@@ -297,6 +297,7 @@ namespace Game
                 if (exit.getGlobalBounds().contains(mouse))
                 {
                     gameState = Game::State::Menu;
+                    std::cout << "Back" << std::endl;
                 }
 
             }

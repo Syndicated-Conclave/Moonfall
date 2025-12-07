@@ -79,6 +79,7 @@ int main()
         case Game::State::LevelSelection:
         {
             levelMenu.draw(window);
+            break;
         }
         case Game::State::Guide:
         {
