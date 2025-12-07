@@ -8,6 +8,7 @@ namespace Game
     enum State
     {
         Menu,
+        Guide,
         LevelSelection,
         Playing,
         GameWin,
