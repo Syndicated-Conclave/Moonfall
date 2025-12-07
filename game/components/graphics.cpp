@@ -1,5 +1,6 @@
 #include "graphics.hpp"
 #include "../../engine/utils.hpp"
+#include "../scenes/level.hpp"
 
 namespace Game
 {
@@ -45,11 +46,11 @@ namespace Game
         {
             if (isMoon)
             {
-                if (newPosition.x > window.getSize().x * 0.5f)
+                if (newPosition.x > window.getSize().x * 0.5f && newPosition.x < Game::Scenes::Level::levelWidth - window.getSize().x * 0.5f)
                 {
                     Game::Components::Graphics::offset = {window.getSize().x * 0.5f - newPosition.x, 0}; // distance between window middle and moon position
                 }
-                else
+                else if (newPosition.x < window.getSize().x * 0.5f)
                 {
                     Game::Components::Graphics::offset = {0, 0};
                 }

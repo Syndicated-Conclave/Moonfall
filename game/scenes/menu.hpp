@@ -3,6 +3,7 @@
 #include "../../engine/ecm.hpp"
 #include "levelMenu.hpp"
 #include "../gameStates.hpp"
+#include "../components/AudioManager.hpp"
 
 namespace Game
 {
@@ -11,9 +12,9 @@ namespace Game
         class Menu
         {
         public:
-            void mainMenu(sf::RenderWindow& window);
-            void draw(sf::RenderWindow& window);
-            void handleEvent(sf::RenderWindow& window, sf::Event& event, Game::State &gameState);
+            void mainMenu(sf::RenderWindow &window);
+            void draw(sf::RenderWindow &window);
+            void handleEvent(sf::RenderWindow &window, Game::Components::AudioManager &audioManager, sf::Event &event, Game::State &gameState);
             sf::Font font;
             sf::Text title;
             sf::VertexArray sky;
@@ -26,8 +27,9 @@ namespace Game
             sf::Text guideText;
             sf::Text playText;
             sf::Text controlsText;
+
         private:
-            //void levelMenu(sf::RenderWindow& window, Engine::EntityManager& ecm);
+            // void levelMenu(sf::RenderWindow& window, Engine::EntityManager& ecm);
         };
 
     }

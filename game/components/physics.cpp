@@ -1,6 +1,7 @@
 #include "physics.hpp"
 #include "../entities/cityscape.hpp" // to access the Building struct
 #include <iostream>
+#include "../components/AudioManager.hpp"
 
 namespace Game
 {
@@ -74,7 +75,7 @@ namespace Game
             b2Body_EnableContactEvents(bodyId, true);
         }
 
-        void Physics::updateStardust(sf::RenderWindow &window, std::vector<b2BodyId> bodyIds, sf::Vector2f direction, float speed, int &collectedPoints)
+        void Physics::updateStardust(sf::RenderWindow &window, std::vector<b2BodyId> bodyIds, sf::Vector2f direction, float speed, int &collectedPoints, Game::Components::AudioManager &audioManager)
         {
             b2ContactEvents events = Engine::Physics::getContactEvents();
 
@@ -93,6 +94,7 @@ namespace Game
                                 if (b2Body_IsEnabled(bodyIds[j]))
                                 {
                                     b2Body_Disable(bodyIds[j]);
+                                    audioManager.playTwinkleSound();
                                     collectedPoints++;
                                 }
                             }
@@ -100,6 +102,7 @@ namespace Game
                         else // just the contact star is collected
                         {
                             b2Body_Disable(bodyIds[i]);
+                            audioManager.playTwinkleSound();
                             collectedPoints++;
                         }
                     }
@@ -146,7 +149,7 @@ namespace Game
             {
                 counter--; // counts down til the jump cooldown is over
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
             {
                 if (counter == 0) // applying cooldown to avoid spamming the up key and rising higher than intended
                 {
@@ -154,11 +157,11 @@ namespace Game
                     counter = cooldown;
                 }
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
             {
                 b2Body_ApplyForceToCenter(bodyId, {1000, 0}, true);
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
             {
 
                 b2Body_ApplyForceToCenter(bodyId, {-1000, 0}, true);
@@ -177,7 +180,7 @@ namespace Game
             }
 
             // makes moon come to a halt horizontally when neither right nor left key are pressed
-            if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) && !(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
+            if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) && !(sf::Keyboard::isKeyPressed(sf::Keyboard::D)))
             {
                 velocity.x *= 0.9f;
             }

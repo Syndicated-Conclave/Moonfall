@@ -7,57 +7,120 @@
 #include "scenes/level.hpp"
 #include "scenes/menu.hpp"
 #include "../game/gameStates.hpp"
+#include "../game/components/AudioManager.hpp"
+#include "scenes/result.hpp"
+#include "scenes/guide.hpp"
 
 int main()
 {
     Game::State gameState = Game::State::Menu;
 
-    sf::RenderWindow window(sf::VideoMode({ Parameters::game_width, Parameters::game_height }), "Moonfall");
+    sf::RenderWindow window(sf::VideoMode({Parameters::game_width, Parameters::game_height}), "Moonfall");
+    Game::Components::AudioManager audioManager;
+    audioManager.playMenuMusic();
 
     Game::Scenes::Menu menu;
     menu.mainMenu(window);
 
+    Game::Scenes::Guide guide;
+    guide.instruct(window);
+
+    Game::Scenes::levelMenu levelMenu;
+    levelMenu.chooseLevel(window);
+
+    Game::Scenes::Win win;
+    win.showResult(window);
+
+    Game::Scenes::Lose lose;
+    lose.showResult(window);
+
+    int levelSelection = 0;
     while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
         {
-            
+
             if (event.type == sf::Event::Closed)
             {
-                window.close();
+                gameState = Game::State::Exit;
             }
-            if (gameState == Game::State::Menu)
+            else if (gameState == Game::State::Guide)
             {
-                menu.handleEvent(window, event, gameState);
+                guide.handleEvent(window, event, gameState);
             }
+            else if (gameState == Game::State::Menu)
+            {
+                menu.handleEvent(window, audioManager, event, gameState);
+            }
+            else if (gameState == Game::State::LevelSelection)
+            {
+                levelSelection = levelMenu.handleEvent(window, audioManager, event, gameState);
+            }
+            else if (gameState == Game::State::GameWin)
+            {
+                win.handleEvent(window, event, gameState);
+            }
+            else if (gameState == Game::State::GameLose)
+            {
+                lose.handleEvent(window, event, gameState);
+            }
+            
         }
 
         switch (gameState)
         {
         case Game::State::Menu:
         {
+
             menu.draw(window);
+            break;
+        }
+        case Game::State::LevelSelection:
+        {
+            levelMenu.draw(window);
+            break;
+        }
+        case Game::State::Guide:
+        {
+            guide.draw(window);
             break;
         }
         case Game::State::Playing:
         {
-            Engine::Physics::initialise();
+            if (levelSelection)
+            {
+                audioManager.playGameplayMusic();
+                Engine::Physics::initialise();
 
-            Engine::EntityManager ecm;
+                Engine::EntityManager ecm;
 
-            Game::Scenes::Level level;
+                Game::Scenes::Level level;
 
-            level.play(window, ecm, gameState, 2); // 1 for level 1, when testing your levels just change this number so play starts that while level menu is still being made
+                level.play(window, ecm, audioManager, gameState, levelSelection);
+            }
+            else
+            {
+                gameState = Game::State::LevelSelection;
+            }
+
             break;
         }
         case Game::State::GameLose:
         {
+            lose.draw(window);
             break;
         }
         case Game::State::GameWin:
 
         {
+            win.draw(window);
+            break;
+        }
+        case Game::State::Exit:
+        {
+            Engine::Physics::shutdown;
+            window.close();
             break;
         }
         };

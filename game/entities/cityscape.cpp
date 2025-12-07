@@ -10,7 +10,7 @@ namespace Game
         void Cityscape::create(sf::RenderWindow &window)
         {
             // since the first building's center is the origin of the cityscape
-            float sfmlPosX = city[0].width / 2;
+            float sfmlPosX = city[0].width / 2 - 1;
             // gaps in the cityscape are buildings with height 1, to avoid that being visible on bump the cityscape is offset by max bump
             float sfmlPosY = window.getSize().y + MAX_BUMP * Engine::Physics::PHYSICS_SCALE;
             sfmlPosition = sf::Vector2f(sfmlPosX, sfmlPosY);
@@ -19,7 +19,7 @@ namespace Game
             entity->physicsBodyIds.push_back(b2_nullBodyId);
             Game::Components::Physics::createCityscape(window, entity->physicsBodyIds.back(), sfmlPosition, city, DENSITY, FRICTION, RESTITUTION);
 
-            // Graphics -> REFACTOR NEEDED: to have this handled in components::graphics so its one function call just like for physics
+            // Graphics -> FUTURE IMPROVEMENT: have this handled in components::graphics so its one function call just like for physics
             // create first building
             entity->graphicsShapes.push_back(std::make_unique<sf::RectangleShape>());
             auto *rect1 = static_cast<sf::RectangleShape *>(entity->graphicsShapes[0].get());
@@ -46,7 +46,7 @@ namespace Game
             // Physics
             Game::Components::Physics::updateCityscape(window, entity->physicsBodyIds.back(), sfmlPosition, MAX_BUMP, BUMP_VELOCITY);
 
-            // Graphics -> REFACTOR NEEDED: to have this handled in components::graphics so its one function call just like for physics
+            // Graphics -> FUTURE IMPROVEMENT: have this handled in components::graphics so its one function call just like for physics
             sf::Vector2f newPosition = Engine::Physics::invertHeight(Engine::Physics::box2dToSfmlScale(b2Body_GetPosition(entity->physicsBodyIds.back())), window.getSize().y);
             float angle = 0.f;
 

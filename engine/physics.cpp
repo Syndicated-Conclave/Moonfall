@@ -1,5 +1,7 @@
 #include "physics.hpp"
 
+// the physics engine was implemented by adapting the version created during a lab
+
 namespace Engine
 {
     b2WorldId Physics::_worldId = b2_nullWorldId; // initialise static variable with null value

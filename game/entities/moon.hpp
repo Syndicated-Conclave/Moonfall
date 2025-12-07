@@ -6,6 +6,8 @@
 #include "../components/physics.hpp"
 #include "../components/graphics.hpp"
 
+// FUTURE IMPROVEMENT: make abstract entity class which all entities inherit for shared update and render functions to be called once in an ecm loop
+
 // namespace for all game specific things
 namespace Game
 {
